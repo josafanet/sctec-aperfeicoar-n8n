@@ -1,0 +1,112 @@
+{
+  "name": "Orbita Labs v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "senai-orbita-v1",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        -48,
+        -48
+      ],
+      "id": "b4ea293e-8b1c-4a0b-8d9a-a867655b422c",
+      "name": "Disparo de Gatilho",
+      "webhookId": "c8f58722-a6e3-4a14-8d35-36288c1c84dc"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ 'Recebemos seu pedido, ' + String($json.nome ?? '').trim() + '!' }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        480,
+        -48
+      ],
+      "id": "9a4ddc36-e9b8-44cc-a2e9-2e96e3428391",
+      "name": "Resposta do Gatilho"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dcacd809-cf88-45fb-83b6-5881a0a2b99d",
+              "name": "nome",
+              "value": "={{ $json.body.nome }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        -48
+      ],
+      "id": "b3958bec-c53e-4353-86cf-856a16a56bc7",
+      "name": "Declarar Variaveis"
+    },
+    {
+      "parameters": {
+        "content": "## Orbita Labs v1\nPrimeira versão do projeto. O formulário do site manda o pedido por POST em senai-orbita-v1 e o fluxo responde agradecendo pelo nome\n\nO trim tira os espaços que sobram e o ?? evita erro quando o nome não vem",
+        "height": 416,
+        "width": 736,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "79c94487-2ef5-45fc-89ea-1b52cc8a1763",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "Disparo de Gatilho": {
+      "main": [
+        [
+          {
+            "node": "Declarar Variaveis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Declarar Variaveis": {
+      "main": [
+        [
+          {
+            "node": "Resposta do Gatilho",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "active": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

@@ -1,0 +1,112 @@
+{
+  "name": "003 Exemplo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cadastro",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        -48,
+        -48
+      ],
+      "id": "1f5a64f1-1669-4a08-872b-d5104ede4176",
+      "name": "Disparo de Gatilho",
+      "webhookId": "e4cb2aac-5626-4bef-8efb-55ba90ae94af"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=O aluno {{ $json.pessoa.nome.toUpperCase() }} foi cadastro com sucesso!\n\nSerá enviado o acesso ao email: {{ $('Disparo de Gatilho').item.json.body.email }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        496,
+        -48
+      ],
+      "id": "10c39ce3-4eb2-435d-8df6-d6a6fc6ab115",
+      "name": "Resposta do Gatilho"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dcacd809-cf88-45fb-83b6-5881a0a2b99d",
+              "name": "pessoa.nome",
+              "value": "={{ $json.body.nome }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        240,
+        -48
+      ],
+      "id": "b33de3db-8b27-47e6-a314-25a778d02f59",
+      "name": "Declarar Variaveis"
+    },
+    {
+      "parameters": {
+        "content": "## Exemplo 03\nRecebe um POST em cadastro com nome e email, guarda o nome em pessoa.nome e devolve um texto para quem chamou\n\nO email vem direto do nó Disparo de Gatilho, sem passar pelo Declarar Variaveis",
+        "height": 416,
+        "width": 752,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "61fc0354-e740-4e6d-af6a-aabe4af4d1ec",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "Disparo de Gatilho": {
+      "main": [
+        [
+          {
+            "node": "Declarar Variaveis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Declarar Variaveis": {
+      "main": [
+        [
+          {
+            "node": "Resposta do Gatilho",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "active": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

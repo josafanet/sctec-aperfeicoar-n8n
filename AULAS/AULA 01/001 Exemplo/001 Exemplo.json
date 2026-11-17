@@ -1,0 +1,94 @@
+{
+  "name": "001 Exemplo",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        112
+      ],
+      "id": "0e5fe03e-a32e-4508-b8ed-ba933840c824",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b1da6618-c0cb-4ba4-a744-a8e1b9b188bc",
+              "name": "nomecompleto",
+              "value": "={{ $json.aluno.sobrenome }}, {{ $json.aluno.nome }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        112
+      ],
+      "id": "da4d0c90-ba46-4acb-8f52-7cdea141eb4e",
+      "name": "Normalizar Dados"
+    },
+    {
+      "parameters": {
+        "content": "## Exemplo 01\nRecebe objeto aluno e concatena o nome",
+        "height": 416,
+        "width": 512,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -48,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "2e68c7aa-ab4a-48b4-b54b-60047ebc3c9a",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Dados": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "aluno": {
+            "nome": "Kelvis",
+            "sobrenome": "Borges"
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "active": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
