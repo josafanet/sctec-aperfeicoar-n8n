@@ -1,0 +1,379 @@
+{
+  "name": "Orbita Labs v2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "orbita-v2",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        16
+      ],
+      "id": "21ddb9b3-6b27-4abf-9fc3-96add2ffbf16",
+      "name": "Disparo de Gatilho",
+      "webhookId": "9e81f714-2a7f-45be-937f-993c7fa8298e"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "33d353f9-8bb0-4ac6-841e-afb82deecc8e",
+              "name": "nome",
+              "value": "={{$json.body.nome}}",
+              "type": "string"
+            },
+            {
+              "id": "3bc8ac2e-9538-4bfc-af53-abf3ad96303e",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "bf00e94d-e317-42ee-bd46-d2e5c766ef87",
+              "name": "whatsapp",
+              "value": "={{ $json.body.whatsapp }}",
+              "type": "string"
+            },
+            {
+              "id": "4a997eef-2df6-4ba1-8d2f-0566aff97b90",
+              "name": "empresa",
+              "value": "={{ $json.body.empresa }}",
+              "type": "string"
+            },
+            {
+              "id": "36a7bc9c-3ccb-42ad-9ded-8ded6eeda075",
+              "name": "porte",
+              "value": "={{ $json.body.porte }}",
+              "type": "string"
+            },
+            {
+              "id": "bedf8769-73f6-44b4-90af-483a29c817f5",
+              "name": "area",
+              "value": "={{ $json.body.area }}",
+              "type": "string"
+            },
+            {
+              "id": "599c1420-9d83-4348-bf8c-e691c8ce6221",
+              "name": "prazo",
+              "value": "={{ $json.body.prazo }}",
+              "type": "string"
+            },
+            {
+              "id": "c91c0f2c-02fd-47b9-bd55-dca907468e34",
+              "name": "consentimento",
+              "value": "={{ $json.body.consentimento }}",
+              "type": "string"
+            },
+            {
+              "id": "2d652505-3998-4db8-b960-075727123609",
+              "name": "faturamento",
+              "value": "={{ $json.body.faturamento }} ",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        64,
+        16
+      ],
+      "id": "719d3339-d06e-4b01-b3e9-131e064c7691",
+      "name": "Variveis"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d9beaea-4469-4f2b-a9fe-e452b406b07b",
+              "name": "nome",
+              "value": "={{ $json.nome.toLowerCase().toTitleCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "693f80ca-36bb-44bf-9cca-2701f7e49344",
+              "name": "faturamento",
+              "value": "={{ $json.faturamento }}",
+              "type": "number"
+            },
+            {
+              "id": "b8e9cf1c-6151-4a0c-8be1-01c78b84a792",
+              "name": "whatsapp",
+              "value": "={{ $json.whatsapp.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "a35367a5-fb30-4235-a5a5-cb7ad8734a2f",
+              "name": "empresa",
+              "value": "={{ $json.empresa }}",
+              "type": "string"
+            },
+            {
+              "id": "fd759c7d-928d-45ce-8834-c59aa2deac41",
+              "name": "porte",
+              "value": "={{ $json.porte }}",
+              "type": "string"
+            },
+            {
+              "id": "0646f462-b67a-4c43-81ba-61e66067f384",
+              "name": "area",
+              "value": "={{ $json.area }}",
+              "type": "string"
+            },
+            {
+              "id": "4031aaa1-9c8d-4c64-820c-89137a76896e",
+              "name": "prazo",
+              "value": "={{ $json.prazo }}",
+              "type": "string"
+            },
+            {
+              "id": "0ccb92bf-fdcf-4a74-8f4f-a5e9664ca563",
+              "name": "consentimento",
+              "value": "={{ $json.consentimento }}",
+              "type": "string"
+            },
+            {
+              "id": "a9948389-11d3-469b-9e2e-ccf6f7537439",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        288,
+        16
+      ],
+      "id": "af952453-74e5-4611-b3bd-0ace047ded9b",
+      "name": "Normalizar Dados"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "r8IPDBNcPm0aXwyd",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "/projects/YXFs6K7fFxZHhbob/datatables/r8IPDBNcPm0aXwyd"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nome": "={{ $json.nome }}",
+            "whatsapp": "={{ $json.whatsapp }}",
+            "email": "={{ $json.email }}",
+            "empresa": "={{ $json.empresa }}",
+            "porte": "={{ $json.porte }}",
+            "area": "={{ $json.area }}",
+            "prazo": "={{ $json.prazo }}",
+            "consentimento": "={{ $json.consentimento }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "whatsapp",
+              "displayName": "whatsapp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "porte",
+              "displayName": "porte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "area",
+              "displayName": "area",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "prazo",
+              "displayName": "prazo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "consentimento",
+              "displayName": "consentimento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "faturamento",
+              "displayName": "faturamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        528,
+        16
+      ],
+      "id": "e7751929-506a-475c-a907-8fa8ebded727",
+      "name": "Adicionar Lead"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ 'Recebemos seu pedido, ' + String($json.nome ?? '').trim() + '!' }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        800,
+        16
+      ],
+      "id": "31239d19-a8fa-4b58-8d36-57f802550c28",
+      "name": "Resposta do Gatilho"
+    },
+    {
+      "parameters": {
+        "content": "## Orbita Labs v2\nRecebe o formulário completo por POST em orbita-v2, separa os campos no Variaveis, arruma o nome e o WhatsApp no Normalizar Dados e guarda o pedido na tabela leads\n\nNo Adicionar Lead escolha a sua própria Data Table, porque a que vem no arquivo é a do professor",
+        "height": 416,
+        "width": 1280,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "00c0097d-8bd1-4f98-ae8f-9487d5fc80c8",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "Disparo de Gatilho": {
+      "main": [
+        [
+          {
+            "node": "Variveis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variveis": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Dados": {
+      "main": [
+        [
+          {
+            "node": "Adicionar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adicionar Lead": {
+      "main": [
+        [
+          {
+            "node": "Resposta do Gatilho",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

@@ -20,9 +20,12 @@ AULAS/
     001 Exemplo/
     002 Exemplo/
     003 Exemplo/
+  AULA 02/
+    Captador de Lead/
 PROJETO/
   Orbita Labs v1/
   Orbita Labs v1 --- teste/
+  Orbita Labs v2/
 ```
 
 Cada pasta tem o arquivo do workflow e um README contando o que ele faz e como testar. Dentro do próprio workflow tem uma nota com o mesmo resumo, para quem preferir ler direto no canvas

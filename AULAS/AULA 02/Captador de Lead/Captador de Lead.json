@@ -1,0 +1,67 @@
+{
+  "name": "Captador de Lead",
+  "nodes": [
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "AGORA FOI! ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        592,
+        16
+      ],
+      "id": "21ae2ab5-6ddf-485a-a383-2b86a6d3134a",
+      "name": "Responder a chamada"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "captador-lead",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4b7da7e6-83bd-4f65-ad4a-26e509be9e2b",
+      "name": "Gatilho da Pagina Orbita",
+      "webhookId": "4a924e96-eb6c-429e-b107-868578768560"
+    },
+    {
+      "parameters": {
+        "content": "## Captador de Lead\nExemplo da aula 2 para ver os erros mais comuns do webhook\n\nO Responder a chamada está solto e o gatilho responde na hora com Workflow was started. Ligue o Responder a chamada e troque o Respond do gatilho para Using Respond to Webhook Node para ver o AGORA FOI",
+        "height": 416,
+        "width": 912,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "2a889bdf-4c51-423a-8387-7dcacce17aff",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "Gatilho da Pagina Orbita": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}
