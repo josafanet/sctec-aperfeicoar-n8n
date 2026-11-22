@@ -1,0 +1,105 @@
+{
+  "name": "Exercicio 1 Etiqueta do participante (gabarito)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "00e56e2b-e538-47a7-a4aa-69109a4e2f97",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7d5e7572-28b4-4c20-a5a0-96b322af394c",
+              "name": "etiqueta",
+              "value": "={{ $json.participante.nome.toUpperCase() }} {{ $json.participante.sobrenome.toUpperCase() }} | {{ $json.participante.empresa }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "25fe9126-4870-4bd3-af8a-948c2c31230d",
+      "name": "Montar Etiqueta"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**Gabarito**\nUm campo etiqueta com três expressões. O nome e o sobrenome passam pelo toUpperCase, a empresa sai como veio\n\n**Compare**\nSe o seu ficou diferente e a saída está igual, está certo também",
+        "height": 300,
+        "width": 520,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -340
+      ],
+      "id": "00731542-5c3f-478c-af03-73993de57661",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "O | e os espaços ficam fora das chaves, então aparecem do jeito que foram escritos",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        140
+      ],
+      "id": "a08db9bb-34ff-481d-aa31-6279b527b271",
+      "name": "Nota etiqueta"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Montar Etiqueta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "participante": {
+            "nome": "ana",
+            "sobrenome": "souza",
+            "empresa": "Padaria Pão Quente"
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

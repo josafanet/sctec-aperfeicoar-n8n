@@ -1,0 +1,98 @@
+{
+  "name": "Exercicio 1 Etiqueta do participante (partida)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c53e7b43-7d07-4999-af7c-5578c0690d40",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "ab99cfe9-a857-4251-a551-477d04d7e092",
+      "name": "Montar Etiqueta"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**O que fazer**\nNo Montar Etiqueta, crie um campo etiqueta que saia assim\nANA SOUZA | Padaria Pão Quente\n\n**Como testar**\nClique em Execute workflow e abra o Montar Etiqueta. Os dados do participante já estão fixados no gatilho\n\n**Gabarito**\nEstá no arquivo gabarito.json da mesma pasta. Tente antes de abrir",
+        "height": 300,
+        "width": 520,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -340
+      ],
+      "id": "0303e28b-5ea1-49df-a781-0adbe63f8cf7",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Arraste participante.nome do painel da esquerda para o valor. O n8n escreve a expressão para você. Depois acrescente o toUpperCase()",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        140
+      ],
+      "id": "bee552a9-e514-4caf-a9a5-070ab1213176",
+      "name": "Nota etiqueta"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Montar Etiqueta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "participante": {
+            "nome": "ana",
+            "sobrenome": "souza",
+            "empresa": "Padaria Pão Quente"
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

@@ -1,0 +1,113 @@
+{
+  "name": "Exercicio 1 Tipos de campo no pedido (partida)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c564e599-5acb-459f-a554-f4f3df532408",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "f9f2e484-cf9b-4666-aa00-228f8412221b",
+      "name": "Converter Tipos"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**O que fazer**\nNo Converter Tipos, crie os campos produto (String), quantidade e preco (Number), total (Number, quantidade vezes preço) e entregue (Boolean)\n\n**Como testar**\nClique em Execute workflow e abra o Converter Tipos. O total tem que dar 50 e o entregue tem que sair true\n\n**Gabarito**\nEstá no arquivo gabarito.json da mesma pasta. Tente antes de abrir",
+        "height": 340,
+        "width": 560,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -380
+      ],
+      "id": "65f30d94-033e-4527-a9c2-947867f054b4",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Nos dados fixados tudo está entre aspas, ou seja, é texto. Até o 4 e o 12.50",
+        "height": 200,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        140
+      ],
+      "id": "f7b5825e-eb25-4711-af5a-5125a4f04f6b",
+      "name": "Nota dados fixados"
+    },
+    {
+      "parameters": {
+        "content": "Colocar sim direto num campo Boolean dá erro. Pense numa comparação que devolva true ou false",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        140
+      ],
+      "id": "2b9095e5-e916-40cf-a35e-4d667d4704fd",
+      "name": "Nota boolean"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Converter Tipos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "produto": "Caderno",
+          "quantidade": "4",
+          "preco": "12.50",
+          "entregue": "sim"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

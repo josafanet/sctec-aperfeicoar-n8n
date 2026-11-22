@@ -1,0 +1,144 @@
+{
+  "name": "Exercicio 1 Tipos de campo no pedido (gabarito)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ca0874bc-6a67-46e8-a1fd-bab1a4cf3db8",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bccc39cf-3811-453a-a22c-d9a72cacd691",
+              "name": "produto",
+              "value": "={{ $json.produto }}",
+              "type": "string"
+            },
+            {
+              "id": "1b7db1c0-4b12-4299-ae08-7a301a0d5443",
+              "name": "quantidade",
+              "value": "={{ $json.quantidade }}",
+              "type": "number"
+            },
+            {
+              "id": "3224dc34-7db8-4dc4-a5ce-1aaac1249655",
+              "name": "preco",
+              "value": "={{ $json.preco }}",
+              "type": "number"
+            },
+            {
+              "id": "66b8672b-24e9-4a07-a5f0-1bfdc1250d1a",
+              "name": "total",
+              "value": "={{ $json.quantidade * $json.preco }}",
+              "type": "number"
+            },
+            {
+              "id": "4428bbc3-4531-459e-ab3c-de4beec134b8",
+              "name": "entregue",
+              "value": "={{ $json.entregue === 'sim' }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "746756e6-c725-4f0a-a642-585672cb56b1",
+      "name": "Converter Tipos"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**Gabarito**\nQuantidade, preço e total saem como número. Entregue sai como verdadeiro ou falso, a partir de uma comparação com a palavra sim\n\n**Compare**\nTroque entregue para nao nos dados fixados. O campo tem que sair false",
+        "height": 340,
+        "width": 560,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -380
+      ],
+      "id": "92836ada-3207-488b-a5ab-c16a8bd9678b",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Nos dados fixados tudo está entre aspas, ou seja, é texto. Até o 4 e o 12.50",
+        "height": 200,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        140
+      ],
+      "id": "f7615c91-b9e0-43cc-a2da-35ce5682b980",
+      "name": "Nota dados fixados"
+    },
+    {
+      "parameters": {
+        "content": "A comparação com === devolve true ou false. É isso que o Boolean aceita",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        140
+      ],
+      "id": "cb8abea6-b395-4acd-a030-60feb3da63a9",
+      "name": "Nota boolean"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Converter Tipos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "produto": "Caderno",
+          "quantidade": "4",
+          "preco": "12.50",
+          "entregue": "sim"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

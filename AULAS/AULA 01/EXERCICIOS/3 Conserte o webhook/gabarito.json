@@ -1,0 +1,133 @@
+{
+  "name": "Exercicio 3 Conserte o webhook (gabarito)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "exercicio-inscricao-gabarito",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "12ee90d5-39f3-4953-a76d-0091b94d4bc5",
+      "name": "Receber Inscricao",
+      "webhookId": "87ce04e7-0ac4-4f64-a8a0-538b3b17cf1e"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f31a72d-9670-4ed9-a3b1-0fc059570f03",
+              "name": "nome",
+              "value": "={{ $json.body.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "5375445f-f8dd-41ad-ad3e-2224b045614a",
+              "name": "turma",
+              "value": "={{ $json.body.turma }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        0
+      ],
+      "id": "cdc1ecd8-4c45-4fa5-ab8b-80166b4b405e",
+      "name": "Separar Dados"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Inscrição confirmada, {{ $json.nome }}! Sua turma é a {{ $json.turma }}.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        520,
+        0
+      ],
+      "id": "0de6703e-7d44-4bfb-abf2-f934d27c9b8b",
+      "name": "Confirmar Inscricao"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**Gabarito**\nTrês consertos. O gatilho passou de GET para POST. O nome passou a ser lido do body, e não da query. A palavra Inscrição ganhou o til\n\n**Compare**\nMande o mesmo POST do README e veja a resposta completa",
+        "height": 320,
+        "width": 720,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -360
+      ],
+      "id": "dd7c1af8-f8d7-42a0-abe0-dda07c62bf33",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Um POST manda os dados no corpo da chamada. Por isso eles chegam em body",
+        "height": 200,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        140
+      ],
+      "id": "5c001081-1b37-4b5d-ad42-74fe25bfd47b",
+      "name": "Nota dica"
+    }
+  ],
+  "connections": {
+    "Receber Inscricao": {
+      "main": [
+        [
+          {
+            "node": "Separar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar Dados": {
+      "main": [
+        [
+          {
+            "node": "Confirmar Inscricao",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

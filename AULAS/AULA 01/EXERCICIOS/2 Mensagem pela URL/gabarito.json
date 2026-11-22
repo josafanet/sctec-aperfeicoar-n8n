@@ -1,0 +1,108 @@
+{
+  "name": "Exercicio 2 Mensagem pela URL (gabarito)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "exercicio-mensagem-gabarito",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c9167034-b095-4047-a7d8-49d2d23ecd9b",
+      "name": "Receber Visita",
+      "webhookId": "0f90c82e-bca2-4a72-a3ea-368e903e6332"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Que bom ter você no curso de {{ $json.query.curso }}, {{ $json.query.nome }}!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        260,
+        0
+      ],
+      "id": "c55740bc-32bd-4bba-a2c1-875b55d2b689",
+      "name": "Responder Mensagem"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**Gabarito**\nO texto da resposta usa duas expressões, uma para o curso e outra para o nome. As duas leem o que veio depois do ? na URL\n\n**Compare**\nTroque a URL para ?nome=Bia&curso=Python e veja a mensagem mudar sem mexer no fluxo",
+        "height": 320,
+        "width": 560,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -360
+      ],
+      "id": "7c914e4c-1e14-4ce9-abe1-06b9cc0a6f42",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Tudo o que vem depois do ? na URL chega no campo query. Cada par nome=valor vira um campo",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        140
+      ],
+      "id": "704d55be-f399-4b73-a316-e6330248cbce",
+      "name": "Nota URL"
+    },
+    {
+      "parameters": {
+        "content": "O Response Body está em Expression. Por isso as chaves viram o valor que veio na URL",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        220,
+        140
+      ],
+      "id": "368bec13-928e-4853-a877-7a8dcff6e868",
+      "name": "Nota resposta"
+    }
+  ],
+  "connections": {
+    "Receber Visita": {
+      "main": [
+        [
+          {
+            "node": "Responder Mensagem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

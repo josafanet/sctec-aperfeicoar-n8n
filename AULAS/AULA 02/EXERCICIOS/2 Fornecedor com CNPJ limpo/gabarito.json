@@ -1,0 +1,288 @@
+{
+  "name": "Exercicio 2 Fornecedor com CNPJ limpo (gabarito)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "55b08900-5fed-4732-ac64-af8cdc23930e",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "909ceddb-7d55-4842-a7fb-4725ed6f0859",
+              "name": "empresa",
+              "value": "={{ $json.empresa.toLowerCase().toTitleCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "c0714eba-c38f-4531-aa3c-5f1ad78280ad",
+              "name": "cnpj",
+              "value": "={{ $json.cnpj.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "e8808c95-0da7-48f3-a7e0-0b14768a7919",
+              "name": "categoria",
+              "value": "={{ $json.categoria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "6f69c4f3-535d-4c61-a475-3f5d47e2bcc1",
+      "name": "Limpar Dados"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "34724f34-0ca7-4cfd-a233-7446c6469ec4",
+              "leftValue": "={{ $json.cnpj.length }}",
+              "rightValue": 14,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "d4876501-15e6-403b-a265-75eaba0c0305",
+      "name": "CNPJ tem 14 digitos?"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "CONFIGURAR_TABELA_FORNECEDORES",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "empresa": "={{ $json.empresa }}",
+            "cnpj": "={{ $json.cnpj }}",
+            "categoria": "={{ $json.categoria }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "cnpj",
+              "displayName": "cnpj",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "categoria",
+              "displayName": "categoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        -100
+      ],
+      "id": "864b91b1-3fc4-41d7-a441-458711a45106",
+      "name": "Guardar Fornecedor"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        760,
+        100
+      ],
+      "id": "be9fecd5-a2f0-4b63-a6bd-227234ee7f96",
+      "name": "CNPJ invalido"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**Gabarito**\nO Limpar Dados arruma o nome da empresa e deixa o CNPJ só com números. O IF confere se sobraram 14 dígitos\n\n**Compare**\nA Papelaria Boa Vista vai para a tabela. A Limpa Tudo tem só 12 dígitos e cai em CNPJ invalido",
+        "height": 360,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -500
+      ],
+      "id": "d018beea-df0b-4ff0-afa9-f0a9ac308dab",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "`replace(/\\D/g, '')` apaga tudo que não é número. Pontos, barra e traço somem",
+        "height": 220,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        140
+      ],
+      "id": "ddea4e2f-10e5-42a2-a9d5-a9c74163f18d",
+      "name": "Nota Limpar"
+    },
+    {
+      "parameters": {
+        "content": "`.length` conta quantos caracteres o texto tem. Depois do replace, só sobram números",
+        "height": 220,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        140
+      ],
+      "id": "4a777695-6cab-44ad-a3c3-dcf22784d473",
+      "name": "Nota IF"
+    },
+    {
+      "parameters": {
+        "content": "Escolha a sua tabela. Crie no seu n8n uma Data Table fornecedores com as colunas empresa, cnpj e categoria",
+        "height": 200,
+        "width": 240,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        920,
+        -160
+      ],
+      "id": "973a9367-afac-4a84-ae9a-77abbd6b594f",
+      "name": "Nota tabela"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Limpar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limpar Dados": {
+      "main": [
+        [
+          {
+            "node": "CNPJ tem 14 digitos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CNPJ tem 14 digitos?": {
+      "main": [
+        [
+          {
+            "node": "Guardar Fornecedor",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CNPJ invalido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "empresa": "PAPELARIA boa vista",
+          "cnpj": "11.222.333/0001-81",
+          "categoria": "Papelaria"
+        }
+      },
+      {
+        "json": {
+          "empresa": "limpa TUDO",
+          "cnpj": "98.765.432/0001",
+          "categoria": "Limpeza"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

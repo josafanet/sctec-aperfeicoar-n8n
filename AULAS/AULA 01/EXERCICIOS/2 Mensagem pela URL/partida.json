@@ -1,0 +1,108 @@
+{
+  "name": "Exercicio 2 Mensagem pela URL (partida)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "exercicio-mensagem",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d4cfb648-d7b2-420d-ab89-467f894b1abe",
+      "name": "Receber Visita",
+      "webhookId": "edc4ea10-fe55-44b5-ab6a-5412f002e342"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Troque este texto pela mensagem com o nome e o curso",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        260,
+        0
+      ],
+      "id": "4682fb2f-06dd-485c-ac0f-1b1a5261699f",
+      "name": "Responder Mensagem"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**O que fazer**\nFaça o Responder Mensagem devolver o texto abaixo, com o nome e o curso que vierem na URL\nQue bom ter você no curso de Excel, Ana!\n\n**Como testar**\nClique em Execute workflow, copie a Test URL do Receber Visita e cole no navegador com ?nome=Ana&curso=Excel no fim\n\n**Gabarito**\nEstá no arquivo gabarito.json da mesma pasta. Tente antes de abrir",
+        "height": 320,
+        "width": 560,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -360
+      ],
+      "id": "4712c620-eb94-409a-aae7-f242cdfbca7e",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Tudo o que vem depois do ? na URL chega no campo query. Cada par nome=valor vira um campo",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        140
+      ],
+      "id": "423e63d1-2e1b-403e-a981-1e39874c68b5",
+      "name": "Nota URL"
+    },
+    {
+      "parameters": {
+        "content": "Mude o Response Body para Expression antes de usar as chaves. Sem isso, o texto sai com as chaves e tudo",
+        "height": 200,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        220,
+        140
+      ],
+      "id": "8ddc7127-9798-4da3-af2d-c313cd38a03f",
+      "name": "Nota resposta"
+    }
+  ],
+  "connections": {
+    "Receber Visita": {
+      "main": [
+        [
+          {
+            "node": "Responder Mensagem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}
