@@ -1,0 +1,146 @@
+{
+  "name": "04 Buscar os leads da tabela",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "715e023a-d190-5b7b-8ee8-4810f96ef3ff",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "CONFIGURAR_TABELA_LEADS"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": []
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        0
+      ],
+      "id": "d37f2a78-7f7a-579a-bdc1-731ae87be474",
+      "name": "Buscar Leads"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ee37fbaf-f753-54b6-b804-a60b59161ad6",
+              "name": "total",
+              "value": "={{ $input.all().length }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        0
+      ],
+      "id": "a9696808-fa3d-5d33-a64b-62c454c34012",
+      "name": "Contar os itens",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nLê todas as linhas da tabela `leads` de uma vez. Cada linha vira um item no n8n. O último nó conta quantos itens chegaram.\n\n### Como testar\n\nEscolha a sua tabela no **Buscar Leads** e clique em **Execute workflow**. Compare o número de itens na saída com o número de linhas da tabela na aba **Data tables**. O **Contar os itens** mostra o total no campo `total`.\n\n### O que treinar\n\n1. Mande mais um pedido pela página da Orbita e rode de novo. O total deve subir 1.\n2. No **Buscar Leads**, desligue **Return All** e coloque 3 no limite. Veja quantos itens chegam.\n3. Acrescente uma condição para trazer só quem tem `consentimento` igual a `sim`.\n\n### Erros comuns\n\nO nó fica vermelho quando a tabela ainda não foi escolhida.\n\nCom a tabela vazia, o **Buscar Leads** não devolve itens e o fluxo para ali.",
+        "height": 508,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -640
+      ],
+      "id": "5b74c0cc-fb63-5fc1-82bc-1cc926fc37f3",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "### Escolha a sua tabela\n\nSelecione aqui a tabela `leads` da sua conta.",
+        "height": 139,
+        "width": 240,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        160
+      ],
+      "id": "d040a1f0-b126-5656-b625-728816705d67",
+      "name": "Nota tabela"
+    },
+    {
+      "parameters": {
+        "content": "### Um item só\n\nEm **Settings**, o **Execute Once** está ligado. Assim o nó roda uma vez só e conta todos os itens que chegaram.",
+        "height": 183,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        160
+      ],
+      "id": "39150330-3627-5ebd-8c5b-1c8389f24ad4",
+      "name": "Nota contar"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Buscar Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Leads": {
+      "main": [
+        [
+          {
+            "node": "Contar os itens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

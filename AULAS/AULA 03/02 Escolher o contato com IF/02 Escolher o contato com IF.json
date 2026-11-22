@@ -1,0 +1,272 @@
+{
+  "name": "02 Escolher o contato com IF",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0cf6d07e-53e3-5fdb-b083-72498da9931c",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2850ed4a-51a6-5c6c-b308-cf34b9d123ec",
+              "leftValue": "={{ $json.consentimento }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "sim"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        0
+      ],
+      "id": "53c636b9-2197-5fe8-8fe9-6fe4139fda7f",
+      "name": "Autorizou contato?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3182c2cc-ccd4-527e-a021-b1245994028d",
+              "leftValue": "={{ $json.whatsapp }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        -100
+      ],
+      "id": "ef9254be-43ec-521e-a182-f9218d74b99a",
+      "name": "Tem WhatsApp?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6c26687f-12ad-5375-a625-35846c1632d1",
+              "name": "acao",
+              "value": "Chamar no WhatsApp",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        740,
+        -200
+      ],
+      "id": "035cd194-42c8-57f8-96f9-aa09b0b641fd",
+      "name": "Chamar no WhatsApp"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "00af65c5-e5d9-509e-8afb-a6ea42dd37ec",
+              "name": "acao",
+              "value": "Mandar e-mail",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        740,
+        0
+      ],
+      "id": "7ea0019b-d922-5cab-917f-6a52c18709cf",
+      "name": "Mandar e-mail"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50969b1b-2aa6-51cf-8ec9-cc1d74cf0092",
+              "name": "acao",
+              "value": "Não entrar em contato",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        160
+      ],
+      "id": "b2917dc9-00f0-5bf5-b1b8-1581f539484c",
+      "name": "Não entrar em contato"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nTrês contatos fictícios passam por dois IFs. Cada um termina com a ação que a equipe faria. O fluxo não envia mensagem nenhuma.\n\n### Como testar\n\nClique em **Execute workflow**. O número em cada ligação mostra quantos contatos passaram por ali. Abra os três nós do fim e leia o campo `acao`.\n\n### O que treinar\n\n1. Antes de rodar, preveja o caminho de cada contato.\n2. No **Gatilho Manual**, mude o consentimento do Rafa para `sim` e rode de novo.\n3. Apague o WhatsApp da Marina. Veja ela mudar de caminho.\n\n### Erros comuns\n\nPara o IF, `Sim` com letra maiúscula é diferente de `sim`. Padronize o texto antes ou ligue a opção **Ignore Case** do IF.\n\nUm WhatsApp só com espaços conta como preenchido. Limpe o campo antes do IF.",
+        "height": 508,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -760
+      ],
+      "id": "b95659d4-05b6-5748-8586-a0cf5aa4c1e3",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "### Dois IFs em sequência\n\nO primeiro confere a autorização. Só quem autorizou chega ao segundo, que confere o WhatsApp.",
+        "height": 161,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -200
+      ],
+      "id": "33550ad2-0f4c-5bfd-bb45-9174b15f3128",
+      "name": "Nota IFs"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Autorizou contato?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Autorizou contato?": {
+      "main": [
+        [
+          {
+            "node": "Tem WhatsApp?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Não entrar em contato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tem WhatsApp?": {
+      "main": [
+        [
+          {
+            "node": "Chamar no WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mandar e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "nome": "Marina Souza",
+          "email": "marina@grupovale.com.br",
+          "whatsapp": "48998123344",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Pedro Lima",
+          "email": "pedro.lima@gmail.com",
+          "whatsapp": "",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Rafa",
+          "email": "rafa@hotmail.com",
+          "whatsapp": "48991112233",
+          "consentimento": "nao"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}
