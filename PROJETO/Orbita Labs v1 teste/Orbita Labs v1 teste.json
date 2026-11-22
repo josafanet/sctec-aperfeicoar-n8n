@@ -1,5 +1,5 @@
 {
-  "name": "Orbita Labs v1 --- teste",
+  "name": "Orbita Labs v1 teste",
   "nodes": [
     {
       "parameters": {
@@ -60,19 +60,35 @@
     },
     {
       "parameters": {
-        "content": "## Orbita Labs v1 teste\nCópia da v1 usada para testar mudanças sem mexer no original\n\nUsa o mesmo caminho senai-orbita-v1, por isso só uma das duas pode ficar publicada por vez",
-        "height": 416,
-        "width": 736,
+        "content": "## Leia primeiro\n**O que faz**\nCópia da Orbita Labs v1 para testar mudanças sem estragar o original. Os nós e as expressões são os mesmos\n\n**Como testar**\nIgual à v1. Clique em Execute workflow, copie a Test URL do Disparo de Gatilho e mande um POST com o campo nome\n\n**O que treinar**\nMude o texto da resposta aqui e compare com a v1, que continua do jeito que estava\n\n**Erros comuns**\nAs duas usam o caminho senai-orbita-v1, então só uma pode ficar publicada. Para publicar esta, troque o caminho para senai-orbita-v1-teste",
+        "height": 340,
+        "width": 680,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
       "position": [
         -224,
-        -160
+        -380
       ],
+      "id": "528d21b9-42e3-4d7e-ad52-a38bb2a097f2",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Mesmo caminho da v1. Troque aqui antes de publicar esta cópia",
+        "height": 160,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "id": "8c21b585-a128-4698-9c4a-03cb9eb0a15c",
-      "name": "Sticky Note"
+      "position": [
+        -176,
+        150
+      ],
+      "id": "024be37f-a06f-41ab-a977-bd005b8df519",
+      "name": "Nota caminho"
     }
   ],
   "connections": {
@@ -102,7 +118,8 @@
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
   },
   "active": false,
   "meta": {

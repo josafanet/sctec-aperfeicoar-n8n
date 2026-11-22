@@ -1,0 +1,105 @@
+{
+  "name": "02 Webhook de boas-vindas",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "cadastro",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "37d07782-7596-4a07-a6cd-2cf6e8eac26e",
+      "name": "Webhook Boas Vindas",
+      "webhookId": "7fd20c26-82e8-4c1e-b1b3-899184548f87"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "006108c5-0001-4815-8f4e-2f1e8e27e9be",
+      "name": "Normalizar"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**O que faz**\nEspera uma chamada GET no caminho cadastro e passa para o Normalizar tudo o que chegou\n\n**Como testar**\nClique em Execute workflow, abra o Webhook Boas Vindas e copie a Test URL. Cole no navegador com ?nome=Ana no fim e volte para o n8n\n\n**O que treinar**\nO Normalizar está vazio de propósito. Crie nele um campo nome com o valor que veio na URL\n\n**Erros comuns**\nA Test URL escuta uma chamada só. Se o navegador mostrar 404, clique em Execute workflow de novo e recarregue a página",
+        "height": 340,
+        "width": 520,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -400
+      ],
+      "id": "3f06fbaa-783d-4e56-ade6-9a7aef1fa552",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "A Test URL só funciona depois de clicar em Execute workflow. A Production URL só funciona com o fluxo publicado",
+        "height": 200,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        140
+      ],
+      "id": "ffb898c6-84ec-4a75-a0da-0307a9d5392c",
+      "name": "Nota URLs"
+    },
+    {
+      "parameters": {
+        "content": "O que vem depois do ? na URL chega em query. Para pegar o nome, use\n`{{ $json.query.nome }}`",
+        "height": 200,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        140
+      ],
+      "id": "81e6c0a9-9f4b-43a3-a347-9352a8db840c",
+      "name": "Nota Normalizar"
+    }
+  ],
+  "connections": {
+    "Webhook Boas Vindas": {
+      "main": [
+        [
+          {
+            "node": "Normalizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
