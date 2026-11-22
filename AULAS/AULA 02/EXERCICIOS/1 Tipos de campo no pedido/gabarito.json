@@ -61,8 +61,8 @@
     },
     {
       "parameters": {
-        "content": "## Leia primeiro\n\n### Gabarito\n\nQuantidade, preço e total saem como número. O `entregue` sai como verdadeiro ou falso, a partir de uma comparação com a palavra sim.\n\n### Compare\n\nTroque o `entregue` para `nao` nos dados fixados. O campo tem que sair `false`",
-        "height": 320,
+        "content": "## Leia primeiro\n\n### O que faz\n\nQuantidade, preço e total saem como número. O `entregue` sai como verdadeiro ou falso, a partir de uma comparação com a palavra sim.\n\n### O que treinar\n\nTroque o `entregue` para `nao` nos dados fixados. O campo tem que sair `false`.\n\n### Como testar\n\nClique em **Execute workflow** e abra **Converter Tipos**. Com o pedido de exemplo, o total deve ser 50 e `entregue` deve ser `true`.\n\n### Erros comuns\n\nUse ponto em `12.50`. Com vírgula, o preço pode falhar na conversão.",
+        "height": 540,
         "width": 560,
         "color": 4
       },
@@ -70,7 +70,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -360
+        -580
       ],
       "id": "92836ada-3207-488b-a5ab-c16a8bd9678b",
       "name": "Leia primeiro"

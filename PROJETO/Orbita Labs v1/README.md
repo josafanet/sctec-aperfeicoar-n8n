@@ -37,6 +37,6 @@ Também dá para mandar a chamada pelo [Postman](https://www.postman.com/downloa
 
 ## Erros comuns
 
-Se a página fica sem resposta, confira o Allowed Origins do gatilho. Sem o * o navegador bloqueia a chamada.
+Se a página fica sem resposta, confira o Allowed Origins do gatilho. Confira se a origem da página está permitida. Neste exemplo, o valor é `*`.
 
 A Orbita Labs v1 teste usa o mesmo caminho. Só uma das duas pode ficar publicada.

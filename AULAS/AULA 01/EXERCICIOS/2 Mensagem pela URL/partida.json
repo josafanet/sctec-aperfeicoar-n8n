@@ -36,8 +36,8 @@
     },
     {
       "parameters": {
-        "content": "## Leia primeiro\n\n### O que fazer\n\nFaça o **Responder Mensagem** devolver o texto abaixo, com o nome e o curso que vierem na URL.\n\n`Que bom ter você no curso de Excel, Ana!`\n\n### Como testar\n\nClique em **Execute workflow**, copie a Test URL do **Receber Visita** e cole no navegador com `?nome=Ana&curso=Excel` no fim.\n\n### Gabarito\n\nEstá no arquivo `gabarito.json` da mesma pasta. Tente antes de abrir.",
-        "height": 440,
+        "content": "## Leia primeiro\n\n### O que faz\n\nO link de boas-vindas recebe o curso e o nome pela URL.\n\n### O que treinar\n\nFaça o **Responder Mensagem** devolver o texto abaixo, com o nome e o curso que vierem na URL.\n\n`Que bom ter você no curso de Excel, Ana!`\n\n### Como testar\n\nClique em **Execute workflow**, copie a Test URL do **Receber Visita** e cole no navegador com `?nome=Ana&curso=Excel` no fim.\n\n### Gabarito\n\nEstá no arquivo `gabarito.json` da mesma pasta. Tente antes de abrir.\n\n### Erros comuns\n\nSe aparecer 404, clique em **Execute workflow** antes de abrir o link outra vez.",
+        "height": 660,
         "width": 560,
         "color": 4
       },
@@ -45,7 +45,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -480
+        -700
       ],
       "id": "4712c620-eb94-409a-aae7-f242cdfbca7e",
       "name": "Leia primeiro"

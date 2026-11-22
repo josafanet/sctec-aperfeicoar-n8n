@@ -154,8 +154,8 @@
     },
     {
       "parameters": {
-        "content": "## Leia primeiro\n\n### Gabarito\n\nO **Limpar Dados** arruma o nome da empresa e deixa o CNPJ só com números. O IF confere se sobraram 14 dígitos.\n\n### Compare\n\nA Papelaria Boa Vista vai para a tabela. A Limpa Tudo tem só 12 dígitos e cai em **CNPJ invalido**.",
-        "height": 300,
+        "content": "## Leia primeiro\n\n### O que faz\n\nO **Limpar Dados** arruma o nome da empresa e deixa o CNPJ só com números. O IF confere se sobraram 14 dígitos.\n\n### O que treinar\n\nA Papelaria Boa Vista vai para a tabela. A Limpa Tudo tem só 12 dígitos e cai em **CNPJ invalido**.\n\n### Como testar\n\nCrie a tabela `fornecedores` com as colunas de texto do README e selecione-a em **Guardar Fornecedor**. Clique em **Execute workflow**. Só a Papelaria Boa Vista deve entrar.\n\n### Erros comuns\n\nSe o IF acusar erro de tipo, confira se a comparação do comprimento está em **Number**.",
+        "height": 520,
         "width": 760,
         "color": 4
       },
@@ -163,7 +163,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -440
+        -660
       ],
       "id": "d018beea-df0b-4ff0-afa9-f0a9ac308dab",
       "name": "Leia primeiro"
@@ -202,7 +202,7 @@
     },
     {
       "parameters": {
-        "content": "### Escolha a sua tabela\n\nCrie no seu n8n uma Data Table `fornecedores` com as colunas `empresa`, `cnpj` e `categoria`",
+        "content": "### Escolha a sua tabela\n\nCrie no seu n8n uma Data Table `fornecedores` com as colunas `empresa`, `cnpj` e `categoria`.",
         "height": 200,
         "width": 240,
         "color": 3

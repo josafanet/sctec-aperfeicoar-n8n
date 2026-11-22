@@ -18,7 +18,7 @@
       ],
       "id": "21ddb9b3-6b27-4abf-9fc3-96add2ffbf16",
       "name": "Disparo de Gatilho",
-      "webhookId": "9e81f714-2a7f-45be-937f-993c7fa8298e"
+      "webhookId": "26606879-0310-45ef-b359-65ba8c08d82e"
     },
     {
       "parameters": {
@@ -75,7 +75,7 @@
             {
               "id": "2d652505-3998-4db8-b960-075727123609",
               "name": "faturamento",
-              "value": "={{ $json.body.faturamento }} ",
+              "value": "={{ $json.body.faturamento ?? null }}",
               "type": "number"
             }
           ]
@@ -305,7 +305,7 @@
     },
     {
       "parameters": {
-        "content": "## Leia primeiro\n\n### O que faz\n\nRecebe o formulário completo da página, separa os campos, arruma o nome e o WhatsApp e guarda cada pedido na tabela `leads`\n\n### Como testar\n\nAntes, crie uma Data Table chamada `leads` (as colunas estão no README) e escolha ela no **Adicionar Lead**. Depois clique em **Execute workflow** e abra a página da campanha com `?webhook=` e a sua Test URL no fim do endereço.\n\n### O que treinar\n\nMande o nome todo em maiúsculas e o WhatsApp com parênteses e traço. Abra o **Normalizar Dados** e compare a entrada com a saída.\n\n### Erros comuns\n\nO pedido não chega na tabela quando o **Adicionar Lead** ainda não tem a sua tabela escolhida. Um campo novo não aparece quando o gatilho está com dados fixados antigos.",
+        "content": "## Leia primeiro\n\n### O que faz\n\nRecebe o formulário completo da página, separa os campos, arruma o nome e o WhatsApp e guarda cada pedido na tabela `leads`.\n\n### Como testar\n\nAntes, crie uma Data Table chamada `leads` (as colunas estão no README) e escolha ela no **Adicionar Lead**. Depois clique em **Execute workflow** e abra a página da campanha com `?webhook=` e a sua Test URL no fim do endereço.\n\n### O que treinar\n\nMande o nome todo em maiúsculas e o WhatsApp com parênteses e traço. Abra o **Normalizar Dados** e compare a entrada com a saída.\n\n### Erros comuns\n\nO pedido não chega na tabela quando o **Adicionar Lead** ainda não tem a sua tabela escolhida. Um campo novo não aparece quando o gatilho está com dados fixados antigos.",
         "height": 480,
         "width": 1080,
         "color": 4

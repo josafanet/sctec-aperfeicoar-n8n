@@ -18,7 +18,7 @@ Para fazer conta e para filtrar depois, cada campo precisa do tipo certo. O flux
 2. No Converter Tipos, crie produto como String.
 3. Crie quantidade e preco como Number.
 4. Crie total como Number, com a quantidade vezes o preço. Em expressão, a multiplicação é o *.
-5. Crie entregue como Boolean. Colocar o sim direto dá erro, então pense numa comparação que devolva true ou false.
+5. Crie entregue como Boolean. Colocar o sim direto dá erro, então compare o campo entregue com o texto `sim`. Em uma expressão, `===` compara os dois valores e devolve true ou false.
 
 ## Como testar
 

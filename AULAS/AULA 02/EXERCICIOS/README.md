@@ -2,7 +2,7 @@
 
 Três exercícios para treinar o que vimos na aula 2. Cada pasta tem o enunciado no README, o fluxo de partida (partida.json) e a resposta (gabarito.json).
 
-Os dois últimos foram adaptados dos treinos em casa, na etapa de depois da aula 2. Os dados chegam fixados no fluxo, então você não precisa de formulário nem de API.
+Os dois últimos foram adaptados dos treinos em casa, na etapa de depois da aula 2. Os fornecedores vêm fixados no gatilho. A previsão está escrita no nó Previsao de Amanha, então você não precisa de formulário nem de API.
 
 | Pasta | O que você treina |
 |---|---|

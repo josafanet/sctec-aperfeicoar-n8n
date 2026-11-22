@@ -6,7 +6,7 @@ Fluxo da aula 2 para ver os erros mais comuns quando a página chama o webhook.
 
 O Gatilho da Pagina Orbita recebe um POST no caminho captador-lead. O Respond dele ficou no padrão, Immediately, que responde na hora com Workflow was started.
 
-O Responder a chamada devolve o texto AGORA FOI, mas está solto no canvas. Sem ligação com o gatilho, ele nunca roda.
+O Responder a chamada devolve o texto `AGORA FOI!`, mas está solto no canvas. Sem ligação com o gatilho, ele nunca roda.
 
 ## Como testar
 
@@ -22,9 +22,9 @@ Também dá para mandar a chamada pelo [Postman](https://www.postman.com/downloa
 
 ## O que treinar
 
-1. Ligue o Responder a chamada depois do gatilho e troque o Respond do gatilho para Using Respond to Webhook Node. Agora a resposta é AGORA FOI.
+1. Ligue o Responder a chamada depois do gatilho e troque o Respond do gatilho para Using Respond to Webhook Node. Clique em Execute workflow e repita o POST. A resposta deve ser `AGORA FOI!`.
 2. Faça o caminho contrário. Deixe o Respond em Using Respond to Webhook Node e desligue o Responder a chamada. A chamada volta com erro 500 e, na execução, o n8n avisa que não achou o nó de resposta.
-3. Publique o fluxo e repita com a Production URL. A execução não aparece no canvas, só na aba Executions.
+3. Religue o Responder a chamada e repita o POST na Test URL. Quando voltar `AGORA FOI!`, publique o fluxo e repita com a Production URL. A execução não aparece no canvas, só na aba Executions.
 
 ## Erros comuns
 

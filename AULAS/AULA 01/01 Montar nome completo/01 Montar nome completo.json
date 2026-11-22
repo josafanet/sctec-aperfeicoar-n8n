@@ -37,7 +37,7 @@
     },
     {
       "parameters": {
-        "content": "## Leia primeiro\n\n### O que faz\n\nPega um aluno com nome e sobrenome e monta o campo `nomecompleto`, no formato `Borges, Kelvis`\n\n### Como testar\n\nClique em **Execute workflow** e abra o **Normalizar Dados**. O gatilho já tem dados fixados, então você não precisa digitar nada.\n\n### O que treinar\n\nTroque o nome e o sobrenome nos dados fixados e rode de novo. Depois mude a expressão para sair `Kelvis Borges`, sem vírgula.\n\n### Erros comuns\n\nCampo vazio na saída quase sempre é nome escrito diferente. Para o n8n, `aluno.nome` e `Aluno.Nome` são campos diferentes.",
+        "content": "## Leia primeiro\n\n### O que faz\n\nPega um aluno com nome e sobrenome e monta o campo `nomecompleto`, no formato `Borges, Kelvis`.\n\n### Como testar\n\nClique em **Execute workflow** e abra o **Normalizar Dados**. O gatilho já tem dados fixados, então você não precisa digitar nada.\n\n### O que treinar\n\nTroque o nome e o sobrenome nos dados fixados e rode de novo. Depois mude a expressão para sair `Kelvis Borges`, sem vírgula.\n\n### Erros comuns\n\nCampo vazio na saída quase sempre é nome escrito diferente. Para o n8n, `aluno.nome` e `Aluno.Nome` são campos diferentes.",
         "height": 520,
         "width": 520,
         "color": 4

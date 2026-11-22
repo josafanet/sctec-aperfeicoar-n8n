@@ -84,8 +84,8 @@
     },
     {
       "parameters": {
-        "content": "## Leia primeiro\n\n### Gabarito\n\nO IF compara a chance de chuva com 70. Com 80, a visita vai para **Reagendar visita**.\n\n### Compare\n\nTroque a `chuva` para 40 no **Previsao de Amanha**. Agora a visita cai em **Visita mantida**.",
-        "height": 280,
+        "content": "## Leia primeiro\n\n### O que faz\n\nO IF compara a chance de chuva com 70. Com 80, a visita vai para **Reagendar visita**.\n\n### O que treinar\n\nTroque a `chuva` para 40 no **Previsao de Amanha**. Agora a visita cai em **Visita mantida**.\n\n### Como testar\n\nClique em **Execute workflow**. Com chuva 80, confira se o item chega a **Reagendar visita**.\n\n### Erros comuns\n\nNo JSON da previsão, digite a chuva sem aspas para que o IF receba um número.",
+        "height": 500,
         "width": 720,
         "color": 4
       },
@@ -93,7 +93,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -420
+        -640
       ],
       "id": "54420520-7d3d-458a-a691-d10f574594da",
       "name": "Leia primeiro"

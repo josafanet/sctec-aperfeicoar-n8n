@@ -23,7 +23,7 @@ O Resposta do Gatilho devolve Recebemos seu pedido com o nome da pessoa.
 
 ## Antes de testar
 
-Crie no seu n8n uma Data Table chamada leads com as colunas nome, email, whatsapp, empresa, porte, area, prazo e consentimento. Depois abra o Adicionar Lead e escolha a sua tabela. O arquivo vem com o marcador CONFIGURAR_TABELA_LEADS no lugar da tabela.
+Crie no seu n8n uma Data Table chamada leads com as colunas nome, email, whatsapp, empresa, porte, area, prazo e consentimento, todas do tipo String. Depois abra o Adicionar Lead e escolha a sua tabela. O arquivo vem com o marcador CONFIGURAR_TABELA_LEADS no lugar da tabela.
 
 ## Como testar
 
@@ -33,7 +33,7 @@ Clique em Execute workflow e copie a Test URL do Disparo de Gatilho. Abra a pág
 https://orbita-automacao-gratuita.lovable.app/?webhook=COLE_A_TEST_URL_AQUI
 ```
 
-A página mostra Recebemos seu pedido com o nome arrumado, e a tabela leads ganha uma linha nova. Para testar sem a página, mande um POST pelo terminal.
+A página mostra Recebemos seu pedido com o nome arrumado, e a tabela leads ganha uma linha nova. Para testar sem a página, clique de novo em Execute workflow e mande um POST pelo terminal.
 
 ```bash
 curl -X POST "COLE_A_TEST_URL_AQUI" -d "nome=MARIA borges" -d "whatsapp=(67) 99272-0990" -d "email=maria@exemplo.com"
@@ -57,4 +57,4 @@ Se a página mostrar O fluxo respondeu 404, a Test URL parou de escutar. Clique 
 
 ## Depois desta versão
 
-Na aula 3 este fluxo ganha o trim, o email em minúsculas e um IF que responde de um jeito para quem deixou email e de outro para quem não deixou.
+Na aula 3, a turma usou trim() no email, montou um resumo do pedido e enviou o aviso ao Slack.

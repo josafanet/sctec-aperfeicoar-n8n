@@ -65,8 +65,8 @@
     },
     {
       "parameters": {
-        "content": "## Leia primeiro\n\n### O que fazer\n\nEste fluxo tem 3 defeitos. Ache e conserte até a resposta sair como no exemplo abaixo.\n\n`Inscrição confirmada, Ana! Sua turma é a T1.`\n\n### Como testar\n\nClique em **Execute workflow**, copie a Test URL do **Receber Inscricao** e mande um POST com `nome` e `turma`. O comando está no README.\n\n### Gabarito\n\nEstá no arquivo `gabarito.json` da mesma pasta. Tente antes de abrir.",
-        "height": 420,
+        "content": "## Leia primeiro\n\n### O que faz\n\nO fluxo confirma a inscrição de uma pessoa na turma.\n\n### O que treinar\n\nEste fluxo tem 3 defeitos. Ache e conserte até a resposta sair como no exemplo abaixo.\n\n`Inscrição confirmada, Ana! Sua turma é a T1.`\n\n### Como testar\n\nClique em **Execute workflow**, copie a Test URL do **Receber Inscricao** e mande um POST com `nome` e `turma`. O comando está no README.\n\n### Gabarito\n\nEstá no arquivo `gabarito.json` da mesma pasta. Tente antes de abrir.\n\n### Erros comuns\n\nA Test URL muda entre partida e gabarito. Copie a do arquivo que você está testando.",
+        "height": 640,
         "width": 720,
         "color": 4
       },
@@ -74,7 +74,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -460
+        -680
       ],
       "id": "bc42a18a-65f4-429a-ad40-290d2cbebe06",
       "name": "Leia primeiro"
