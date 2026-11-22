@@ -1,0 +1,137 @@
+{
+  "name": "Aula 4 · Receber uma nova linha do Google Sheets",
+  "nodes": [
+    {
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "## Leia primeiro\nO n8n consulta a aba Pedidos uma vez por minuto. Quando alguém acrescenta uma linha, o último nó mostra quem fez o pedido. O fluxo só lê a planilha.\n\n**Como testar**  \nEscolha sua conta, o documento e a aba em **Detectar nova linha**. Execute manualmente com uma linha fictícia já preenchida.\n\n**O que treinar**  \nPublique a cópia, aguarde 2 minutos e acrescente uma linha no fim da aba. Procure o pedido em **Executions** e despublique ao terminar.\n\n**Erros comuns**  \n**Row Added** observa linhas acrescentadas. No teste manual, você também pode receber linhas antigas.",
+        "width": 650,
+        "height": 360
+      },
+      "position": [
+        -48,
+        -420
+      ],
+      "id": "1672b52a-2da1-520b-8d5c-7c06a2f8e5cf"
+    },
+    {
+      "name": "Detectar nova linha",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "parameters": {
+        "authentication": "triggerOAuth2",
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "CONFIGURAR_PLANILHA"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "CONFIGURAR_ABA"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "position": [
+        0,
+        0
+      ],
+      "id": "00f04261-2b46-50a4-b66a-07a86d10b84d"
+    },
+    {
+      "name": "Ver pedido recebido",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38764cf6-9e08-52c0-8a54-bac018aa7a5a",
+              "name": "nome",
+              "type": "string",
+              "value": "={{ $json.nome }}"
+            },
+            {
+              "id": "1bd55638-d8f1-593c-9fb4-e587919cc40f",
+              "name": "email",
+              "type": "string",
+              "value": "={{ $json.email }}"
+            },
+            {
+              "id": "e11166f4-9f48-534c-893d-854c0d9b7878",
+              "name": "empresa",
+              "type": "string",
+              "value": "={{ $json.empresa }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        320,
+        0
+      ],
+      "id": "31a9431d-d828-5d0b-ae50-fa8e8c114b89"
+    },
+    {
+      "name": "Credencial do gatilho",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Credencial\nCredencial: use a sua. Crie em Credentials e escolha aqui.\n\nAutorize o **Google Sheets Trigger**. Escolha a planilha e a aba **Pedidos** da conta que tem acesso aos dados.",
+        "width": 350,
+        "height": 220
+      },
+      "position": [
+        -48,
+        164
+      ],
+      "id": "c819068f-f8c9-5a95-9fbe-66c92c2ab957"
+    },
+    {
+      "name": "A primeira consulta",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### O que inicia uma execução?\nCom o fluxo publicado, a primeira leitura marca onde terminam as linhas existentes. Acrescente uma linha depois dessa leitura. O último nó apenas mostra o pedido, por isso não dispara o gatilho de novo.",
+        "width": 380,
+        "height": 220
+      },
+      "position": [
+        324,
+        164
+      ],
+      "id": "3e3b7fa8-0860-5702-8a59-58c99eeb9c2e"
+    }
+  ],
+  "connections": {
+    "Detectar nova linha": {
+      "main": [
+        [
+          {
+            "node": "Ver pedido recebido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

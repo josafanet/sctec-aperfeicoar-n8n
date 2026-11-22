@@ -1,0 +1,177 @@
+{
+  "name": "Aula 4 · Resumo diário de leads",
+  "nodes": [
+    {
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "## Leia primeiro\nÀs 08h de Brasília (07h em Campo Grande), o fluxo conta quantos pedidos entraram no dia anterior. O comercial pode abrir a execução e ver o total por faixa.\n\n**Como testar**  \nEm **Ler leads**, escolha a sua tabela. Clique em **Execute workflow** e abra **Contar por faixa**.\n\n**O que treinar**  \nMude `dias_atras` de 1 para 0 para contar as linhas criadas no dia do teste. Ao terminar, volte para 1.\n\n**Erros comuns**  \nTotal zero também é um resumo. Compare a data na saída com a data de criação das linhas.",
+        "width": 650,
+        "height": 360
+      },
+      "position": [
+        -48,
+        -420
+      ],
+      "id": "1892b2b7-71ad-5a8f-b920-9497e1074a82"
+    },
+    {
+      "name": "Horário do resumo",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "position": [
+        0,
+        0
+      ],
+      "id": "25110e72-6363-5edf-bf69-7da00e0e1a7f"
+    },
+    {
+      "name": "Escolher dia",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1988c436-0d98-5136-bbd1-453b63d52b23",
+              "name": "dias_atras",
+              "type": "number",
+              "value": 1
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        320,
+        0
+      ],
+      "id": "441bfea3-7c4c-5422-8d64-4bab216f915c"
+    },
+    {
+      "name": "Ler leads",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "CONFIGURAR_TABELA_leads"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": []
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "alwaysOutputData": true,
+      "position": [
+        640,
+        0
+      ],
+      "id": "dcd2a968-0939-539a-b671-1ab5f219d35f"
+    },
+    {
+      "name": "Contar por faixa",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const diasAtras = $('Escolher dia').first().json.dias_atras;\nconst inicio = $now.startOf('day').minus({ days: diasAtras });\nconst fim = inicio.plus({ days: 1 });\nconst de = inicio.toMillis();\nconst ate = fim.toMillis();\nconst contagem = { quente: 0, morno: 0, frio: 0, sem_faixa: 0 };\nlet total = 0;\n\nfor (const { json: lead } of $input.all()) {\n  const criadoEm = Date.parse(lead.createdAt);\n  if (!Number.isFinite(criadoEm) || criadoEm < de || criadoEm >= ate) continue;\n\n  const faixa = String(lead.faixa ?? '').trim().toLowerCase();\n  if (['quente', 'morno', 'frio'].includes(faixa)) {\n    contagem[faixa] += 1;\n  } else {\n    contagem.sem_faixa += 1;\n  }\n  total += 1;\n}\n\nreturn [{ json: { dia: inicio.toISODate(), total, ...contagem } }];"
+      },
+      "position": [
+        960,
+        0
+      ],
+      "id": "68d6cf65-593a-5793-b7c2-79c87208061a"
+    },
+    {
+      "name": "Um minuto de treino",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Disparo curto\nNa cópia de treino, troque a regra de **Days** por **Minutes**, intervalo **1**. Publique, confira **Executions** e despublique. Restaure a única regra diária às **08h00** no fuso de São Paulo.",
+        "width": 390,
+        "height": 230
+      },
+      "position": [
+        -48,
+        164
+      ],
+      "id": "fe19bb87-cb1c-580e-956d-c8d42e1e3102"
+    },
+    {
+      "name": "Escolha a sua tabela",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Escolha a sua tabela\nEm **Ler leads → Data table → From list**, selecione `leads`. O resumo lê a coluna automática `createdAt` e a coluna de texto `faixa`. As linhas antigas sem classificação entram em `sem_faixa`.",
+        "width": 450,
+        "height": 230
+      },
+      "position": [
+        560,
+        164
+      ],
+      "id": "58918303-b18b-53ae-87c3-df3fd39ab4cc"
+    }
+  ],
+  "connections": {
+    "Horário do resumo": {
+      "main": [
+        [
+          {
+            "node": "Escolher dia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escolher dia": {
+      "main": [
+        [
+          {
+            "node": "Ler leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ler leads": {
+      "main": [
+        [
+          {
+            "node": "Contar por faixa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

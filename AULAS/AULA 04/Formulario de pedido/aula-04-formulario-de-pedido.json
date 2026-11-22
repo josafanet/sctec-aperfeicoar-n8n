@@ -1,0 +1,133 @@
+{
+  "name": "Aula 4 · Formulário de pedido",
+  "nodes": [
+    {
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "## Leia primeiro\nA Orbita recebe um pedido de diagnóstico por um formulário do n8n. Depois do envio, você vê o nome, o e-mail e a empresa no último nó.\n\n**Como testar**  \nClique em **Execute workflow**, envie um nome e um e-mail fictícios e abra **Ver pedido → Output**.\n\n**O que treinar**  \nFaça outro envio com a empresa em branco.\n\n**Erros comuns**  \nA Test URL vale durante a escuta. Inicie uma execução para cada envio.",
+        "width": 650,
+        "height": 360
+      },
+      "position": [
+        -48,
+        -420
+      ],
+      "id": "f37f3429-9136-5871-a1d7-0fe27579dbeb"
+    },
+    {
+      "name": "Receber formulário",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "parameters": {
+        "formTitle": "Pedido de diagnóstico da Orbita",
+        "formDescription": "Preencha com os dados de uma empresa fictícia.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nome",
+              "fieldType": "text",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "E-mail",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Empresa",
+              "fieldType": "text",
+              "requiredField": false
+            }
+          ]
+        },
+        "responseMode": "onReceived",
+        "options": {
+          "respondWithOptions": {
+            "values": {
+              "respondWith": "text",
+              "formSubmittedText": "A Orbita recebeu seu pedido de diagnóstico."
+            }
+          }
+        }
+      },
+      "webhookId": "01348aef-5a5d-56c0-9833-29b69631323b",
+      "position": [
+        0,
+        0
+      ],
+      "id": "41ff0c91-ec30-5944-9fcd-0e36705e8bb3"
+    },
+    {
+      "name": "Ver pedido",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9e57d175-2208-5cb5-afaf-7559698eb013",
+              "name": "nome",
+              "type": "string",
+              "value": "={{ $json.Nome.trim() }}"
+            },
+            {
+              "id": "664d38f6-8bf1-52f2-8bf0-44c17211ebde",
+              "name": "email",
+              "type": "string",
+              "value": "={{ $json['E-mail'].trim().toLowerCase() }}"
+            },
+            {
+              "id": "6de7fd95-4a74-5e58-b5b2-f4dd1fd75d03",
+              "name": "empresa",
+              "type": "string",
+              "value": "={{ String($json.Empresa ?? '').trim() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        320,
+        0
+      ],
+      "id": "2a760a7f-84fc-5fb8-a595-679b3f8665d5"
+    },
+    {
+      "name": "Qual URL abrir",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Qual URL abrir?\nNo teste, use **Test URL**. Para receber vários envios em uma atividade, publique uma cópia de treino e compartilhe a **Production URL** do formulário. Despublique a cópia ao terminar.\n\nCredencial: este exercício dispensa login.",
+        "width": 390,
+        "height": 250
+      },
+      "position": [
+        -48,
+        164
+      ],
+      "id": "5c2bd890-2fe4-52d5-adc2-1873a7780859"
+    }
+  ],
+  "connections": {
+    "Receber formulário": {
+      "main": [
+        [
+          {
+            "node": "Ver pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}
