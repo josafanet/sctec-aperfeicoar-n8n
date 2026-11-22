@@ -1,0 +1,155 @@
+{
+  "name": "05 Montar um resumo e avisar no Slack",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "089ddc2e-058d-581c-8f01-7cd671e5eeb7",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "da438457-4fb3-5421-8433-a741b30a07e6",
+              "name": "resumo do lead",
+              "value": "=🔔 Novo lead chegou!\nPessoa: {{ $json.nome }}\nE-mail: {{ $json.email }}\nCelular: {{ $json.whatsapp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "153e49fa-7b1c-5d83-a39b-78dadd2c7372",
+      "name": "Prepara Resumo"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "CONFIGURAR_CANAL_SLACK",
+          "mode": "name"
+        },
+        "text": "={{ $json['resumo do lead'] }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        480,
+        0
+      ],
+      "id": "a6acc7be-834d-50df-984c-d44f740df1b7",
+      "name": "Avisar no Slack",
+      "webhookId": "a1a4a4f5-bce9-56b4-8e69-3cd6fe317475"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nJunta nome, e-mail e celular de um lead fictício num texto só. Depois manda esse texto para um canal do Slack.\n\n### Como testar\n\n1. Clique no botão de play do **Prepara Resumo** para rodar só até ele. Leia o texto em `resumo do lead`.\n2. No **Avisar no Slack**, escolha a sua credencial e o canal de teste.\n3. Clique em **Execute workflow** e veja a mensagem chegar no canal.\n\n### O que treinar\n\n1. Acrescente a empresa ao resumo. O campo `empresa` já vem no **Gatilho Manual**.\n2. Acrescente o link do WhatsApp. Escreva `https://wa.me/55` e arraste o campo `whatsapp` logo depois.\n3. Mande o texto direto no Slack, sem o **Prepara Resumo**. Compare qual jeito fica mais fácil de mudar depois.\n\n### Erros comuns\n\nO Slack pede credencial. Crie a sua em **Credentials** e escolha no nó. Na aula, a autorização foi feita pela conta do Slack.\n\nSe o Slack não achar o canal, escolha o canal pela lista (**From list**) em vez de digitar o nome.\n\nA opção **Include Link to Workflow** já está desligada. Ligada, ela acrescenta um link do n8n no fim da mensagem.",
+        "height": 654,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -760
+      ],
+      "id": "af8e1824-ccea-530a-b707-ddf8162d8977",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "### Por que um nó só para o texto\n\nQuando quiser mudar a mensagem, você mexe só aqui. O Slack recebe o texto pronto.",
+        "height": 161,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        160
+      ],
+      "id": "efcbc6ae-e66b-56bd-a1ba-c46b98c272ea",
+      "name": "Nota resumo"
+    },
+    {
+      "parameters": {
+        "content": "### Credencial\n\nUse a sua. Crie em Credentials e escolha aqui. Escolha também o canal de teste.",
+        "height": 161,
+        "width": 240,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        160
+      ],
+      "id": "894341c1-9826-51a1-be78-a4598246fad5",
+      "name": "Nota credencial"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Prepara Resumo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara Resumo": {
+      "main": [
+        [
+          {
+            "node": "Avisar no Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "nome": "Marina Souza",
+          "email": "marina@grupovale.com.br",
+          "whatsapp": "48998123344",
+          "empresa": "Grupo Vale Logística"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

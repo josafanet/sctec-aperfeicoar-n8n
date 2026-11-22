@@ -1,0 +1,286 @@
+{
+  "name": "01 Testar sem preencher a página",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "testar-sem-pagina",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d288fcda-774e-5734-8d7c-450e5f749903",
+      "name": "Disparo de Gatilho",
+      "webhookId": "b6703277-5a51-556b-a72e-b3aba2437263"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "33d353f9-8bb0-4ac6-841e-afb82deecc8e",
+              "name": "nome",
+              "value": "={{$json.body.nome}}",
+              "type": "string"
+            },
+            {
+              "id": "3bc8ac2e-9538-4bfc-af53-abf3ad96303e",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "bf00e94d-e317-42ee-bd46-d2e5c766ef87",
+              "name": "whatsapp",
+              "value": "={{ $json.body.whatsapp }}",
+              "type": "string"
+            },
+            {
+              "id": "4a997eef-2df6-4ba1-8d2f-0566aff97b90",
+              "name": "empresa",
+              "value": "={{ $json.body.empresa }}",
+              "type": "string"
+            },
+            {
+              "id": "36a7bc9c-3ccb-42ad-9ded-8ded6eeda075",
+              "name": "porte",
+              "value": "={{ $json.body.porte }}",
+              "type": "string"
+            },
+            {
+              "id": "bedf8769-73f6-44b4-90af-483a29c817f5",
+              "name": "area",
+              "value": "={{ $json.body.area }}",
+              "type": "string"
+            },
+            {
+              "id": "599c1420-9d83-4348-bf8c-e691c8ce6221",
+              "name": "prazo",
+              "value": "={{ $json.body.prazo }}",
+              "type": "string"
+            },
+            {
+              "id": "c91c0f2c-02fd-47b9-bd55-dca907468e34",
+              "name": "consentimento",
+              "value": "={{ $json.body.consentimento }}",
+              "type": "string"
+            },
+            {
+              "id": "2d652505-3998-4db8-b960-075727123609",
+              "name": "faturamento",
+              "value": "={{ $json.body.faturamento ?? null }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        240,
+        0
+      ],
+      "id": "e0bc37da-cb57-5127-a1a6-e1dab733beb6",
+      "name": "Variveis"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d9beaea-4469-4f2b-a9fe-e452b406b07b",
+              "name": "nome",
+              "value": "={{ $json.nome.toLowerCase().toTitleCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "693f80ca-36bb-44bf-9cca-2701f7e49344",
+              "name": "faturamento",
+              "value": "={{ $json.faturamento ?? 0 }}",
+              "type": "number"
+            },
+            {
+              "id": "b8e9cf1c-6151-4a0c-8be1-01c78b84a792",
+              "name": "whatsapp",
+              "value": "={{ $json.whatsapp.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "a35367a5-fb30-4235-a5a5-cb7ad8734a2f",
+              "name": "empresa",
+              "value": "={{ $json.empresa }}",
+              "type": "string"
+            },
+            {
+              "id": "fd759c7d-928d-45ce-8834-c59aa2deac41",
+              "name": "porte",
+              "value": "={{ $json.porte }}",
+              "type": "string"
+            },
+            {
+              "id": "0646f462-b67a-4c43-81ba-61e66067f384",
+              "name": "area",
+              "value": "={{ $json.area }}",
+              "type": "string"
+            },
+            {
+              "id": "4031aaa1-9c8d-4c64-820c-89137a76896e",
+              "name": "prazo",
+              "value": "={{ $json.prazo }}",
+              "type": "string"
+            },
+            {
+              "id": "0ccb92bf-fdcf-4a74-8f4f-a5e9664ca563",
+              "name": "consentimento",
+              "value": "={{ $json.consentimento }}",
+              "type": "string"
+            },
+            {
+              "id": "a9948389-11d3-469b-9e2e-ccf6f7537439",
+              "name": "email",
+              "value": "={{ $json.email.trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        480,
+        0
+      ],
+      "id": "79ae90c7-f33b-565c-a9a7-2d7bc6cecc14",
+      "name": "Normalizar Dados"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nO gatilho já tem um pedido fictício fixado. Assim o fluxo roda sem abrir a página e sem copiar a Test URL.\n\n### Como testar\n\nClique em **Execute workflow**. Abra o **Normalizar Dados** e compare a entrada, à esquerda, com a saída, à direita.\n\n### O que treinar\n\n1. Abra o **Disparo de Gatilho** e use o lápis da saída para editar os dados. Troque o nome por `JOCA da silva` e rode de novo.\n2. Coloque espaços antes e depois do e-mail. Veja o `trim()` tirar os espaços.\n3. Mande também `\"faturamento\": \"1500\"` dentro de `body`. Veja o campo virar número no **Variveis**.\n\n### Erros comuns\n\nOs dados fixados não mudam sozinhos. Se a página passou a mandar um campo novo, envie um pedido de verdade e fixe a saída de novo.\n\nSe o **Variveis** mostra campos vazios, confira se os dados estão dentro de `body`.\n\nPara voltar a receber pedidos da página, clique no alfinete da saída do gatilho e solte os dados.",
+        "height": 566,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -620
+      ],
+      "id": "3d036035-f068-546b-b9c6-b88e3667f660",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "### Dados fixados\n\nO alfinete na saída mostra que o pedido está fixado. O n8n usa esse pedido e não espera a página.",
+        "height": 183,
+        "width": 240,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        160
+      ],
+      "id": "15b4f992-7110-5db5-8fb3-bc0f33777ba5",
+      "name": "Nota dados fixados"
+    },
+    {
+      "parameters": {
+        "content": "### O que muda aqui\n\nNome com iniciais maiúsculas, WhatsApp só com números, e-mail sem espaços nas pontas e faturamento 0 quando não vem.",
+        "height": 183,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        420,
+        160
+      ],
+      "id": "5dfcb31b-9324-5e9d-810e-b25b2d0c03ec",
+      "name": "Nota Normalizar"
+    },
+    {
+      "parameters": {
+        "content": "### Testar a chamada\n\nClique em **Execute workflow** e use a Test URL, ou publique o fluxo e use a Production URL. Depois mande a chamada por uma destas ferramentas.\n\n- [Postman](https://www.postman.com/downloads/)\n- [Insomnia](https://insomnia.rest/download)\n- [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client), extensão do VS Code",
+        "height": 350,
+        "width": 320,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        740,
+        -620
+      ],
+      "id": "e6b622c3-92d1-506b-81e2-1aa2fe8e756a",
+      "name": "Testar a chamada"
+    }
+  ],
+  "connections": {
+    "Disparo de Gatilho": {
+      "main": [
+        [
+          {
+            "node": "Variveis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variveis": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Disparo de Gatilho": [
+      {
+        "json": {
+          "headers": {
+            "content-type": "application/json"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "nome": "MARINA souza",
+            "email": "  marina@grupovale.com.br ",
+            "whatsapp": "(48) 99812-3344",
+            "empresa": "Grupo Vale Logística",
+            "porte": "51-200",
+            "area": "atendimento",
+            "prazo": "este-mes",
+            "consentimento": "sim"
+          },
+          "webhookUrl": "",
+          "executionMode": "test"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

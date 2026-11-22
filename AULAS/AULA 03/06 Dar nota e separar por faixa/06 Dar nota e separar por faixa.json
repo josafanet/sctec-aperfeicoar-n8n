@@ -1,0 +1,368 @@
+{
+  "name": "06 Dar nota e separar por faixa",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6b50d734-b98f-5626-96c4-c484757f07cf",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c18c105a-f445-479b-905a-ec69895b81fd",
+              "name": "nome",
+              "value": "={{ ($json.nome || '').trim().toLowerCase().toTitleCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "ecc1cd67-753d-4c30-a6c6-bafbf63b27bb",
+              "name": "email",
+              "value": "={{ ($json.email || '').trim().toLowerCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "39103d84-ab38-4d10-9fad-c4d9b338b1e2",
+              "name": "whatsapp",
+              "value": "={{ ($json.whatsapp || '').replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "4da195f3-8cb1-4591-b350-45c5df5a2db1",
+              "name": "empresa",
+              "value": "={{ ($json.empresa || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "0d5e22ff-b90d-4864-9626-b6d638b922d0",
+              "name": "porte",
+              "value": "={{ ($json.porte || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "5e3da724-425d-42bd-9f31-9d4205fca90a",
+              "name": "area",
+              "value": "={{ ($json.area || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "e0def224-feae-44de-8a34-2701bdcbaa78",
+              "name": "prazo",
+              "value": "={{ ($json.prazo || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "f4a0580a-bd1b-43f2-8d93-9f347e61f6a5",
+              "name": "consentimento",
+              "value": "={{ ($json.consentimento || '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6ad5b16d-746f-53f0-a6ce-23ba79a26468",
+      "name": "Normalizar Dados",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const lead = $json;\nconst prazo = { 'este-mes': 40, 'proximo-trimestre': 25, pesquisando: 5 };\nconst porte = { '200+': 25, '51-200': 20, '11-50': 10, '1-10': 5 };\nconst pessoais = [\n  'gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com.br', 'yahoo.com'\n];\nconst dominio = (lead.email || '').split('@')[1] || '';\nconst nota = (prazo[lead.prazo] || 0) + (porte[lead.porte] || 0)\n  + (dominio && !pessoais.includes(dominio) ? 15 : 0)\n  + (lead.whatsapp ? 10 : 0) + (lead.empresa ? 10 : 0);\nreturn { json: {\n  ...lead, nota,\n  faixa: nota >= 70 ? 'quente' : nota >= 40 ? 'morno' : 'frio'\n} };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "d2a3164d-c96a-5783-96fc-3bdd6064137f",
+      "name": "Nota do lead"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0d225fe9-a4dd-47b5-8c2b-af627116dceb",
+                    "leftValue": "={{ $json.faixa }}",
+                    "rightValue": "quente",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "quente"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9b155886-da87-4d8e-bead-71ffa0653a25",
+                    "leftValue": "={{ $json.faixa }}",
+                    "rightValue": "morno",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "morno"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "4aed48c3-5fcc-59f7-83a7-46a15057ca97",
+      "name": "Faixa",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        720,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        980,
+        -160
+      ],
+      "id": "c944ae60-f162-5f6f-ac36-ab8d1f02a151",
+      "name": "Quente"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        980,
+        0
+      ],
+      "id": "46c4a1d8-60e4-58ec-a259-b4e2577a1f11",
+      "name": "Morno"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        980,
+        160
+      ],
+      "id": "b17fb08d-5387-5337-b571-30437ddd7d4a",
+      "name": "Frio"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nCinco pedidos fictícios da Orbita ganham uma nota de 0 a 100. O Switch **Faixa** manda cada um para quente, morno ou frio.\n\n### Como testar\n\nClique em **Execute workflow**. Nas saídas da **Faixa**, devem passar 2 pedidos em quente, 1 em morno e 2 em frio. Abra o **Nota do lead** e confira as notas 95, 55, 70, 10 e 0.\n\n### O que treinar\n\n1. Antes de abrir o **Nota do lead**, calcule a nota do Pedro com a tabela da nota ao lado.\n2. No **Gatilho Manual**, mude o prazo do Pedro para `este-mes`. A nota sobe para 70 e ele vira quente.\n3. No código, faça o quente começar em 80. Veja a Ana Paula, com 70, passar para morno.\n\n### Erros comuns\n\nO Switch compara o texto exato. `Quente` com letra maiúscula não é igual a `quente`.\n\nO pedido frio sai pela terceira saída, a **Fallback**. Se a opção **Fallback Output** ficar em None, o pedido que não cumpre nenhuma regra some.\n\nPedido sem e-mail ou sem empresa não dá erro. O campo vazio só deixa de somar pontos.",
+        "height": 566,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -800
+      ],
+      "id": "f9e38760-e2ac-5b1d-8779-e6f61c5b2f91",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "### Como a nota é somada\n\nPrazo vale até 40. Porte vale até 25. E-mail de empresa vale 15. WhatsApp e empresa valem 10 cada.\n\nA partir de 70 é quente. De 40 a 69 é morno. Abaixo de 40 é frio.",
+        "height": 218,
+        "width": 300,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        420,
+        160
+      ],
+      "id": "1618e5d9-e355-5ae0-aacb-237172db2989",
+      "name": "Nota pontos"
+    },
+    {
+      "parameters": {
+        "content": "### Complemento da aula 3\n\nEsta parte ficou para a abertura da aula 4. Os nomes dos nós são os mesmos do captador da aula 4.",
+        "height": 161,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        760,
+        -420
+      ],
+      "id": "ab781fb3-5928-5934-a000-8c96d6aace92",
+      "name": "Nota complemento"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Dados": {
+      "main": [
+        [
+          {
+            "node": "Nota do lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nota do lead": {
+      "main": [
+        [
+          {
+            "node": "Faixa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Faixa": {
+      "main": [
+        [
+          {
+            "node": "Quente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Morno",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Frio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "nome": " marina SOUZA ",
+          "email": " MARINA@GrupoVale.com.br ",
+          "whatsapp": "(48) 99812-3344",
+          "empresa": "Grupo Vale Logística",
+          "porte": "51-200",
+          "area": "atendimento",
+          "prazo": "este-mes",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Pedro Lima",
+          "email": "pedro.lima@gmail.com",
+          "whatsapp": "48 3222 1100",
+          "empresa": "Lima Contabilidade",
+          "porte": "11-50",
+          "area": "financeiro",
+          "prazo": "proximo-trimestre",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Ana Paula Reis",
+          "email": "",
+          "whatsapp": "(48) 98877-6655",
+          "empresa": "Clínica Bem Estar",
+          "porte": "11-50",
+          "area": "atendimento",
+          "prazo": "este-mes",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Rafa",
+          "email": "rafa@hotmail.com",
+          "whatsapp": "",
+          "empresa": "",
+          "porte": "1-10",
+          "area": "outro",
+          "prazo": "pesquisando",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Lia"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}
