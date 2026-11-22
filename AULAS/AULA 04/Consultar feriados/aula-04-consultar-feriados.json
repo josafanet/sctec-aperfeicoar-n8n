@@ -1,0 +1,82 @@
+{
+  "name": "Aula 4 · Consultar feriados",
+  "nodes": [
+    {
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "## Leia primeiro\nA Orbita consulta os feriados nacionais antes de sugerir uma reunião. O nó HTTP Request faz uma leitura (GET) na BrasilAPI.\n\n**Como testar**  \nClique em **Execute workflow** e procure **Natal** em **Buscar feriados → Output → JSON**.\n\n**O que treinar**  \nConsulte o ano de 2027. Onde aparece a data de Tiradentes?\n\n**Erros comuns**  \nPara 404, confira o caminho e os quatro dígitos do ano.",
+        "width": 650,
+        "height": 360
+      },
+      "position": [
+        -48,
+        -420
+      ],
+      "id": "d47c9df2-6df0-53df-80ef-950a620c0a61"
+    },
+    {
+      "name": "Começar teste",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "parameters": {},
+      "position": [
+        0,
+        0
+      ],
+      "id": "56ad9bc6-d345-5559-bde9-436b3d451a3f"
+    },
+    {
+      "name": "Buscar feriados",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "parameters": {
+        "method": "GET",
+        "url": "https://brasilapi.com.br/api/feriados/v1/2026",
+        "authentication": "none",
+        "options": {}
+      },
+      "position": [
+        320,
+        0
+      ],
+      "id": "2837e0a1-6afc-538c-988b-4505119e3b80"
+    },
+    {
+      "name": "Ler o retorno",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Um item por feriado\n`date` traz a data no formato ano-mês-dia. `name` traz o nome. A URL é pública e a autenticação fica em **None**.",
+        "width": 380,
+        "height": 180
+      },
+      "position": [
+        260,
+        164
+      ],
+      "id": "e7826cb2-4fdd-5a92-831b-1d959bcd3ca6"
+    }
+  ],
+  "connections": {
+    "Começar teste": {
+      "main": [
+        [
+          {
+            "node": "Buscar feriados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

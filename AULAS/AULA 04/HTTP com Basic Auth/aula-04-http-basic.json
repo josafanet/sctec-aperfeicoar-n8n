@@ -1,0 +1,83 @@
+{
+  "name": "Aula 4 · HTTP com Basic Auth",
+  "nodes": [
+    {
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "## Leia primeiro\nEste exemplo mostra onde o HTTP Request usa usuário e senha para consultar uma API com Basic Auth. Você pode abrir a configuração sem fazer uma chamada.\n\n**Como testar**  \nAbra **Consultar com Basic Auth** e localize **Generic Auth Type → Basic Auth**. A inspeção termina aqui se você ainda não tiver uma API de treino.\n\n**O que treinar**  \nAbra **Create new credential** e localize os dois campos que a API pede. Feche a janela se estiver só explorando o exemplo.\n\n**Erros comuns**  \nO domínio .invalid é de exemplo. Resposta 401 significa que a API recusou a autenticação.",
+        "width": 650,
+        "height": 360
+      },
+      "position": [
+        -48,
+        -420
+      ],
+      "id": "99426591-de31-59b5-be42-9ad3838e1872"
+    },
+    {
+      "name": "Começar teste",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "parameters": {},
+      "position": [
+        0,
+        0
+      ],
+      "id": "5f909737-eea5-5d30-b513-d45077b1611c"
+    },
+    {
+      "name": "Consultar com Basic Auth",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.exemplo.invalid/CONFIGURAR_RECURSO",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {}
+      },
+      "position": [
+        320,
+        0
+      ],
+      "id": "975d2747-e0d1-527d-999a-2bdbb0187c3f"
+    },
+    {
+      "name": "Credencial da API",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Credencial\nCredencial: use a sua. Crie em Credentials e escolha aqui.\n\nPreencha **User** e **Password** com o usuário e a senha da sua API de treino. Use uma URL HTTPS da mesma API que emitiu a credencial.",
+        "width": 420,
+        "height": 225
+      },
+      "position": [
+        260,
+        164
+      ],
+      "id": "430e5e4a-2866-5c60-be69-45bdbbe7e751"
+    }
+  ],
+  "connections": {
+    "Começar teste": {
+      "main": [
+        [
+          {
+            "node": "Consultar com Basic Auth",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

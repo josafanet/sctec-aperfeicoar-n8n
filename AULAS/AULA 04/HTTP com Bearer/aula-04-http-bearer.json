@@ -1,0 +1,83 @@
+{
+  "name": "Aula 4 · HTTP com Bearer Auth",
+  "nodes": [
+    {
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "## Leia primeiro\nEste exemplo mostra onde o HTTP Request usa um token de acesso para consultar uma API com Bearer Auth. Você pode abrir a configuração sem fazer uma chamada.\n\n**Como testar**  \nAbra **Consultar com Bearer Auth** e localize **Generic Auth Type → Bearer Auth**. A inspeção termina aqui se você ainda não tiver uma API de treino.\n\n**O que treinar**  \nAbra **Create new credential** e localize o campo do token. Feche a janela se estiver só explorando o exemplo.\n\n**Erros comuns**  \nO domínio .invalid é de exemplo. Resposta 401 significa que a API recusou a autenticação.",
+        "width": 650,
+        "height": 360
+      },
+      "position": [
+        -48,
+        -420
+      ],
+      "id": "84e7c0db-8d77-5d8e-8046-a697e65ed7f1"
+    },
+    {
+      "name": "Começar teste",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "parameters": {},
+      "position": [
+        0,
+        0
+      ],
+      "id": "f25523da-78c3-50b8-a08d-2d2a9a80aae2"
+    },
+    {
+      "name": "Consultar com Bearer Auth",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.exemplo.invalid/CONFIGURAR_RECURSO",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "options": {}
+      },
+      "position": [
+        320,
+        0
+      ],
+      "id": "f1bb7dea-e243-5b7b-8387-3c5139ccc635"
+    },
+    {
+      "name": "Credencial da API",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Credencial\nCredencial: use a sua. Crie em Credentials e escolha aqui.\n\nEm **Bearer Token**, informe apenas o token da sua API de treino. O nó acrescenta o prefixo Bearer ao enviar. Use uma URL HTTPS da mesma API que emitiu a credencial.",
+        "width": 420,
+        "height": 225
+      },
+      "position": [
+        260,
+        164
+      ],
+      "id": "b7c8f0e9-db70-5fd7-948a-01a037a42ea1"
+    }
+  ],
+  "connections": {
+    "Começar teste": {
+      "main": [
+        [
+          {
+            "node": "Consultar com Bearer Auth",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

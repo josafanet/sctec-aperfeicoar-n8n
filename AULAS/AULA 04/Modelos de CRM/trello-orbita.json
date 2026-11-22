@@ -1,0 +1,336 @@
+{
+  "name": "Orbita Labs · Montar meu quadro no Trello",
+  "nodes": [
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000001",
+      "name": "Montar minha cópia",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        96
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000003",
+      "name": "Meu quadro",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        96
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0afccb3d-5767-4484-b286-000000000002",
+              "name": "endereco_quadro",
+              "type": "string",
+              "value": "CONFIGURAR_URL_DO_QUADRO"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000004",
+      "name": "Validar endereço",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        96
+      ],
+      "parameters": {
+        "jsCode": "const endereco = String($input.first().json.endereco_quadro || '').trim();\nconst partes = /^https:\\/\\/trello\\.com\\/b\\/([A-Za-z0-9]{8})(?:[/?#]|$)/.exec(endereco);\nif (!partes) throw new Error('Cole o endereço da barra do navegador com o seu quadro aberto em trello.com/b/.');\nreturn [{ json: { codigo: partes[1] } }];"
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000005",
+      "name": "Ler quadro",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        688,
+        96
+      ],
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "trelloApi",
+        "url": "=https://api.trello.com/1/boards/{{ $('Validar endereço').first(0, 0).json.codigo }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "name,url,prefs"
+            },
+            {
+              "name": "lists",
+              "value": "open"
+            },
+            {
+              "name": "list_fields",
+              "value": "name"
+            },
+            {
+              "name": "labels",
+              "value": "all"
+            },
+            {
+              "name": "label_fields",
+              "value": "name,color"
+            },
+            {
+              "name": "cards",
+              "value": "visible"
+            },
+            {
+              "name": "card_fields",
+              "value": "name"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000006",
+      "name": "Conferir modelo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        928,
+        96
+      ],
+      "parameters": {
+        "jsCode": "const quadro = $input.first().json;\nif (quadro.name !== 'Orbita Labs · Diagnósticos' || quadro.prefs?.permissionLevel !== 'private') {\n  throw new Error('Use um quadro novo e privado com o nome Orbita Labs · Diagnósticos.');\n}\nif (![quadro.lists, quadro.labels, quadro.cards].every(Array.isArray)) {\n  throw new Error('A consulta precisa devolver listas, etiquetas e cartões. Confira o nó Ler quadro.');\n}\nconst etapas = [\"Novo lead\",\"Contato feito\",\"Diagnóstico agendado\",\"Proposta\",\"Fechado\"];\nconst cores = { quente: 'red', morno: 'yellow', frio: 'blue' };\nconst exemplos = [\n  {\n    \"nome\": \"Ateliê de Papel · Bia Luz\",\n    \"email\": \"bia@atelie.example\",\n    \"whatsapp\": \"\",\n    \"porte\": \"1-10\",\n    \"area\": \"atendimento\",\n    \"prazo\": \"pesquisando\",\n    \"nota\": 35,\n    \"faixa\": \"frio\",\n    \"etapa\": \"Novo lead\"\n  },\n  {\n    \"nome\": \"Oficina de Cerâmica · Caio Melo\",\n    \"email\": \"caio@oficina.example\",\n    \"whatsapp\": \"\",\n    \"porte\": \"11-50\",\n    \"area\": \"financeiro\",\n    \"prazo\": \"proximo-trimestre\",\n    \"nota\": 60,\n    \"faixa\": \"morno\",\n    \"etapa\": \"Contato feito\"\n  },\n  {\n    \"nome\": \"Estúdio de Luz · Nina Reis\",\n    \"email\": \"nina@estudio.example\",\n    \"whatsapp\": \"\",\n    \"porte\": \"51-200\",\n    \"area\": \"vendas\",\n    \"prazo\": \"este-mes\",\n    \"nota\": 85,\n    \"faixa\": \"quente\",\n    \"etapa\": \"Diagnóstico agendado\"\n  },\n  {\n    \"nome\": \"Mercado da Praça · Davi Cruz\",\n    \"email\": \"davi@mercado.example\",\n    \"whatsapp\": \"(00) 90000-0000\",\n    \"porte\": \"200+\",\n    \"area\": \"operacoes\",\n    \"prazo\": \"proximo-trimestre\",\n    \"nota\": 85,\n    \"faixa\": \"quente\",\n    \"etapa\": \"Proposta\"\n  },\n  {\n    \"nome\": \"Gráfica Horizonte · Lia Alves\",\n    \"email\": \"lia@grafica.example\",\n    \"whatsapp\": \"(00) 90000-0000\",\n    \"porte\": \"11-50\",\n    \"area\": \"outro\",\n    \"prazo\": \"pesquisando\",\n    \"nota\": 50,\n    \"faixa\": \"morno\",\n    \"etapa\": \"Fechado\"\n  }\n];\n\nconst listasExtras = quadro.lists.filter(lista => !etapas.includes(lista.name));\nif (listasExtras.length) {\n  throw new Error('O quadro contém outras listas. Se forem as listas iniciais vazias do quadro novo, arquive-as no Trello e execute de novo.');\n}\nfunction identificar(itens, nome) {\n  const encontrados = itens.filter(item => item.name === nome);\n  if (encontrados.length > 1) throw new Error('Há nomes repetidos no quadro: ' + nome);\n  return encontrados[0];\n}\nfunction criar(caminho, parametros) {\n  // O quadro pode ter ficado pronto entre duas execuções. Leia-o antes de cada escrita.\n  if ($runIndex >= 16) throw new Error('O quadro não refletiu as últimas mudanças. Confira o Trello e inicie novamente.');\n  return [{ json: { pronto: false, caminho, parametros } }];\n}\nfor (const [indice, etapa] of etapas.entries()) {\n  if (!identificar(quadro.lists, etapa)) {\n    return criar('boards/' + quadro.id + '/lists', { name: etapa, pos: String((indice + 1) * 65536) });\n  }\n}\nfor (const [faixa, cor] of Object.entries(cores)) {\n  if (!identificar(quadro.labels, faixa)) {\n    return criar('boards/' + quadro.id + '/labels', { name: faixa, color: cor });\n  }\n}\nfor (const exemplo of exemplos) {\n  if (identificar(quadro.cards, exemplo.nome)) continue;\n  const descricao = [\n    'Exemplo fictício da Orbita Labs.',\n    'E-mail: ' + exemplo.email, 'WhatsApp: ' + (exemplo.whatsapp || 'não informado'),\n    'Porte: ' + exemplo.porte, 'Área: ' + exemplo.area, 'Prazo: ' + exemplo.prazo,\n    'Nota: ' + exemplo.nota, 'Faixa: ' + exemplo.faixa,\n  ].join('\\n');\n  return criar('cards', {\n    name: exemplo.nome,\n    desc: descricao,\n    idList: identificar(quadro.lists, exemplo.etapa).id,\n    idLabels: identificar(quadro.labels, exemplo.faixa).id,\n  });\n}\nreturn [{ json: {\n  pronto: true,\n  quadro: quadro.url,\n  lista_novo_lead: identificar(quadro.lists, 'Novo lead').id,\n  etiqueta_quente: identificar(quadro.labels, 'quente').id,\n  etiqueta_morno: identificar(quadro.labels, 'morno').id,\n  etiqueta_frio: identificar(quadro.labels, 'frio').id,\n} }];"
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000008",
+      "name": "Quadro pronto?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        96
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0afccb3d-5767-4484-b286-000000000007",
+              "leftValue": "={{ $json.pronto }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000009",
+      "name": "IDs para o captador",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        48
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000010",
+      "name": "Criar item que falta",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1168,
+        320
+      ],
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "trelloApi",
+        "method": "POST",
+        "url": "=https://api.trello.com/1/{{ $json.caminho }}",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={{ JSON.stringify($json.parametros) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000011",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -240
+      ],
+      "parameters": {
+        "height": 240,
+        "width": 450,
+        "color": 5,
+        "content": "## Leia primeiro\nUse este fluxo em um **quadro novo**. No Trello, crie um quadro privado chamado `Orbita Labs · Diagnósticos`. Deixe-o sem listas. Em **Meu quadro**, cole o endereço da barra do navegador. O modelo monta 5 etapas, 3 etiquetas e 5 cartões fictícios."
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000012",
+      "name": "Sua credencial",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -240
+      ],
+      "parameters": {
+        "height": 240,
+        "width": 478,
+        "color": 4,
+        "content": "## Sua credencial\nEm **Ler quadro** e **Criar item que falta**, selecione sua credencial **Trello API**. Salve a chave e o token apenas na credencial do n8n. Para começar, clique em **Execute workflow**."
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000013",
+      "name": "Teste e erros",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        980,
+        -240
+      ],
+      "parameters": {
+        "height": 240,
+        "width": 528,
+        "color": 3,
+        "content": "## Teste e erros\nAbra **IDs para o captador** no fim. Confira os 4 IDs e o link do quadro. Se uma execução parar, abra o nó vermelho e o quadro. Corrigido o problema, rode desde o início. O fluxo consulta o quadro antes de criar o próximo item."
+      }
+    },
+    {
+      "id": "0afccb3d-5767-4484-b286-000000000014",
+      "name": "Treino",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        304
+      ],
+      "parameters": {
+        "height": 190,
+        "width": 475,
+        "color": 7,
+        "content": "## Treino\nAbra o cartão de Bia no Trello. Qual é a faixa? Mova-o até **Contato feito**. Ele deve conservar a etiqueta `frio` e a nota 35. Depois arraste-o de volta para **Novo lead**."
+      }
+    }
+  ],
+  "connections": {
+    "Montar minha cópia": {
+      "main": [
+        [
+          {
+            "node": "Meu quadro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meu quadro": {
+      "main": [
+        [
+          {
+            "node": "Validar endereço",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar endereço": {
+      "main": [
+        [
+          {
+            "node": "Ler quadro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ler quadro": {
+      "main": [
+        [
+          {
+            "node": "Conferir modelo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conferir modelo": {
+      "main": [
+        [
+          {
+            "node": "Quadro pronto?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quadro pronto?": {
+      "main": [
+        [
+          {
+            "node": "IDs para o captador",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Criar item que falta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar item que falta": {
+      "main": [
+        [
+          {
+            "node": "Ler quadro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

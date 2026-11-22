@@ -1,0 +1,159 @@
+{
+  "name": "Aula 4 · Gravar um pedido no Google Sheets",
+  "nodes": [
+    {
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "## Leia primeiro\nCada execução acrescenta um pedido fictício ao fim da aba Pedidos. O Google Sheets recebe os três campos preparados no nó Pedido fictício.\n\n**Como testar**  \nCrie os três cabeçalhos, conecte o Google e escolha a aba em **Acrescentar linha**. Clique em **Execute workflow** e abra a planilha.\n\n**O que treinar**  \nMude o pedido e faça uma segunda gravação.\n\n**Erros comuns**  \nSe uma coluna não for encontrada, compare o cabeçalho com os nomes em **Pedido fictício**.",
+        "width": 650,
+        "height": 360
+      },
+      "position": [
+        -48,
+        -420
+      ],
+      "id": "63a18d91-a643-5387-b070-f4fc6a7f6afa"
+    },
+    {
+      "name": "Começar teste",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "parameters": {},
+      "position": [
+        0,
+        0
+      ],
+      "id": "be0a2681-d5a6-5b28-b524-d9c3e539f97d"
+    },
+    {
+      "name": "Pedido fictício",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "276603e6-f3a2-5336-b272-2ee0172d3365",
+              "name": "nome",
+              "type": "string",
+              "value": "Ana de Teste"
+            },
+            {
+              "id": "47208c87-5c7e-5ebb-a1b7-01af7015397a",
+              "name": "email",
+              "type": "string",
+              "value": "ana@example.com"
+            },
+            {
+              "id": "6e8cef00-bbc9-55bb-b67c-c4d597c0b974",
+              "name": "empresa",
+              "type": "string",
+              "value": "Oficina de Teste"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "position": [
+        320,
+        0
+      ],
+      "id": "25a5823b-e6fa-5565-9986-4bc7ff27fb5e"
+    },
+    {
+      "name": "Acrescentar linha",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "sheet",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "CONFIGURAR_PLANILHA"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "CONFIGURAR_ABA"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {
+          "handlingExtraData": "error"
+        }
+      },
+      "position": [
+        640,
+        0
+      ],
+      "id": "4f78ad79-0073-5c0b-b96b-cf6617210366"
+    },
+    {
+      "name": "Preparar a aba",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Três colunas\nNa aba **Pedidos**, digite `nome` em A1, `email` em B1 e `empresa` em C1. O mapeamento automático combina os campos do pedido com os títulos dessas colunas.",
+        "width": 340,
+        "height": 200
+      },
+      "position": [
+        240,
+        164
+      ],
+      "id": "9d09b497-959a-5302-b036-f213e665f1a8"
+    },
+    {
+      "name": "Credencial do Google",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "parameters": {
+        "content": "### Credencial\nCredencial: use a sua. Crie em Credentials e escolha aqui.\n\nEm **Document** e **Sheet**, selecione sua planilha e a aba **Pedidos**. A conta Google precisa poder editar.",
+        "width": 355,
+        "height": 200
+      },
+      "position": [
+        602,
+        164
+      ],
+      "id": "119badd9-4493-5d6a-a986-65de9cf60a62"
+    }
+  ],
+  "connections": {
+    "Começar teste": {
+      "main": [
+        [
+          {
+            "node": "Pedido fictício",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pedido fictício": {
+      "main": [
+        [
+          {
+            "node": "Acrescentar linha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}
