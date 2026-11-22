@@ -1,20 +1,22 @@
 # Orbita Labs v1
 
-Primeira versão do projeto da Orbita Labs. A página da campanha envia o pedido do cliente para o n8n e o fluxo responde na hora agradecendo pelo nome
+Primeira versão do projeto da Orbita Labs, montada na aula 1
 
-## O que tem no fluxo
+## O que faz
 
-O Disparo de Gatilho recebe o pedido por POST no caminho senai-orbita-v1. Ele aceita chamadas de qualquer origem para que o formulário do site consiga falar com o n8n
+A página da campanha manda o pedido do cliente para o n8n e o fluxo responde na hora, agradecendo pelo nome
 
-O Declarar Variaveis separa o campo nome que veio no corpo da requisição
+O Disparo de Gatilho recebe o pedido por POST no caminho senai-orbita-v1. O Allowed Origins com * deixa o formulário do site falar com o n8n
 
-O Resposta do Gatilho devolve um texto simples com a expressão abaixo
+O Declarar Variaveis separa o campo nome que veio no corpo
+
+O Resposta do Gatilho devolve o texto com esta expressão
 
 ```
 {{ 'Recebemos seu pedido, ' + String($json.nome ?? '').trim() + '!' }}
 ```
 
-O ?? coloca um texto vazio quando o nome não vem, assim o fluxo não quebra. O String garante que o valor vire texto e o trim tira os espaços que sobram no começo e no fim
+O ?? troca o nome que não veio por um texto vazio, e o fluxo não quebra. O String garante que o valor vire texto. O trim tira os espaços do começo e do fim
 
 ## Como testar
 
@@ -24,4 +26,15 @@ Importe, clique em Execute workflow e copie a Test URL do Disparo de Gatilho. Ma
 curl -X POST "COLE_A_TEST_URL_AQUI" -H "Content-Type: application/json" -d '{"nome":"  Ana  "}'
 ```
 
-A resposta deve chegar como Recebemos seu pedido, Ana! sem os espaços extras. Teste também sem mandar o nome para ver o que acontece
+A resposta tem que chegar como Recebemos seu pedido, Ana! sem os espaços extras
+
+## O que treinar
+
+1. Mande o pedido sem o campo nome e veja o que volta
+2. Mude o texto da resposta para incluir o nome da empresa, Orbita Labs
+
+## Erros comuns
+
+Se a página fica sem resposta, confira o Allowed Origins do gatilho. Sem o * o navegador bloqueia a chamada
+
+A Orbita Labs v1 teste usa o mesmo caminho. Só uma das duas pode ficar publicada

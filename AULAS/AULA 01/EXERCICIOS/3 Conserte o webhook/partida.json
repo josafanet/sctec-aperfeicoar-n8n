@@ -1,0 +1,132 @@
+{
+  "name": "Exercicio 3 Conserte o webhook (partida)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "exercicio-inscricao",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9bdaecd4-2f93-4fcf-ac49-3c257bff666b",
+      "name": "Receber Inscricao",
+      "webhookId": "197ae13d-04f6-4ec0-a4b4-f77f9d4678d1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2963a1c6-a07d-4dca-a7a2-495847a8b387",
+              "name": "nome",
+              "value": "={{ $json.query.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "101d9860-6844-44a5-ad25-7af63366cb8d",
+              "name": "turma",
+              "value": "={{ $json.body.turma }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        0
+      ],
+      "id": "3691a914-699d-4e12-a572-b6af12f7703a",
+      "name": "Separar Dados"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Inscriçao confirmada, {{ $json.nome }}! Sua turma é a {{ $json.turma }}.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        520,
+        0
+      ],
+      "id": "0bf77d8a-fb76-4c18-a7b0-bc68b01988b1",
+      "name": "Confirmar Inscricao"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**O que fazer**\nEste fluxo tem 3 defeitos. Ache e conserte até a resposta sair assim\nInscrição confirmada, Ana! Sua turma é a T1.\n\n**Como testar**\nClique em Execute workflow, copie a Test URL do Receber Inscricao e mande um POST com nome e turma. O comando está no README\n\n**Gabarito**\nEstá no arquivo gabarito.json da mesma pasta. Tente antes de abrir",
+        "height": 400,
+        "width": 720,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -440
+      ],
+      "id": "bc42a18a-65f4-429a-ad40-290d2cbebe06",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Leia a mensagem de erro que volta na chamada. Ela já diz qual é o primeiro defeito",
+        "height": 200,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        140
+      ],
+      "id": "50f367c3-6287-439d-a294-ab3cff79aab3",
+      "name": "Nota dica"
+    }
+  ],
+  "connections": {
+    "Receber Inscricao": {
+      "main": [
+        [
+          {
+            "node": "Separar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar Dados": {
+      "main": [
+        [
+          {
+            "node": "Confirmar Inscricao",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

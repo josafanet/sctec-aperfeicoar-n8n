@@ -166,10 +166,8 @@
       "parameters": {
         "dataTableId": {
           "__rl": true,
-          "value": "r8IPDBNcPm0aXwyd",
-          "mode": "list",
-          "cachedResultName": "leads",
-          "cachedResultUrl": "/projects/YXFs6K7fFxZHhbob/datatables/r8IPDBNcPm0aXwyd"
+          "value": "CONFIGURAR_TABELA_LEADS",
+          "mode": "id"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -307,19 +305,67 @@
     },
     {
       "parameters": {
-        "content": "## Orbita Labs v2\nRecebe o formulário completo por POST em orbita-v2, separa os campos no Variaveis, arruma o nome e o WhatsApp no Normalizar Dados e guarda o pedido na tabela leads\n\nNo Adicionar Lead escolha a sua própria Data Table, porque a que vem no arquivo é a do professor",
-        "height": 416,
-        "width": 1280,
+        "content": "## Leia primeiro\n**O que faz**\nRecebe o formulário completo da página, separa os campos, arruma o nome e o WhatsApp e guarda cada pedido na tabela leads\n\n**Como testar**\nAntes, crie uma Data Table chamada leads (as colunas estão no README) e escolha ela no Adicionar Lead. Depois clique em Execute workflow e abra a página da campanha com ?webhook= e a sua Test URL no fim do endereço\n\n**O que treinar**\nMande o nome todo em maiúsculas e o WhatsApp com parênteses e traço. Abra o Normalizar Dados e compare a entrada com a saída\n\n**Erros comuns**\nO pedido não chega na tabela quando o Adicionar Lead ainda não tem a sua tabela escolhida. Um campo novo não aparece quando o gatilho está com dados fixados antigos",
+        "height": 420,
+        "width": 1080,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
       "position": [
         -240,
-        -224
+        -500
       ],
+      "id": "9a329a10-7ac9-4a50-a2f2-980ef89528bc",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "O nó se chama Variveis, sem o a, do jeito que a turma criou. O faturamento está como Number só para treinar o tipo do campo, porque a página não manda esse campo",
+        "height": 240,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "id": "00c0097d-8bd1-4f98-ae8f-9487d5fc80c8",
-      "name": "Sticky Note"
+      "position": [
+        0,
+        150
+      ],
+      "id": "95a99d82-0f03-42d5-a0d3-b5d52a3328c6",
+      "name": "Nota Variveis"
+    },
+    {
+      "parameters": {
+        "content": "`toLowerCase().toTitleCase()` deixa MARIA borges como Maria Borges\n\n`replace(/\\D/g, '')` apaga tudo que não é número no WhatsApp",
+        "height": 240,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        150
+      ],
+      "id": "571350db-5167-4553-a3b4-b398318cd4b5",
+      "name": "Nota Normalizar"
+    },
+    {
+      "parameters": {
+        "content": "Escolha a sua tabela. Crie uma Data Table leads no seu n8n e selecione ela aqui",
+        "height": 240,
+        "width": 220,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        480,
+        150
+      ],
+      "id": "6475e5c7-e610-4bb8-a349-0e9220b3f4c5",
+      "name": "Nota tabela"
     }
   ],
   "connections": {
@@ -371,7 +417,8 @@
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
   },
   "active": false,
   "meta": null,

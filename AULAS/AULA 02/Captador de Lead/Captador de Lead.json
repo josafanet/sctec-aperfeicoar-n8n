@@ -34,19 +34,51 @@
     },
     {
       "parameters": {
-        "content": "## Captador de Lead\nExemplo da aula 2 para ver os erros mais comuns do webhook\n\nO Responder a chamada está solto e o gatilho responde na hora com Workflow was started. Ligue o Responder a chamada e troque o Respond do gatilho para Using Respond to Webhook Node para ver o AGORA FOI",
-        "height": 416,
-        "width": 912,
+        "content": "## Leia primeiro\n**O que faz**\nMostra os dois erros mais comuns na resposta do webhook. Do jeito que está, quem chama recebe Workflow was started e nunca o AGORA FOI\n\n**Como testar**\nClique em Execute workflow, copie a Test URL do gatilho e mande um POST. O comando está no README\n\n**O que treinar**\n1. Ligue o Responder a chamada depois do gatilho e troque o Respond do gatilho para Using Respond to Webhook Node. Agora chega o AGORA FOI\n2. Desligue o Responder a chamada e não mexa no Respond. A chamada volta com erro 500\n\n**Erros comuns**\nErro 500 é o Respond esperando um nó de resposta que não está ligado. Erro 404 é a Test URL que já parou de escutar",
+        "height": 460,
+        "width": 820,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
       "position": [
         -96,
-        -224
+        -540
       ],
+      "id": "2264b953-2ee2-43ea-a9e9-fb28464baade",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "O Respond deste gatilho está em Immediately. Ele responde na hora, antes de qualquer outro nó rodar",
+        "height": 200,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "id": "2a889bdf-4c51-423a-8387-7dcacce17aff",
-      "name": "Sticky Note"
+      "position": [
+        -48,
+        150
+      ],
+      "id": "4096068b-f33c-4dde-a1f0-bed103639fd8",
+      "name": "Nota gatilho"
+    },
+    {
+      "parameters": {
+        "content": "Solto de propósito. Sem ligação com o gatilho, este nó nunca roda",
+        "height": 200,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        150
+      ],
+      "id": "9ab20f28-b631-40cc-a671-4c3d0a655870",
+      "name": "Nota resposta solta"
     }
   ],
   "connections": {
@@ -59,7 +91,8 @@
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
   },
   "active": false,
   "meta": null,

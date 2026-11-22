@@ -1,0 +1,185 @@
+{
+  "name": "Exercicio 3 Alerta de chuva na visita (gabarito)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1283d20f-95f4-4b48-af43-28747e0fa8fc",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"cliente\": \"Oficina do Seu Jorge\",\n  \"cidade\": \"Joinville\",\n  \"data_visita\": \"2026-11-25\",\n  \"chuva\": 80,\n  \"vento\": 20,\n  \"temperatura\": 29\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "3d9a9a30-fa3c-4dba-ac5b-47d2f5969559",
+      "name": "Previsao de Amanha"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5fb4af1e-879a-4471-acd0-7e529c498d22",
+              "leftValue": "={{ $json.chuva }}",
+              "rightValue": 70,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "47928e82-dc7f-4a49-a852-228a7e114af9",
+      "name": "Chuva forte?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        740,
+        -100
+      ],
+      "id": "422a9a53-6d9c-458b-a0c6-802a044d9b2a",
+      "name": "Reagendar visita"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        740,
+        100
+      ],
+      "id": "c3d892ec-abfe-44c9-ae57-7aa34b97f1db",
+      "name": "Visita mantida"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n**Gabarito**\nO IF compara a chance de chuva com 70. Com 80, a visita vai para Reagendar visita\n\n**Compare**\nTroque chuva para 40 no Previsao de Amanha. Agora a visita cai em Visita mantida",
+        "height": 440,
+        "width": 720,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -580
+      ],
+      "id": "54420520-7d3d-458a-a691-d10f574594da",
+      "name": "Leia primeiro"
+    },
+    {
+      "parameters": {
+        "content": "Os números da previsão estão fixos, digitados em modo JSON. Numa aula mais à frente eles vêm de uma API de clima",
+        "height": 220,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        140
+      ],
+      "id": "dd24fff3-eea7-431a-a50e-5412cbea4a23",
+      "name": "Nota previsao"
+    },
+    {
+      "parameters": {
+        "content": "Number, is greater than or equal. A chuva está sem aspas no JSON, então já chega como número",
+        "height": 220,
+        "width": 220,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        140
+      ],
+      "id": "3f7a32a1-d6ce-4810-af8c-a761e6a16a3a",
+      "name": "Nota IF"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Previsao de Amanha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Previsao de Amanha": {
+      "main": [
+        [
+          {
+            "node": "Chuva forte?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chuva forte?": {
+      "main": [
+        [
+          {
+            "node": "Reagendar visita",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Visita mantida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}
