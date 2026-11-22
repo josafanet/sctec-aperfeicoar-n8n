@@ -67,7 +67,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**Gabarito**\nTrês consertos. O gatilho passou de GET para POST. O nome passou a ser lido do body, e não da query. A palavra Inscrição ganhou o til\n\n**Compare**\nMande o mesmo POST do README e veja a resposta completa",
-        "height": 320,
+        "height": 400,
         "width": 720,
         "color": 4
       },
@@ -75,7 +75,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -360
+        -440
       ],
       "id": "dd7c1af8-f8d7-42a0-abe0-dda07c62bf33",
       "name": "Leia primeiro"

@@ -38,7 +38,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**Gabarito**\nUm campo etiqueta com três expressões. O nome e o sobrenome passam pelo toUpperCase, a empresa sai como veio\n\n**Compare**\nSe o seu ficou diferente e a saída está igual, está certo também",
-        "height": 300,
+        "height": 380,
         "width": 520,
         "color": 4
       },
@@ -46,7 +46,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -340
+        -420
       ],
       "id": "00731542-5c3f-478c-af03-73993de57661",
       "name": "Leia primeiro"

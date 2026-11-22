@@ -32,7 +32,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**O que faz**\nEspera uma chamada GET no caminho cadastro e passa para o Normalizar tudo o que chegou\n\n**Como testar**\nClique em Execute workflow, abra o Webhook Boas Vindas e copie a Test URL. Cole no navegador com ?nome=Ana no fim e volte para o n8n\n\n**O que treinar**\nO Normalizar está vazio de propósito. Crie nele um campo nome com o valor que veio na URL\n\n**Erros comuns**\nA Test URL escuta uma chamada só. Se o navegador mostrar 404, clique em Execute workflow de novo e recarregue a página",
-        "height": 340,
+        "height": 420,
         "width": 520,
         "color": 4
       },
@@ -40,7 +40,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -400
+        -480
       ],
       "id": "3f06fbaa-783d-4e56-ade6-9a7aef1fa552",
       "name": "Leia primeiro"

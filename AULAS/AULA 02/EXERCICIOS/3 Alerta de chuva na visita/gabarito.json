@@ -85,7 +85,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**Gabarito**\nO IF compara a chance de chuva com 70. Com 80, a visita vai para Reagendar visita\n\n**Compare**\nTroque chuva para 40 no Previsao de Amanha. Agora a visita cai em Visita mantida",
-        "height": 360,
+        "height": 440,
         "width": 720,
         "color": 4
       },
@@ -93,7 +93,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -500
+        -580
       ],
       "id": "54420520-7d3d-458a-a691-d10f574594da",
       "name": "Leia primeiro"

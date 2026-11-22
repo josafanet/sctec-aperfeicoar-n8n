@@ -37,8 +37,6 @@ Se o navegador mostrar 404, a Test URL parou de escutar. Clique em Execute workf
 
 Se a mensagem sai com as chaves e tudo, o Response Body ainda está em Fixed
 
-Espaço e acento na URL podem virar códigos como %20. Para treinar, use nomes curtos sem acento
-
 ## Gabarito
 
 Está em gabarito.json, nesta mesma pasta. Ele escuta no caminho exercicio-mensagem-gabarito, para não brigar com o seu

@@ -62,7 +62,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**Gabarito**\nQuantidade, preço e total saem como número. Entregue sai como verdadeiro ou falso, a partir de uma comparação com a palavra sim\n\n**Compare**\nTroque entregue para nao nos dados fixados. O campo tem que sair false",
-        "height": 340,
+        "height": 420,
         "width": 560,
         "color": 4
       },
@@ -70,7 +70,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -380
+        -460
       ],
       "id": "92836ada-3207-488b-a5ab-c16a8bd9678b",
       "name": "Leia primeiro"

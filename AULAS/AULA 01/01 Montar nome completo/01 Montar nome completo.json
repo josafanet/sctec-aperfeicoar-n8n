@@ -38,7 +38,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**O que faz**\nPega um aluno com nome e sobrenome e monta o campo nomecompleto, no formato Borges, Kelvis\n\n**Como testar**\nClique em Execute workflow e abra o Normalizar Dados. O gatilho já tem dados fixados, então você não precisa digitar nada\n\n**O que treinar**\nTroque o nome e o sobrenome nos dados fixados e rode de novo. Depois mude a expressão para sair Kelvis Borges, sem vírgula\n\n**Erros comuns**\nCampo vazio na saída quase sempre é nome escrito diferente. Para o n8n, aluno.nome e Aluno.Nome são campos diferentes",
-        "height": 340,
+        "height": 420,
         "width": 520,
         "color": 4
       },
@@ -46,7 +46,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -380
+        -460
       ],
       "id": "4438f8a0-a02e-438e-af92-88c463973ecf",
       "name": "Leia primeiro"

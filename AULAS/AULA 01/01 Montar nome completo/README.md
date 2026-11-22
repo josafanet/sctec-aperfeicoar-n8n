@@ -28,4 +28,4 @@ Importe o arquivo, clique em Execute workflow e abra o Normalizar Dados. Na saí
 
 Campo vazio na saída quase sempre é nome escrito diferente. Para o n8n, aluno.nome e Aluno.Nome são dois campos diferentes
 
-Se você apagar o pin do gatilho, ele roda sem dado nenhum e o nomecompleto sai só com a vírgula
+Antes de tirar o pin do gatilho, copie os dados fixados. Sem eles, o Normalizar Dados não tem aluno nenhum para ler

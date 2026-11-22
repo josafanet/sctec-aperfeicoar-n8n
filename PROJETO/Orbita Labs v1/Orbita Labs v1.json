@@ -61,7 +61,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**O que faz**\nPrimeira versão do projeto. A página da Orbita Labs manda o pedido por POST e o fluxo responde agradecendo pelo nome\n\n**Como testar**\nClique em Execute workflow, copie a Test URL do Disparo de Gatilho e mande um POST com o campo nome. O comando está no README\n\n**O que treinar**\nMande o nome com espaços sobrando e veja que eles somem na resposta. Depois mande sem nome nenhum\n\n**Erros comuns**\nSe a página fica sem resposta, confira o Allowed Origins do gatilho. Sem o * o navegador bloqueia a chamada",
-        "height": 340,
+        "height": 420,
         "width": 680,
         "color": 4
       },
@@ -69,7 +69,7 @@
       "typeVersion": 1,
       "position": [
         -96,
-        -440
+        -520
       ],
       "id": "20d0e438-882c-45f5-a6b4-3d07f02f3f02",
       "name": "Leia primeiro"

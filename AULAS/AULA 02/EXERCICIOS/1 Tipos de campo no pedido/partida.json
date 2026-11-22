@@ -31,7 +31,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**O que fazer**\nNo Converter Tipos, crie os campos produto (String), quantidade e preco (Number), total (Number, quantidade vezes preço) e entregue (Boolean)\n\n**Como testar**\nClique em Execute workflow e abra o Converter Tipos. O total tem que dar 50 e o entregue tem que sair true\n\n**Gabarito**\nEstá no arquivo gabarito.json da mesma pasta. Tente antes de abrir",
-        "height": 340,
+        "height": 420,
         "width": 560,
         "color": 4
       },
@@ -39,7 +39,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -380
+        -460
       ],
       "id": "65f30d94-033e-4527-a9c2-947867f054b4",
       "name": "Leia primeiro"

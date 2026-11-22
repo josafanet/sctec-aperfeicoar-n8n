@@ -31,7 +31,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**O que fazer**\nNo Montar Etiqueta, crie um campo etiqueta que saia assim\nANA SOUZA | Padaria Pão Quente\n\n**Como testar**\nClique em Execute workflow e abra o Montar Etiqueta. Os dados do participante já estão fixados no gatilho\n\n**Gabarito**\nEstá no arquivo gabarito.json da mesma pasta. Tente antes de abrir",
-        "height": 300,
+        "height": 380,
         "width": 520,
         "color": 4
       },
@@ -39,7 +39,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -340
+        -420
       ],
       "id": "0303e28b-5ea1-49df-a781-0adbe63f8cf7",
       "name": "Leia primeiro"

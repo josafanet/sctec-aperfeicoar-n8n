@@ -37,7 +37,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**O que fazer**\nFaça o Responder Mensagem devolver o texto abaixo, com o nome e o curso que vierem na URL\nQue bom ter você no curso de Excel, Ana!\n\n**Como testar**\nClique em Execute workflow, copie a Test URL do Receber Visita e cole no navegador com ?nome=Ana&curso=Excel no fim\n\n**Gabarito**\nEstá no arquivo gabarito.json da mesma pasta. Tente antes de abrir",
-        "height": 320,
+        "height": 400,
         "width": 560,
         "color": 4
       },
@@ -45,7 +45,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -360
+        -440
       ],
       "id": "4712c620-eb94-409a-aae7-f242cdfbca7e",
       "name": "Leia primeiro"

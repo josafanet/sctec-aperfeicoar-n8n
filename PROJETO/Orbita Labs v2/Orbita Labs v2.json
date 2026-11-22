@@ -306,7 +306,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**O que faz**\nRecebe o formulário completo da página, separa os campos, arruma o nome e o WhatsApp e guarda cada pedido na tabela leads\n\n**Como testar**\nAntes, crie uma Data Table chamada leads (as colunas estão no README) e escolha ela no Adicionar Lead. Depois clique em Execute workflow e abra a página da campanha com ?webhook= e a sua Test URL no fim do endereço\n\n**O que treinar**\nMande o nome todo em maiúsculas e o WhatsApp com parênteses e traço. Abra o Normalizar Dados e compare a entrada com a saída\n\n**Erros comuns**\nO pedido não chega na tabela quando o Adicionar Lead ainda não tem a sua tabela escolhida. Um campo novo não aparece quando o gatilho está com dados fixados antigos",
-        "height": 340,
+        "height": 420,
         "width": 1080,
         "color": 4
       },
@@ -314,7 +314,7 @@
       "typeVersion": 1,
       "position": [
         -240,
-        -420
+        -500
       ],
       "id": "9a329a10-7ac9-4a50-a2f2-980ef89528bc",
       "name": "Leia primeiro"

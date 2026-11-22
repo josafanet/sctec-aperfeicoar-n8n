@@ -155,7 +155,7 @@
     {
       "parameters": {
         "content": "## Leia primeiro\n**Gabarito**\nO Limpar Dados arruma o nome da empresa e deixa o CNPJ só com números. O IF confere se sobraram 14 dígitos\n\n**Compare**\nA Papelaria Boa Vista vai para a tabela. A Limpa Tudo tem só 12 dígitos e cai em CNPJ invalido",
-        "height": 360,
+        "height": 440,
         "width": 760,
         "color": 4
       },
@@ -163,7 +163,7 @@
       "typeVersion": 1,
       "position": [
         -48,
-        -500
+        -580
       ],
       "id": "d018beea-df0b-4ff0-afa9-f0a9ac308dab",
       "name": "Leia primeiro"
