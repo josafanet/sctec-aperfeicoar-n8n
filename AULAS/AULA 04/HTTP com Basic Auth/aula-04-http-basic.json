@@ -6,7 +6,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "parameters": {
-        "content": "## Leia primeiro\nEste exemplo mostra onde o HTTP Request usa usuário e senha para consultar uma API com Basic Auth. Você pode abrir a configuração sem fazer uma chamada.\n\n**Como testar**  \nAbra **Consultar com Basic Auth** e localize **Generic Auth Type → Basic Auth**. A inspeção termina aqui se você ainda não tiver uma API de treino.\n\n**O que treinar**  \nAbra **Create new credential** e localize os dois campos que a API pede. Feche a janela se estiver só explorando o exemplo.\n\n**Erros comuns**  \nO domínio .invalid é de exemplo. Resposta 401 significa que a API recusou a autenticação.",
+        "content": "## Leia primeiro\nEste exemplo mostra onde o HTTP Request guarda usuário e senha para consultar uma API com Basic Auth. A chamada vai para o httpbin.org, um serviço público de teste.\n\n**Como testar**  \nEm **Consultar com Basic Auth**, crie a credencial com User `aluno` e Password `senha-de-treino`. Clique em **Execute workflow**. A saída traz `authenticated: true`.\n\n**O que treinar**  \nTroque a senha da credencial por outra qualquer e rode de novo. A API responde 401. Volte a senha certa.\n\n**Erros comuns**  \nResposta 401 significa que a API recusou o usuário ou a senha. Confira os dois na credencial.",
         "width": 650,
         "height": 360
       },
@@ -33,7 +33,7 @@
       "typeVersion": 4.2,
       "parameters": {
         "method": "GET",
-        "url": "https://api.exemplo.invalid/CONFIGURAR_RECURSO",
+        "url": "https://httpbin.org/basic-auth/aluno/senha-de-treino",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpBasicAuth",
         "options": {}
@@ -49,9 +49,9 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "parameters": {
-        "content": "### Credencial\nCredencial: use a sua. Crie em Credentials e escolha aqui.\n\nPreencha **User** e **Password** com o usuário e a senha da sua API de treino. Use uma URL HTTPS da mesma API que emitiu a credencial.",
+        "content": "### Credencial de treino\nNo campo de credencial, escolha **Create new credential**. User: `aluno`. Password: `senha-de-treino`.\n\nOs dois valores estão escritos na própria URL, e o httpbin.org aceita o par que estiver ali. Numa API de verdade, a senha nunca aparece na URL nem no canvas.",
         "width": 420,
-        "height": 225
+        "height": 250
       },
       "position": [
         260,

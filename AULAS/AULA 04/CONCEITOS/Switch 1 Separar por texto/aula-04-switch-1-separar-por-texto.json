@@ -1,0 +1,275 @@
+{
+  "name": "Aula 4 · Switch 1 · Separar por texto",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b24fc710-28ad-59dc-af29-1b413a75aa86",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b2a998c5-a3d1-5fb1-add4-93e566d367f6",
+                    "leftValue": "={{ $json.setor }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "financeiro"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "financeiro"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "baa5ea93-64b0-5284-ad1b-46d7ecd07515",
+                    "leftValue": "={{ $json.setor }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "suporte"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "suporte"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "93bb4a15-e298-5a1a-ad22-827b00c06134",
+                    "leftValue": "={{ $json.setor }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "vendas"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "vendas"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "f223dc0f-6639-51d9-aa66-d6147144492f",
+      "name": "Qual setor?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        -255
+      ],
+      "id": "6badcea5-2066-52ff-a7b6-c10d874223e5",
+      "name": "Fila do financeiro"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        -85
+      ],
+      "id": "97678d53-d1e7-54a9-a454-c2356c2c7370",
+      "name": "Fila do suporte"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        85
+      ],
+      "id": "8a9093df-68dd-5da4-a70a-b2b5656e9f3c",
+      "name": "Fila de vendas"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        255
+      ],
+      "id": "1ef4e879-3284-5be3-afa2-88bbcfaf8074",
+      "name": "Sem fila definida"
+    },
+    {
+      "parameters": {
+        "content": "### Uma saída por regra\n\nCada regra do Switch cria uma saída com o nome dela. A última, **Fallback**, recebe o que sobrou.",
+        "height": 167,
+        "width": 280,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        780,
+        -80
+      ],
+      "id": "52dbc87c-853e-55d9-a5be-e0d826c7402b",
+      "name": "Nota saidas"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nCinco chamados fictícios de atendimento passam pelo Switch **Qual setor?**. Cada um vai para a fila do setor escrito no chamado. O que não bate com nenhuma regra sai pela **Fallback**. O fluxo não envia nada.\n\n### Como testar\n\nClique em **Execute workflow**. O número em cada ligação mostra quantos chamados passaram por ali: 1 no financeiro, 1 no suporte, 1 em vendas e 2 em **Sem fila definida**.\n\n### O que treinar\n\n1. Antes de rodar, diga para qual fila vai cada chamado.\n2. O chamado do Tiago ficou fora da fila de vendas. Abra o Switch, ligue **Ignore Case** em **Options** e rode de novo.\n3. Crie uma quarta regra para `rh` e ligue a saída nova a um nó **No Operation**.\n\n### Erros comuns\n\nO Switch compara o texto exato. `Vendas` com letra maiúscula não é igual a `vendas`.\n\nSe **Fallback Output** ficar em None, o chamado que não cumpre nenhuma regra some sem aviso.\n\nO IF tem só duas saídas. Para três caminhos ou mais, um Switch substitui uma fila de IFs.",
+        "height": 470,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -865
+      ],
+      "id": "682c7b42-c980-5139-a03e-d4350877c315",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Qual setor?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qual setor?": {
+      "main": [
+        [
+          {
+            "node": "Fila do financeiro",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fila do suporte",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fila de vendas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sem fila definida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "cliente": "Joana",
+          "setor": "financeiro",
+          "mensagem": "O boleto veio com o valor errado."
+        }
+      },
+      {
+        "json": {
+          "cliente": "Marcos",
+          "setor": "suporte",
+          "mensagem": "Não consigo entrar no sistema."
+        }
+      },
+      {
+        "json": {
+          "cliente": "Lívia",
+          "setor": "vendas",
+          "mensagem": "Quero um orçamento para 20 licenças."
+        }
+      },
+      {
+        "json": {
+          "cliente": "Tiago",
+          "setor": "Vendas",
+          "mensagem": "Quero contratar o plano anual."
+        }
+      },
+      {
+        "json": {
+          "cliente": "Sueli",
+          "setor": "rh",
+          "mensagem": "Preciso do informe de rendimentos."
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

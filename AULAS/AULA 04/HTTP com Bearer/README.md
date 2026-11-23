@@ -1,23 +1,25 @@
 # HTTP com Bearer Auth
 
-Este exemplo mostra onde o HTTP Request usa um token de acesso para consultar uma API com Bearer Auth. Você pode abrir a configuração sem fazer uma chamada.
+Este exemplo mostra onde o HTTP Request guarda um token de acesso para consultar uma API com Bearer Auth. A chamada vai para o [httpbin.org](https://httpbin.org/), um serviço público de teste. Você não precisa de conta em lugar nenhum.
 
 ## Como testar
 
 Abra um workflow novo no n8n. No menu **⋯**, escolha **Import from File** e selecione [o JSON deste exemplo](aula-04-http-bearer.json).
 
-1. Abra **Consultar com Bearer Auth** e localize **Authentication → Generic Credential Type** e **Generic Auth Type → Bearer Auth**. O domínio com `.invalid` é fictício.
-2. Para fazer uma chamada, obtenha na documentação da sua própria API de treino uma URL HTTPS de leitura (GET) que aceite Bearer Auth. Cole essa URL no lugar do exemplo.
-3. No campo de credencial, escolha **Create new credential**. Em **Bearer Token**, informe apenas o token da sua API de treino. O nó acrescenta o prefixo Bearer ao enviar. Salve a credencial e confira se ela ficou selecionada no nó.
-4. Clique em **Execute workflow** e abra a saída da consulta. Compare o recurso recebido com o que a documentação da sua API descreve.
+1. Abra **Consultar com Bearer Auth** e localize **Authentication → Generic Credential Type** e **Generic Auth Type → Bearer Auth**.
+2. No campo de credencial, escolha **Create new credential**. Em **Bearer Token**, escreva `token-de-treino-123`. Salve e confira se a credencial ficou selecionada no nó.
+3. Clique em **Execute workflow** e abra a saída da consulta. Ela traz `authenticated: true` e, em `token`, o valor que você digitou.
+
+O httpbin.org aceita qualquer token e devolve o que recebeu. Uma API de verdade responde 401 quando o token está errado ou vencido.
 
 ## O que treinar
 
-Abra **Create new credential** e localize o campo do token. Feche a janela se estiver só explorando o exemplo.
+1. Troque o token por outro texto e rode de novo. O valor novo aparece na resposta.
+2. Compare com o exemplo **HTTP com Basic Auth**. No nó, só o **Generic Auth Type** muda.
 
 ## Erros comuns
 
-- Se o domínio ainda termina em `.invalid`, troque a URL inteira pelo endereço da API de treino.
-- Em caso de 401, confira a validade do token e se o campo contém apenas o valor, sem a palavra Bearer.
+- No campo vai só o token, sem a palavra Bearer. O nó acrescenta o prefixo ao enviar.
+- Se a chamada demorar ou der erro de servidor, o serviço de teste pode estar fora do ar. Espere um minuto e rode de novo.
 
 Consulte os [tipos de autenticação do HTTP Request](https://docs.n8n.io/integrations/builtin/credentials/httprequest/).

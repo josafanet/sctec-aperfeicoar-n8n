@@ -1,0 +1,264 @@
+{
+  "name": "Aula 4 · Loop · Processar em lotes",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        100
+      ],
+      "id": "5ee51182-b73f-5302-a826-81a01daa38fe",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dec59faa-6b6c-54b5-a798-13723510458c",
+              "name": "mensagem",
+              "value": "={{ 'Olá, ' + $json.nome + '! Sua matrícula no curso de ' + $json.curso + ' foi confirmada.' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        -80
+      ],
+      "id": "fed0c929-68a7-579f-a44b-16148a789a48",
+      "name": "Montar mensagem"
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        280,
+        280
+      ],
+      "id": "7f201ce7-a3e4-5e0a-a719-922afb521ff8",
+      "name": "De 2 em 2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "761c84de-3210-5bd3-a4d0-1cdad293886e",
+              "name": "lote",
+              "value": "={{ $runIndex + 1 }}",
+              "type": "number"
+            },
+            {
+              "id": "793a3293-d123-589a-a5b8-56a2fcc2ab90",
+              "name": "mensagem",
+              "value": "={{ 'Olá, ' + $json.nome + '! Sua matrícula no curso de ' + $json.curso + ' foi confirmada.' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        540,
+        360
+      ],
+      "id": "5f97313c-dc56-5c83-a4f7-66ca721aeb93",
+      "name": "Preparar envio"
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "seconds"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        360
+      ],
+      "id": "b8f8eabc-2fcd-5f61-a733-348626bba0f8",
+      "name": "Esperar 2 segundos",
+      "webhookId": "a0104013-186f-5c70-aa09-be645484f92f"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        180
+      ],
+      "id": "02c40be2-62de-5898-a936-214216ec7284",
+      "name": "Todos enviados"
+    },
+    {
+      "parameters": {
+        "content": "### Sem laço\n\nEntraram 6 itens, o nó tratou os 6. Não foi preciso laço.",
+        "height": 139,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        520,
+        -120
+      ],
+      "id": "c834917b-4f2c-570d-af7c-779cc1c571de",
+      "name": "Nota sem laco"
+    },
+    {
+      "parameters": {
+        "content": "### Com laço\n\nA saída **loop** entrega um lote. O último nó volta para o Loop Over Items, que entrega o lote seguinte. Quando acaba, tudo sai por **done**.",
+        "height": 185,
+        "width": 340,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        220,
+        540
+      ],
+      "id": "27480545-7a0f-5968-add3-5d39a7e4a169",
+      "name": "Nota com laco"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nSeis contatos fictícios vão receber um aviso de matrícula. No caminho de cima, o **Montar mensagem** roda para os seis de uma vez, sem laço, porque todo nó do n8n já repete a ação para cada item. No caminho de baixo, o Loop Over Items **De 2 em 2** entrega dois contatos por vez e espera 2 segundos entre os lotes. É o jeito de respeitar o limite de envios de um serviço. Nada é enviado de verdade.\n\n### Como testar\n\nClique em **Execute workflow** e espere uns 6 segundos. No **Montar mensagem**, os 6 contatos saem numa execução só. No **Preparar envio**, o seletor **Run 1 of 3** mostra três lotes de 2 contatos, com o campo `lote` em 1, 2 e 3. O **Todos enviados** recebe os 6 no fim.\n\n### O que treinar\n\n1. Antes de rodar, diga quantas vezes o **Preparar envio** vai rodar.\n2. No **De 2 em 2**, mude **Batch Size** para 3 e rode. Quantos lotes aparecem?\n3. Mude **Batch Size** para 1. O fluxo passa a tratar um contato por vez.\n\n### Erros comuns\n\nO último nó do laço precisa voltar para o Loop Over Items. Sem essa ligação, só o primeiro lote roda.\n\nA saída **done** só recebe os itens quando todos os lotes terminam. O que vem depois do laço fica ligado nela.\n\nPara repetir uma ação em cada item, não precisa de laço. O Loop Over Items serve para dividir em lotes.",
+        "height": 567,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -787
+      ],
+      "id": "3010073d-299a-588e-a284-1fcb5d673500",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Montar mensagem",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "De 2 em 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "De 2 em 2": {
+      "main": [
+        [
+          {
+            "node": "Todos enviados",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Preparar envio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar envio": {
+      "main": [
+        [
+          {
+            "node": "Esperar 2 segundos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Esperar 2 segundos": {
+      "main": [
+        [
+          {
+            "node": "De 2 em 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "nome": "Alice",
+          "curso": "Excel"
+        }
+      },
+      {
+        "json": {
+          "nome": "Bento",
+          "curso": "Excel"
+        }
+      },
+      {
+        "json": {
+          "nome": "Cecília",
+          "curso": "Power BI"
+        }
+      },
+      {
+        "json": {
+          "nome": "Davi",
+          "curso": "Power BI"
+        }
+      },
+      {
+        "json": {
+          "nome": "Eva",
+          "curso": "Lógica"
+        }
+      },
+      {
+        "json": {
+          "nome": "Fábio",
+          "curso": "Lógica"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

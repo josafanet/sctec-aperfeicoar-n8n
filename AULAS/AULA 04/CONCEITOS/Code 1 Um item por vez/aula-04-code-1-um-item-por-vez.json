@@ -1,0 +1,111 @@
+{
+  "name": "Aula 4 · Code 1 · Um item por vez",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "56e159a5-21e7-5d10-a1df-f03704b50cb0",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const pedido = $json;\nconst subtotal = pedido.quantidade * pedido.preco_unitario;\nconst frete = subtotal >= 200 ? 0 : 25;\nreturn { json: {\n  ...pedido, subtotal, frete,\n  total: subtotal + frete\n} };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "ae4d255c-1f8a-5165-a815-df9af8f693a4",
+      "name": "Calcular total"
+    },
+    {
+      "parameters": {
+        "content": "### Como ler o código\n\n`$json` é o item da vez. `...pedido` copia os campos que já existiam. Depois da vírgula vêm os campos novos.",
+        "height": 172,
+        "width": 300,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        180
+      ],
+      "id": "27012702-a3df-5359-a13a-1a5b37c6d2da",
+      "name": "Nota como ler"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nTrês pedidos fictícios de uma papelaria passam pelo nó **Calcular total**. O código multiplica a quantidade pelo preço, decide o frete e soma o total. Compra a partir de R$ 200 não paga frete. Abaixo disso, o frete é R$ 25.\n\n### Como testar\n\nClique em **Execute workflow** e abra o **Calcular total**. Entram 3 itens e saem 3 itens. Cada um ganhou `subtotal`, `frete` e `total`. Confira os totais 240, 115 e 200.\n\n### O que treinar\n\n1. Antes de rodar, calcule no papel o total do Caio.\n2. No código, faça o frete grátis começar em 250. O pedido da Bruna, de 240, passa a pagar frete.\n3. Crie o campo `desconto`, com 10% do subtotal, e devolva ele junto com os outros.\n\n### Erros comuns\n\nO modo do nó precisa ser **Run Once for Each Item**. Nesse modo, `$json` é o item da vez.\n\nDevolva sempre `{ json: { ... } }`. É o formato de item que os outros nós esperam.\n\nNúmero que chega como texto engana na soma: `\"3\" + 2` vira `\"32\"`. Converta antes com `Number(...)`.",
+        "height": 468,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -608
+      ],
+      "id": "127832e5-9d55-5627-abe3-1aeb06baa439",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Calcular total",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "cliente": "Bruna",
+          "produto": "Caderno universitário",
+          "quantidade": 3,
+          "preco_unitario": 80
+        }
+      },
+      {
+        "json": {
+          "cliente": "Caio",
+          "produto": "Estojo",
+          "quantidade": 2,
+          "preco_unitario": 45
+        }
+      },
+      {
+        "json": {
+          "cliente": "Dani",
+          "produto": "Caneta gel",
+          "quantidade": 10,
+          "preco_unitario": 20
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

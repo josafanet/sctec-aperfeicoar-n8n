@@ -1,0 +1,266 @@
+{
+  "name": "Aula 4 · Filter · Ficar só com o que interessa",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        100
+      ],
+      "id": "aad579d6-c94a-5aef-ad87-9678343e175f",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ab1580ef-9873-5e02-a52d-5e352b8aa18f",
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "pago"
+            },
+            {
+              "id": "050f355a-11f1-5432-ac55-744f2251daa1",
+              "leftValue": "={{ $json.valor }}",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              },
+              "rightValue": 100
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        280,
+        -40
+      ],
+      "id": "0d4269aa-285c-5536-a4b4-611d692cebde",
+      "name": "Pagos a partir de 100"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        -40
+      ],
+      "id": "ad229bde-a1e8-5761-a53e-78437c021cc9",
+      "name": "Seguem para a entrega"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fe39857e-396a-57a3-af9f-a8072aa07687",
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "pago"
+            },
+            {
+              "id": "5802e243-568a-5b72-a19d-bab00f4e7cf2",
+              "leftValue": "={{ $json.valor }}",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              },
+              "rightValue": 100
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        280,
+        260
+      ],
+      "id": "45a7f780-7256-5424-ada4-0e038a5cf97d",
+      "name": "Pago a partir de 100?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        180
+      ],
+      "id": "e8592fe4-79de-565c-ab5d-0f28807af35f",
+      "name": "Passou"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        350
+      ],
+      "id": "99b112eb-5ce2-534b-a48c-ee89ff610724",
+      "name": "Ficou de fora"
+    },
+    {
+      "parameters": {
+        "content": "### Filter ou IF?\n\nSó importa quem passa: **Filter**.\n\nQuem não passa também tem um destino: **IF**.",
+        "height": 155,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        780,
+        20
+      ],
+      "id": "ab92cd8f-68dd-51f0-a94e-34ba7a22f00e",
+      "name": "Nota diferenca"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nSeis pedidos fictícios de uma loja. O Filter **Pagos a partir de 100** deixa passar só quem cumpre as duas condições: status `pago` e valor de 100 ou mais. Embaixo, o IF **Pago a partir de 100?** faz a mesma pergunta. O IF tem duas saídas. O Filter tem uma, e o que não passa para ali.\n\n### Como testar\n\nClique em **Execute workflow**. No caminho de cima, 3 pedidos chegam em **Seguem para a entrega**: Bia, Otto e Rute. No caminho de baixo, 3 saem pelo true e 3 pelo false.\n\n### O que treinar\n\n1. Antes de rodar, conte quantos pedidos passam.\n2. No Filter, troque **AND** por **OR** e rode. Agora passa quem pagou ou quem comprou 100 ou mais. Só o Saulo fica de fora.\n3. Abra o Filter depois de rodar. Na saída, a aba **Discarded** guarda os pedidos que não passaram.\n\n### Erros comuns\n\nSe o pedido que não passou também precisa de um destino, o nó certo é o IF.\n\nCom **AND**, todas as condições têm de ser verdadeiras. Com **OR**, basta uma.\n\n`Pago` com letra maiúscula não é igual a `pago`. Ligue **Ignore Case** ou padronize o texto antes.",
+        "height": 494,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -674
+      ],
+      "id": "94804c99-4c0e-55ba-ab2c-ab59c6aaff86",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Pagos a partir de 100",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Pago a partir de 100?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pagos a partir de 100": {
+      "main": [
+        [
+          {
+            "node": "Seguem para a entrega",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pago a partir de 100?": {
+      "main": [
+        [
+          {
+            "node": "Passou",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ficou de fora",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "cliente": "Bia",
+          "valor": 250,
+          "status": "pago"
+        }
+      },
+      {
+        "json": {
+          "cliente": "Léo",
+          "valor": 80,
+          "status": "pago"
+        }
+      },
+      {
+        "json": {
+          "cliente": "Nina",
+          "valor": 400,
+          "status": "pendente"
+        }
+      },
+      {
+        "json": {
+          "cliente": "Otto",
+          "valor": 120,
+          "status": "pago"
+        }
+      },
+      {
+        "json": {
+          "cliente": "Rute",
+          "valor": 100,
+          "status": "pago"
+        }
+      },
+      {
+        "json": {
+          "cliente": "Saulo",
+          "valor": 60,
+          "status": "cancelado"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

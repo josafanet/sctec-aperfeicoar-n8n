@@ -1,0 +1,167 @@
+{
+  "name": "Aula 4 · Code 3 · A nota em JavaScript e em Python",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        100
+      ],
+      "id": "49ec959b-37bd-5a52-ab61-a59c2fa19a58",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const lead = $json;\nconst prazo = { 'este-mes': 40, 'proximo-trimestre': 25, pesquisando: 5 };\nconst porte = { '200+': 25, '51-200': 20, '11-50': 10, '1-10': 5 };\nconst pessoais = [\n  'gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com.br', 'yahoo.com'\n];\nconst dominio = (lead.email || '').split('@')[1] || '';\nconst nota = (prazo[lead.prazo] || 0) + (porte[lead.porte] || 0)\n  + (dominio && !pessoais.includes(dominio) ? 15 : 0)\n  + (lead.whatsapp ? 10 : 0) + (lead.empresa ? 10 : 0);\nreturn { json: {\n  ...lead, nota,\n  faixa: nota >= 70 ? 'quente' : nota >= 40 ? 'morno' : 'frio',\n  etapa: 'Novo lead'\n} };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        280,
+        0
+      ],
+      "id": "93f685a8-87b2-5b50-a435-228b84ea8d2e",
+      "name": "Nota em JavaScript"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "pythonNative",
+        "pythonCode": "lead = _item[\"json\"]\nprazo = {\"este-mes\": 40, \"proximo-trimestre\": 25, \"pesquisando\": 5}\nporte = {\"200+\": 25, \"51-200\": 20, \"11-50\": 10, \"1-10\": 5}\npessoais = [\n    \"gmail.com\", \"hotmail.com\", \"outlook.com\", \"yahoo.com.br\", \"yahoo.com\"\n]\n\nemail = lead.get(\"email\") or \"\"\ndominio = email.split(\"@\")[1] if \"@\" in email else \"\"\n\nnota = prazo.get(lead.get(\"prazo\"), 0) + porte.get(lead.get(\"porte\"), 0)\nif dominio and dominio not in pessoais:\n    nota += 15\nif lead.get(\"whatsapp\"):\n    nota += 10\nif lead.get(\"empresa\"):\n    nota += 10\n\nif nota >= 70:\n    faixa = \"quente\"\nelif nota >= 40:\n    faixa = \"morno\"\nelse:\n    faixa = \"frio\"\n\nreturn {\"json\": {**lead, \"nota\": nota, \"faixa\": faixa, \"etapa\": \"Novo lead\"}}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        280,
+        200
+      ],
+      "id": "c54dc627-3c55-5753-ac41-b85e6db1d928",
+      "name": "Nota em Python"
+    },
+    {
+      "parameters": {
+        "content": "### Mesma regra, duas linguagens\n\n| JavaScript | Python |\n|---|---|\n| `$json` | `_item[\"json\"]` |\n| `const nota = ...` | `nota = ...` |\n| `prazo[x] \\|\\| 0` | `prazo.get(x, 0)` |\n| `a ? b : c` | `if`, `elif`, `else` |\n| `{ ...lead, nota }` | `{**lead, \"nota\": nota}` |",
+        "height": 300,
+        "width": 380,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        520,
+        -20
+      ],
+      "id": "432deee7-9e62-5f11-a754-943b4960bb7b",
+      "name": "Nota dicionario"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nCinco pedidos fictícios da Orbita passam por dois nós Code com a mesma regra. O de cima está em JavaScript, igual ao do captador. O de baixo está em Python. As notas e as faixas saem iguais nos dois.\n\n### Como testar\n\nClique em **Execute workflow**. Abra **Nota em JavaScript** e depois **Nota em Python**. Nos dois, as notas são 95, 55, 70, 10 e 0, e as faixas são quente, morno, quente, frio e frio.\n\n### O que treinar\n\n1. Ache, nos dois códigos, a linha que dá 15 pontos ao e-mail de empresa.\n2. Nos dois, faça o quente começar em 80. A Ana Paula, com 70, vira morno nos dois.\n3. No nó Code, abra o campo **Language** e veja as duas opções. Quando troca a linguagem, o n8n guarda um código para cada uma.\n\n### Erros comuns\n\nNo Python, o item da vez é `_item[\"json\"]`, com colchetes e aspas. `$json` só existe no JavaScript.\n\nNo Python, o recuo no começo da linha faz parte do código. Linha fora do lugar dá erro.\n\nNo captador da aula a regra fica em JavaScript. O nó **Reunir pedido e cartão** busca dados de outro nó com `$('Lead qualificado')`, e o Python do n8n só enxerga o que entra nele.",
+        "height": 511,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -651
+      ],
+      "id": "829048a2-2f36-5743-a1ad-5f9c5801bc5f",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Nota em JavaScript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Nota em Python",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "nome": "Marina Souza",
+          "email": "marina@grupovale.com.br",
+          "whatsapp": "48998123344",
+          "empresa": "Grupo Vale Logística",
+          "porte": "51-200",
+          "area": "atendimento",
+          "prazo": "este-mes",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Pedro Lima",
+          "email": "pedro.lima@gmail.com",
+          "whatsapp": "4832221100",
+          "empresa": "Lima Contabilidade",
+          "porte": "11-50",
+          "area": "financeiro",
+          "prazo": "proximo-trimestre",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Ana Paula Reis",
+          "email": "",
+          "whatsapp": "48988776655",
+          "empresa": "Clínica Bem Estar",
+          "porte": "11-50",
+          "area": "atendimento",
+          "prazo": "este-mes",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Rafa",
+          "email": "rafa@hotmail.com",
+          "whatsapp": "",
+          "empresa": "",
+          "porte": "1-10",
+          "area": "outro",
+          "prazo": "pesquisando",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Lia",
+          "email": "",
+          "whatsapp": "",
+          "empresa": "",
+          "porte": "",
+          "area": "",
+          "prazo": "",
+          "consentimento": ""
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

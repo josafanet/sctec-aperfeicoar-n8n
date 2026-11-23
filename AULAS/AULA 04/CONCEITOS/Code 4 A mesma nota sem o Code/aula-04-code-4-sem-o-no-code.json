@@ -1,0 +1,1366 @@
+{
+  "name": "Aula 4 · Code 4 · A mesma nota sem o nó Code",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6b9605b0-c68e-5492-addd-bfe39769897b",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "bfb74b1f-68c3-5ef5-af6d-6e220b4e1945",
+                    "leftValue": "={{ $json.prazo }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "este-mes"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "este-mes"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7ecb889b-57e9-5cb4-a990-13de03e481fa",
+                    "leftValue": "={{ $json.prazo }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "proximo-trimestre"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "proximo-trimestre"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a0543b15-8df3-54ec-a655-471a8b64f5c8",
+                    "leftValue": "={{ $json.prazo }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "pesquisando"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "pesquisando"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "ef3ddcfa-7834-5593-ab29-e3bcc5d5a2c6",
+      "name": "Qual prazo?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0ae03a1f-2272-5784-a56e-0dc1e8350719",
+              "name": "pontos_prazo",
+              "value": 40,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        -255
+      ],
+      "id": "bcbb9bf9-32e0-550d-aa00-f0d35a5ff65f",
+      "name": "Prazo vale 40"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "205ca4d3-e241-590f-af56-021b39074b34",
+              "name": "pontos_prazo",
+              "value": 25,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        -85
+      ],
+      "id": "838e06c7-a923-50cc-ae21-e3cdc82a0d90",
+      "name": "Prazo vale 25"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "735725ec-34f6-533b-af21-d7011bbe1f3b",
+              "name": "pontos_prazo",
+              "value": 5,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        85
+      ],
+      "id": "0e21cbe2-1ea3-573e-a5a6-381d9ea9a0bd",
+      "name": "Prazo vale 5"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4b0bfca8-a00c-55bb-a221-dda15047f410",
+              "name": "pontos_prazo",
+              "value": 0,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        255
+      ],
+      "id": "edeb48d3-1fdf-5478-aa4b-d46c734fd013",
+      "name": "Prazo vale 0 (sem resposta)"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b2e7006b-b01a-5168-aab4-dc6f537d872a",
+                    "leftValue": "={{ $json.porte }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "200+"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "200+"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "537fbd48-8dec-59f1-a902-18b9e07baa5f",
+                    "leftValue": "={{ $json.porte }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "51-200"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "51-200"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2f38ed5c-a9d5-54b6-ab81-18c14ce90ed8",
+                    "leftValue": "={{ $json.porte }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "11-50"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "11-50"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1a4d2226-f0b2-500a-a9ff-45205c5a46e2",
+                    "leftValue": "={{ $json.porte }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "rightValue": "1-10"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "1-10"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        780,
+        0
+      ],
+      "id": "d60f677c-2dc6-561b-acc1-05bd16d306f5",
+      "name": "Qual porte?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6ab58938-448c-5f09-ae94-12e24bef5a21",
+              "name": "pontos_porte",
+              "value": 25,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        -340
+      ],
+      "id": "3230fb9e-73bf-5818-a9f5-803bbd3cabaf",
+      "name": "Porte vale 25"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ea523e04-040f-5bc5-a00d-aa363f7542ff",
+              "name": "pontos_porte",
+              "value": 20,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        -170
+      ],
+      "id": "ca4fee72-b18e-599f-a5a3-3dd28de7a3a3",
+      "name": "Porte vale 20"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a7f4476a-f686-5756-a3b9-ff6cf32b26d9",
+              "name": "pontos_porte",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "0626a735-0572-5cef-a023-c9f0bc504ead",
+      "name": "Porte vale 10"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "401be371-2f00-5c73-ac39-23e39a923b4d",
+              "name": "pontos_porte",
+              "value": 5,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        170
+      ],
+      "id": "3fbb77bb-8236-546a-aada-62d9c3b23f27",
+      "name": "Porte vale 5"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "577d7eaa-7204-5f82-aef3-f8bd342a3ede",
+              "name": "pontos_porte",
+              "value": 0,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        340
+      ],
+      "id": "b0fd24a3-cc01-5630-aff0-9063d35cd3e1",
+      "name": "Porte vale 0 (sem resposta)"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a8f94fe1-90e1-518f-a674-8755ed204dde",
+              "leftValue": "={{ $json.email }}",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              },
+              "rightValue": "@"
+            },
+            {
+              "id": "b9bb5a89-af16-5b21-a9cb-829bfb202679",
+              "leftValue": "={{ $json.email }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEndsWith"
+              },
+              "rightValue": "@gmail.com"
+            },
+            {
+              "id": "f5854517-da80-5994-a953-d1e6c8de4bbd",
+              "leftValue": "={{ $json.email }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEndsWith"
+              },
+              "rightValue": "@hotmail.com"
+            },
+            {
+              "id": "ffecc807-033c-5499-aded-92dd239f4ea7",
+              "leftValue": "={{ $json.email }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEndsWith"
+              },
+              "rightValue": "@outlook.com"
+            },
+            {
+              "id": "e8fbfcf1-1528-5da6-a5ea-1b2a16639e15",
+              "leftValue": "={{ $json.email }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEndsWith"
+              },
+              "rightValue": "@yahoo.com.br"
+            },
+            {
+              "id": "29246804-e2ca-5d97-aef5-03e431bd346e",
+              "leftValue": "={{ $json.email }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEndsWith"
+              },
+              "rightValue": "@yahoo.com"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1300,
+        0
+      ],
+      "id": "e30ecc01-4738-5a20-a5a7-997de29cd1e0",
+      "name": "E-mail de empresa?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9b4adeb7-9de6-5efd-a178-6dbf7f6559ab",
+              "name": "pontos_email",
+              "value": 15,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1560,
+        -90
+      ],
+      "id": "45f3d5d7-946e-5201-abed-4224856cc399",
+      "name": "E-mail vale 15"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a36092c4-1e5f-5ab3-ac32-bb1490fc7e8d",
+              "name": "pontos_email",
+              "value": 0,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1560,
+        90
+      ],
+      "id": "3440e775-a2a0-5e63-a40b-bfa5049ece08",
+      "name": "E-mail vale 0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d7069993-c6d1-5ef7-a1aa-8bf3117d27ac",
+              "leftValue": "={{ $json.whatsapp }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1820,
+        0
+      ],
+      "id": "e09dc9d6-8fcd-512e-ac02-aa6399a659b6",
+      "name": "Tem WhatsApp?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7fc7e186-a066-5850-a251-536f9d5122d7",
+              "name": "pontos_whatsapp",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2080,
+        -90
+      ],
+      "id": "8dabcf3e-52fc-5db2-a289-f2ef68785037",
+      "name": "WhatsApp vale 10"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4dffbbaf-8bad-55e7-af59-488d1c8f8318",
+              "name": "pontos_whatsapp",
+              "value": 0,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2080,
+        90
+      ],
+      "id": "e39b3bf4-7290-57fd-a8cf-7428f4c2e841",
+      "name": "WhatsApp vale 0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "49313cf1-d11e-59c8-a4e7-cf7c038488b9",
+              "leftValue": "={{ $json.empresa }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2340,
+        0
+      ],
+      "id": "09462864-b063-556b-ad54-251cfc1c2564",
+      "name": "Tem empresa?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d43f5e1b-cb00-5639-adff-5ee7e2d0417d",
+              "name": "pontos_empresa",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2600,
+        -90
+      ],
+      "id": "375ee2cb-e5f6-5014-a870-88ba12a24f86",
+      "name": "Empresa vale 10"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d0258d67-9865-522b-a2b1-537bee2a318b",
+              "name": "pontos_empresa",
+              "value": 0,
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2600,
+        90
+      ],
+      "id": "7c5b82c6-c226-56de-a644-b990a02462d7",
+      "name": "Empresa vale 0"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9cf8af9a-ae9c-566a-a638-c4c591e6e843",
+              "name": "nota",
+              "value": "={{ $json.pontos_prazo + $json.pontos_porte + $json.pontos_email + $json.pontos_whatsapp + $json.pontos_empresa }}",
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2860,
+        0
+      ],
+      "id": "eabdc691-d427-56a1-a5f8-d0be59b64982",
+      "name": "Somar a nota"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1e4bdec6-e843-5195-ac85-5bf34530c66a",
+                    "leftValue": "={{ $json.nota }}",
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    },
+                    "rightValue": 70
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "quente"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "54777aee-6e15-5e0a-a191-29dc9adaaf3d",
+                    "leftValue": "={{ $json.nota }}",
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    },
+                    "rightValue": 40
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "morno"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3120,
+        0
+      ],
+      "id": "9b33d755-9270-534e-ad72-5f8002b05c66",
+      "name": "Qual faixa?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3c262e62-789f-5421-a653-2ff69b052ef7",
+              "name": "faixa",
+              "value": "quente",
+              "type": "string"
+            },
+            {
+              "id": "cf2cc5a5-4db6-524d-a9ea-89001cc87a41",
+              "name": "etapa",
+              "value": "Novo lead",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3380,
+        -170
+      ],
+      "id": "207954d1-92b6-535a-a3bd-c0457035f0a5",
+      "name": "É quente"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e33c3a13-61fd-5b78-a441-3ac6191fd716",
+              "name": "faixa",
+              "value": "morno",
+              "type": "string"
+            },
+            {
+              "id": "64b7ff50-15c4-535a-a5c0-e3a564690ac8",
+              "name": "etapa",
+              "value": "Novo lead",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3380,
+        0
+      ],
+      "id": "e6a9eb2b-8dda-5a03-ae6f-bf622946ab43",
+      "name": "É morno"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2138cf79-3ed9-50cb-ae71-03144e9a6db6",
+              "name": "faixa",
+              "value": "frio",
+              "type": "string"
+            },
+            {
+              "id": "535c16bc-adc4-5ebf-aab0-7b5e28c1fd66",
+              "name": "etapa",
+              "value": "Novo lead",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3380,
+        170
+      ],
+      "id": "03618f74-2715-51e8-ad34-b6580bd896e3",
+      "name": "É frio"
+    },
+    {
+      "parameters": {
+        "content": "### Quando vale cada um\n\nPoucas regras, que quase não mudam: nós visuais. Qualquer pessoa lê no canvas.\n\nMuita regra ou muita conta: Code. Fica tudo num lugar só.\n\nHá um meio-termo: escrever a conta numa expressão, dentro de um Edit Fields.",
+        "height": 232,
+        "width": 340,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        260,
+        480
+      ],
+      "id": "2a84b4ca-db64-5ab6-ad6f-f01637f7f57c",
+      "name": "Nota quando"
+    },
+    {
+      "parameters": {
+        "content": "### Por que aparece \"Run 1 of N\"?\n\nCada pedido chega por um caminho diferente. Por isso o mesmo nó roda mais de uma vez. O seletor no alto da saída troca de execução.",
+        "height": 191,
+        "width": 340,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2820,
+        480
+      ],
+      "id": "a4ff2cbd-dd9c-5d32-a07e-decba957f268",
+      "name": "Nota runs"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nOs mesmos cinco pedidos da Orbita recebem a mesma nota, agora sem o nó Code. Cada critério vira um Switch ou um IF. Cada pontuação vira um Edit Fields com valor fixo. No fim, o **Somar a nota** junta os pontos e o Switch **Qual faixa?** separa em quente, morno e frio. São **25 nós** para fazer o que o **Nota do lead** faz sozinho.\n\n### Como testar\n\nClique em **Execute workflow**. Abra o **Somar a nota** e os três nós do fim. As notas são as mesmas do Code: 95, 55, 70, 10 e 0. Cada pedido chega por um caminho, então o mesmo nó roda mais de uma vez. Use o seletor **Run 1 of N**, no alto da saída, para ver todos.\n\n### O que treinar\n\n1. Siga a Marina pelo canvas. Por quais nós ela passa até virar quente?\n2. A Orbita decide que o prazo \"este mês\" passa a valer 50. Mude aqui e depois no exemplo **Code 3**. Em qual foi mais rápido?\n3. Imagine um critério novo, a área do cliente, com cinco opções. Quantos nós entram aqui? E quantas linhas entram no Code?\n\n### Erros comuns\n\nEm cada Edit Fields, **Include Other Input Fields** fica ligado. Desligado, o pedido perde os outros campos.\n\nNo **Qual faixa?**, a ordem das regras conta. A regra de 70 vem antes da regra de 40.\n\nO Switch compara o texto exato. Um prazo escrito de outro jeito cai na saída **Fallback** e vale 0.",
+        "height": 569,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -1329
+      ],
+      "id": "24ef6d7d-1afb-596a-a3c3-0de339ab25d3",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Qual prazo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qual prazo?": {
+      "main": [
+        [
+          {
+            "node": "Prazo vale 40",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prazo vale 25",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prazo vale 5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prazo vale 0 (sem resposta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prazo vale 40": {
+      "main": [
+        [
+          {
+            "node": "Qual porte?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prazo vale 25": {
+      "main": [
+        [
+          {
+            "node": "Qual porte?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prazo vale 5": {
+      "main": [
+        [
+          {
+            "node": "Qual porte?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prazo vale 0 (sem resposta)": {
+      "main": [
+        [
+          {
+            "node": "Qual porte?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qual porte?": {
+      "main": [
+        [
+          {
+            "node": "Porte vale 25",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Porte vale 20",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Porte vale 10",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Porte vale 5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Porte vale 0 (sem resposta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Porte vale 25": {
+      "main": [
+        [
+          {
+            "node": "E-mail de empresa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Porte vale 20": {
+      "main": [
+        [
+          {
+            "node": "E-mail de empresa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Porte vale 10": {
+      "main": [
+        [
+          {
+            "node": "E-mail de empresa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Porte vale 5": {
+      "main": [
+        [
+          {
+            "node": "E-mail de empresa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Porte vale 0 (sem resposta)": {
+      "main": [
+        [
+          {
+            "node": "E-mail de empresa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-mail de empresa?": {
+      "main": [
+        [
+          {
+            "node": "E-mail vale 15",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "E-mail vale 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-mail vale 15": {
+      "main": [
+        [
+          {
+            "node": "Tem WhatsApp?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "E-mail vale 0": {
+      "main": [
+        [
+          {
+            "node": "Tem WhatsApp?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tem WhatsApp?": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp vale 10",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WhatsApp vale 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp vale 10": {
+      "main": [
+        [
+          {
+            "node": "Tem empresa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp vale 0": {
+      "main": [
+        [
+          {
+            "node": "Tem empresa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tem empresa?": {
+      "main": [
+        [
+          {
+            "node": "Empresa vale 10",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Empresa vale 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Empresa vale 10": {
+      "main": [
+        [
+          {
+            "node": "Somar a nota",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Empresa vale 0": {
+      "main": [
+        [
+          {
+            "node": "Somar a nota",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Somar a nota": {
+      "main": [
+        [
+          {
+            "node": "Qual faixa?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qual faixa?": {
+      "main": [
+        [
+          {
+            "node": "É quente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "É morno",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "É frio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "nome": "Marina Souza",
+          "email": "marina@grupovale.com.br",
+          "whatsapp": "48998123344",
+          "empresa": "Grupo Vale Logística",
+          "porte": "51-200",
+          "area": "atendimento",
+          "prazo": "este-mes",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Pedro Lima",
+          "email": "pedro.lima@gmail.com",
+          "whatsapp": "4832221100",
+          "empresa": "Lima Contabilidade",
+          "porte": "11-50",
+          "area": "financeiro",
+          "prazo": "proximo-trimestre",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Ana Paula Reis",
+          "email": "",
+          "whatsapp": "48988776655",
+          "empresa": "Clínica Bem Estar",
+          "porte": "11-50",
+          "area": "atendimento",
+          "prazo": "este-mes",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Rafa",
+          "email": "rafa@hotmail.com",
+          "whatsapp": "",
+          "empresa": "",
+          "porte": "1-10",
+          "area": "outro",
+          "prazo": "pesquisando",
+          "consentimento": "sim"
+        }
+      },
+      {
+        "json": {
+          "nome": "Lia",
+          "email": "",
+          "whatsapp": "",
+          "empresa": "",
+          "porte": "",
+          "area": "",
+          "prazo": "",
+          "consentimento": ""
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

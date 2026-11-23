@@ -1,0 +1,87 @@
+{
+  "name": "Aula 4 · HTTP 4 · Chave de API no cabeçalho",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7c350cde-925e-58d2-af39-a6dd4add5fdb",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://httpbin.org/headers",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "30555188-6c70-51b6-a02e-51288d975034",
+      "name": "Consultar com chave de API"
+    },
+    {
+      "parameters": {
+        "content": "### Credencial de treino\n\nNo campo de credencial, escolha **Create new credential**. Name: `X-API-Key`. Value: `chave-de-treino-123`.",
+        "height": 173,
+        "width": 320,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        180
+      ],
+      "id": "9964f6b4-4aeb-5cdf-afc0-e99b808a8529",
+      "name": "Nota credencial"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nMuitas APIs entregam uma chave e pedem que ela vá num cabeçalho da chamada, como `X-API-Key`. Este exemplo guarda a chave numa credencial **Header Auth** e chama o httpbin.org, um serviço público de teste que devolve os cabeçalhos recebidos. Assim dá para ver a chave chegando do outro lado.\n\n### Como testar\n\nAbra o **Consultar com chave de API**. No campo de credencial, escolha **Create new credential**. Em **Name**, escreva `X-API-Key`. Em **Value**, escreva `chave-de-treino-123`. Salve e clique em **Execute workflow**. Na saída, dentro de `headers`, aparece `X-Api-Key` com o valor da credencial.\n\n### O que treinar\n\n1. Compare com **HTTP com Basic Auth** e **HTTP com Bearer**. No nó, só o **Generic Auth Type** muda.\n2. Mude o **Value** da credencial e rode de novo. O valor novo aparece na resposta.\n3. Baixe este fluxo pelo menu **⋯ → Download** e abra o arquivo. A chave não está lá. O JSON guarda só o nome da credencial.\n\n### Erros comuns\n\nO nome do cabeçalho é a API que escolhe. `X-API-Key` é comum, mas confira na documentação.\n\nA chave fica na credencial, nunca num campo do nó. O que está no nó vai junto quando o fluxo é compartilhado.\n\nO httpbin.org aceita qualquer chave. Uma API de verdade responde 401 ou 403 quando a chave está errada.",
+        "height": 564,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -704
+      ],
+      "id": "39045caf-53b1-5de0-aa5f-a89b54b3f2cd",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Consultar com chave de API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}
