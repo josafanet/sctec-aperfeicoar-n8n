@@ -6,7 +6,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "parameters": {
-        "content": "## Leia primeiro\nEste exemplo mostra onde o HTTP Request usa um token de acesso para consultar uma API com Bearer Auth. Você pode abrir a configuração sem fazer uma chamada.\n\n**Como testar**  \nAbra **Consultar com Bearer Auth** e localize **Generic Auth Type → Bearer Auth**. A inspeção termina aqui se você ainda não tiver uma API de treino.\n\n**O que treinar**  \nAbra **Create new credential** e localize o campo do token. Feche a janela se estiver só explorando o exemplo.\n\n**Erros comuns**  \nO domínio .invalid é de exemplo. Resposta 401 significa que a API recusou a autenticação.",
+        "content": "## Leia primeiro\nEste exemplo mostra onde o HTTP Request guarda um token de acesso para consultar uma API com Bearer Auth. A chamada vai para o httpbin.org, um serviço público de teste.\n\n**Como testar**  \nEm **Consultar com Bearer Auth**, crie a credencial com o Bearer Token `token-de-treino-123`. Clique em **Execute workflow**. A saída traz `authenticated: true` e o token recebido.\n\n**O que treinar**  \nTroque o token por outro texto e rode de novo. O valor novo aparece na resposta.\n\n**Erros comuns**  \nNo campo vai só o token, sem a palavra Bearer. O nó acrescenta o prefixo ao enviar.",
         "width": 650,
         "height": 360
       },
@@ -33,7 +33,7 @@
       "typeVersion": 4.2,
       "parameters": {
         "method": "GET",
-        "url": "https://api.exemplo.invalid/CONFIGURAR_RECURSO",
+        "url": "https://httpbin.org/bearer",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpBearerAuth",
         "options": {}
@@ -49,9 +49,9 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "parameters": {
-        "content": "### Credencial\nCredencial: use a sua. Crie em Credentials e escolha aqui.\n\nEm **Bearer Token**, informe apenas o token da sua API de treino. O nó acrescenta o prefixo Bearer ao enviar. Use uma URL HTTPS da mesma API que emitiu a credencial.",
+        "content": "### Credencial de treino\nNo campo de credencial, escolha **Create new credential**. Bearer Token: `token-de-treino-123`.\n\nO httpbin.org aceita qualquer token e devolve o que recebeu. Uma API de verdade responde 401 quando o token está errado ou vencido.",
         "width": 420,
-        "height": 225
+        "height": 250
       },
       "position": [
         260,

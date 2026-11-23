@@ -1,0 +1,117 @@
+{
+  "name": "Aula 4 · Code 2 · Todos os itens de uma vez",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "151d9a03-b09e-5738-ab56-c25258217e65",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const vendas = $input.all();\nlet total = 0;\nlet maior = vendas[0].json;\n\nfor (const item of vendas) {\n  const venda = item.json;\n  total += venda.valor;\n  if (venda.valor > maior.valor) maior = venda;\n}\n\nreturn [{ json: {\n  quantidade: vendas.length,\n  total,\n  media: total / vendas.length,\n  maior_venda: maior.valor,\n  vendedor_da_maior: maior.vendedor\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "7a7c9eca-d785-5a07-ab2d-e5ed77cdbfe3",
+      "name": "Resumir vendas"
+    },
+    {
+      "parameters": {
+        "content": "### Qual modo usar?\n\nCada item ganha campos novos? **Run Once for Each Item**.\n\nVários itens viram um resumo? **Run Once for All Items**. O **Resumo diário de leads** desta aula usa este modo.",
+        "height": 206,
+        "width": 320,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        180
+      ],
+      "id": "ac3a054c-b4f2-5bc0-ac4b-61585332abd4",
+      "name": "Nota modos"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nCinco vendas fictícias de um dia entram no nó **Resumir vendas**. O código olha todas de uma vez e devolve um item só, com a quantidade de vendas, o total, a média e a maior venda.\n\n### Como testar\n\nClique em **Execute workflow** e abra o **Resumir vendas**. Entram 5 itens e sai 1. Confira total 800, média 160 e maior venda 300, da Ana.\n\n### O que treinar\n\n1. No **Gatilho Manual**, mude a venda da Carla para 500 e rode de novo. De quem é a maior venda agora?\n2. Acrescente ao resultado o campo `menor_venda`.\n3. Compare com o exemplo **Code 1**. Lá entram 3 itens e saem 3. Aqui entram 5 e sai 1.\n\n### Erros comuns\n\nNeste modo o retorno é uma lista, `[ { json: { ... } } ]`. Repare nos colchetes.\n\n`$json` mostra um item só. Para ver todos, use `$input.all()`.\n\nSe não chegar nenhuma venda, `vendas[0]` não existe e o código para. Num fluxo de verdade, trate a lista vazia antes.",
+        "height": 443,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -583
+      ],
+      "id": "d034d1d4-244a-5c3e-a98a-6369756e30b6",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Resumir vendas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "vendedor": "Ana",
+          "valor": 120
+        }
+      },
+      {
+        "json": {
+          "vendedor": "Beto",
+          "valor": 80
+        }
+      },
+      {
+        "json": {
+          "vendedor": "Ana",
+          "valor": 300
+        }
+      },
+      {
+        "json": {
+          "vendedor": "Carla",
+          "valor": 50
+        }
+      },
+      {
+        "json": {
+          "vendedor": "Beto",
+          "valor": 250
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

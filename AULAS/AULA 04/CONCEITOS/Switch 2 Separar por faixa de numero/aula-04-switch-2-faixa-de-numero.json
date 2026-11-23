@@ -1,0 +1,228 @@
+{
+  "name": "Aula 4 · Switch 2 · Separar por faixa de número",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "393b7bc6-d4e7-5da2-acb6-bd2293ff9404",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a2d8925e-56fe-5abe-a46b-22b3e692eaa7",
+                    "leftValue": "={{ $json.media }}",
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    },
+                    "rightValue": 7
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "aprovado"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ef9b902f-beae-5aa3-ad7c-fc3b6500adaf",
+                    "leftValue": "={{ $json.media }}",
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    },
+                    "rightValue": 5
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "recuperação"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "2ac545c3-8480-5b4e-a170-2318a149a674",
+      "name": "Situação"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        -170
+      ],
+      "id": "d6b02501-b9ed-5d3e-af8c-571eef68ddb1",
+      "name": "Aprovado"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        0
+      ],
+      "id": "c8922ba2-015b-5365-ae46-bb8a2bea64c9",
+      "name": "Recuperação"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        170
+      ],
+      "id": "6ab8e728-aaf2-5507-abc8-e445b543f6ad",
+      "name": "Reprovado"
+    },
+    {
+      "parameters": {
+        "content": "### A primeira regra que der certo\n\nO 9 da Aline cumpre as duas regras. Ela sai só pela primeira, porque o Switch para ali.",
+        "height": 168,
+        "width": 280,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        780,
+        -80
+      ],
+      "id": "ff5be521-d0d9-577e-ae73-d8ef00f49b8b",
+      "name": "Nota ordem"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nCinco alunos fictícios chegam com a média final. O Switch **Situação** compara o número. A partir de 7, aprovado. De 5 a 6,9, recuperação. Abaixo de 5, reprovado, pela saída **Fallback**.\n\n### Como testar\n\nClique em **Execute workflow**. Devem passar 2 alunos em **Aprovado**, 2 em **Recuperação** e 1 em **Reprovado**.\n\n### O que treinar\n\n1. Antes de rodar, diga por qual saída passam o Bruno, com 7, e o Diego, com 5.\n2. Em **Options**, ligue **Send data to all matching outputs** e rode. A Aline e o Bruno saem por duas saídas, porque 9 e 7 também são maiores que 5. Desligue de novo.\n3. Na primeira regra, troque o 7 por 9 e rode. O Bruno, com 7, passa para recuperação. Volte para 7.\n\n### Erros comuns\n\nA ordem das regras conta. O Switch para na primeira regra que der certo.\n\nA média precisa ser número. `\"7\"`, entre aspas, é texto, e a comparação de número falha.\n\n**is greater than or equal to** inclui o 7. **is greater than** deixa o 7 de fora.",
+        "height": 466,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -776
+      ],
+      "id": "c4a02222-3c76-5cec-a4d6-936cb87af1a0",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Situação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Situação": {
+      "main": [
+        [
+          {
+            "node": "Aprovado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Recuperação",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reprovado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "aluno": "Aline",
+          "media": 9
+        }
+      },
+      {
+        "json": {
+          "aluno": "Bruno",
+          "media": 7
+        }
+      },
+      {
+        "json": {
+          "aluno": "Clara",
+          "media": 6.5
+        }
+      },
+      {
+        "json": {
+          "aluno": "Diego",
+          "media": 5
+        }
+      },
+      {
+        "json": {
+          "aluno": "Elisa",
+          "media": 3
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

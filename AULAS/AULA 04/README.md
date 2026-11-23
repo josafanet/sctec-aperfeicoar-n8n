@@ -4,6 +4,7 @@ Comece pelo **captador da Orbita** para acompanhar um pedido desde o formulário
 
 | O que você quer fazer? | Por onde começar |
 |---|---|
+| Entender o Code, o Switch, o Filter, o Loop e o HTTP Request em exemplos curtos | [Conceitos antes do captador](CONCEITOS/README.md) |
 | Preparar o quadro do Trello ou experimentar a mesma organização no Notion | [Modelos de CRM](Modelos%20de%20CRM/README.md) |
 | Dar uma nota ao pedido, escolher a etiqueta e encontrar o cartão pela tabela | [Captador da Orbita no Trello](Captador%20da%20Orbita%20no%20Trello/README.md) |
 | Receber um pedido pelo formulário do próprio n8n | [Formulário de pedido](Formulario%20de%20pedido/README.md) |

@@ -1,0 +1,147 @@
+{
+  "name": "Aula 4 · HTTP 1 · Um endereço para cada item",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3d403b64-6239-58cc-a716-50249fa93b70",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://brasilapi.com.br/api/cep/v1/{{ $json.cep }}",
+        "authentication": "none",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "b2e45dde-b0d3-5e69-a394-c60b2a142a6f",
+      "name": "Buscar endereço"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4f8f6980-3c75-5afb-ae61-10bac414ff0a",
+              "name": "cliente",
+              "value": "={{ $('Gatilho Manual').item.json.cliente }}",
+              "type": "string"
+            },
+            {
+              "id": "ea289bf3-adbd-5226-a894-32fffb7cd733",
+              "name": "endereco",
+              "value": "={{ $json.street + ', ' + $json.neighborhood + ', ' + $json.city + '/' + $json.state }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        0
+      ],
+      "id": "744969c6-5c22-5a0f-a3f0-3217689bf629",
+      "name": "Montar endereço"
+    },
+    {
+      "parameters": {
+        "content": "### Uma chamada por item\n\nEntraram 3 itens, o nó fez 3 chamadas. Não foi preciso laço.",
+        "height": 147,
+        "width": 280,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        180
+      ],
+      "id": "c8b78450-f8a2-5d03-a875-c32af8acc452",
+      "name": "Nota um pedido por item"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nTrês clientes fictícios chegam só com o CEP. O **Buscar endereço** consulta a BrasilAPI uma vez para cada cliente, porque o CEP entra na URL por uma expressão. O **Montar endereço** junta o nome do cliente com a rua, o bairro e a cidade que a API devolveu.\n\n### Como testar\n\nClique em **Execute workflow**. No **Buscar endereço**, entram 3 itens e saem 3, cada um com `street`, `neighborhood`, `city` e `state`. No **Montar endereço**, leia o campo `endereco` de cada cliente.\n\n### O que treinar\n\n1. Abra o **Buscar endereço** e ache a expressão `{{ $json.cep }}` no fim da URL.\n2. No **Gatilho Manual**, acrescente um quarto cliente com o CEP da sua rua e rode de novo.\n3. Troque um CEP por `00000000` e rode. A API responde 404 e o fluxo para nesse nó. Volte o CEP.\n\n### Erros comuns\n\nA saída do HTTP Request é a resposta da API. O nome do cliente não vem junto. Por isso o **Montar endereço** busca o nome com `$('Gatilho Manual').item.json.cliente`.\n\nO CEP vai só com os oito dígitos, sem traço e sem ponto.\n\nSe a chamada demorar ou der erro de servidor, abra a mesma URL no navegador para ver se a API responde.",
+        "height": 518,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -658
+      ],
+      "id": "bfb7fcaf-1297-5a2f-a5ca-092ad06bf442",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Buscar endereço",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar endereço": {
+      "main": [
+        [
+          {
+            "node": "Montar endereço",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "cliente": "Bia",
+          "cep": "88010400"
+        }
+      },
+      {
+        "json": {
+          "cliente": "Caio",
+          "cep": "79002070"
+        }
+      },
+      {
+        "json": {
+          "cliente": "Dani",
+          "cep": "01001000"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

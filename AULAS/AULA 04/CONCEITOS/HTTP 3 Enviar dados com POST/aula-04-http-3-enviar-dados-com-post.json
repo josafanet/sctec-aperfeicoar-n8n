@@ -1,0 +1,160 @@
+{
+  "name": "Aula 4 · HTTP 3 · Enviar dados com POST",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "92fff3a5-7d13-5748-ad49-5816721541b0",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://httpbin.org/post",
+        "authentication": "none",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "nome",
+              "value": "={{ $json.nome }}"
+            },
+            {
+              "name": "email",
+              "value": "={{ $json.email }}"
+            },
+            {
+              "name": "empresa",
+              "value": "={{ $json.empresa }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "dc5b9d56-81e5-5f57-af0e-2337932bd584",
+      "name": "Enviar pedido"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "641aa23b-f833-576c-a971-9c3550a23457",
+              "name": "recebido",
+              "value": "={{ $json.json }}",
+              "type": "object"
+            },
+            {
+              "id": "a68cef28-45ff-59dc-a234-d5fc954d9f99",
+              "name": "metodo",
+              "value": "={{ $json.method }}",
+              "type": "string"
+            },
+            {
+              "id": "441b1144-1171-584e-a9a7-d66f12b49b5c",
+              "name": "tipo_do_corpo",
+              "value": "={{ $json.headers['Content-Type'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        0
+      ],
+      "id": "d8839c24-968b-5ad4-aa61-2b2bfa6fd780",
+      "name": "Ler o que chegou"
+    },
+    {
+      "parameters": {
+        "content": "### GET ou POST?\n\nGET pede dados. POST entrega dados. A página da Orbita faz um POST para o seu webhook, com o pedido no corpo.",
+        "height": 170,
+        "width": 320,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        180
+      ],
+      "id": "f1a7a880-0d08-5d03-a4ac-de04dba03036",
+      "name": "Nota get ou post"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nUm pedido fictício da Orbita é enviado por POST para o httpbin.org, um serviço público de teste que devolve tudo o que recebeu. É o caminho inverso do captador. Lá, a página manda o pedido para o seu webhook. Aqui, quem manda é o n8n. O **Ler o que chegou** mostra o corpo que o servidor recebeu.\n\n### Como testar\n\nClique em **Execute workflow**. Na saída do **Enviar pedido**, o campo `json` traz o nome, o e-mail e a empresa que saíram do n8n. No **Ler o que chegou**, o campo `tipo_do_corpo` mostra `application/json`.\n\n### O que treinar\n\n1. Abra o **Enviar pedido** e ache **Send Body**. Cada linha de **Body Parameters** vira um campo do JSON enviado.\n2. Acrescente uma linha com o nome `prazo` e o valor `{{ $json.prazo }}`. Rode e confira o campo novo na resposta.\n3. Troque o método para **GET** e rode. O httpbin.org responde 405, porque esse endereço só aceita POST. Volte para **POST**.\n\n### Erros comuns\n\nGET lê, POST envia. O método tem de ser o que a documentação da API pede.\n\nCom **Send Body** desligado, o POST sai vazio.\n\nO httpbin.org só devolve o que recebe e é público. Use só dados fictícios.",
+        "height": 517,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -657
+      ],
+      "id": "46fceb79-c20f-59f7-aaed-acd6f36442c2",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Enviar pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar pedido": {
+      "main": [
+        [
+          {
+            "node": "Ler o que chegou",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "nome": "Marina Souza",
+          "email": "marina@grupovale.com.br",
+          "empresa": "Grupo Vale Logística",
+          "prazo": "este-mes"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}

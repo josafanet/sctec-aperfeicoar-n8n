@@ -1,0 +1,176 @@
+{
+  "name": "Aula 4 · HTTP 2 · Parâmetros na URL",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4f58e703-01ed-5138-a317-c9da99dec0ff",
+      "name": "Gatilho Manual"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.open-meteo.com/v1/forecast",
+        "authentication": "none",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "latitude",
+              "value": "={{ $json.latitude }}"
+            },
+            {
+              "name": "longitude",
+              "value": "={{ $json.longitude }}"
+            },
+            {
+              "name": "current",
+              "value": "temperature_2m,precipitation"
+            },
+            {
+              "name": "timezone",
+              "value": "America/Sao_Paulo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        0
+      ],
+      "id": "f9c02e7c-1a94-5903-a274-dcb3fd5684ce",
+      "name": "Buscar clima"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d46d1241-9852-5bb8-a33b-3b1aa89083b1",
+              "name": "cidade",
+              "value": "={{ $('Gatilho Manual').item.json.cidade }}",
+              "type": "string"
+            },
+            {
+              "id": "e0440d7f-ad0f-51ca-adc0-16c814c7e57c",
+              "name": "temperatura",
+              "value": "={{ $json.current.temperature_2m }}",
+              "type": "number"
+            },
+            {
+              "id": "36569abb-62cb-5dd5-ade8-71bba57a32ff",
+              "name": "chuva_mm",
+              "value": "={{ $json.current.precipitation }}",
+              "type": "number"
+            },
+            {
+              "id": "05c605ad-81dc-5fa0-a01c-f52adc3159ed",
+              "name": "medido_em",
+              "value": "={{ $json.current.time }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        0
+      ],
+      "id": "63e60f3e-fd44-5051-a7f6-3ab091e824b8",
+      "name": "Resumir clima"
+    },
+    {
+      "parameters": {
+        "content": "### O endereço que o n8n monta\n\n`.../v1/forecast?latitude=-27.5954&longitude=-48.548&current=temperature_2m,precipitation&timezone=America/Sao_Paulo`",
+        "height": 182,
+        "width": 420,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        140,
+        180
+      ],
+      "id": "499a609e-41d1-5104-a1f5-1bc94d816e66",
+      "name": "Nota url montada"
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\n### O que faz\n\nDuas cidades chegam com latitude e longitude. O **Buscar clima** consulta a Open-Meteo, uma API pública de previsão do tempo. Os valores não ficam escritos na URL. Cada um entra numa linha de **Query Parameters**, e o n8n monta o endereço com `?` e `&`. O **Resumir clima** fica só com a temperatura e a chuva de agora.\n\n### Como testar\n\nClique em **Execute workflow**. O **Resumir clima** devolve um item por cidade, com `temperatura`, `chuva_mm` e `medido_em`. Os números mudam a cada execução, porque são do momento da consulta.\n\n### O que treinar\n\n1. Abra o **Buscar clima** e conte as linhas de **Query Parameters**. Cada linha vira um pedaço `nome=valor` da URL.\n2. No **Gatilho Manual**, acrescente a sua cidade, com a latitude e a longitude dela.\n3. No parâmetro `current`, acrescente `,wind_speed_10m` e ache a velocidade do vento na saída do **Buscar clima**.\n\n### Erros comuns\n\nLatitude e longitude usam ponto, não vírgula: `-27.5954`.\n\nNo exemplo **HTTP 1**, o valor vai no caminho da URL. Aqui vai depois do `?`. A documentação de cada API diz qual dos dois ela usa.\n\nUm valor que a API não conhece no `current` faz ela responder 400. Confira a grafia na documentação.",
+        "height": 538,
+        "width": 760,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -678
+      ],
+      "id": "c5927dfe-3f5c-5a3b-abf8-3e5107418abd",
+      "name": "Leia primeiro"
+    }
+  ],
+  "connections": {
+    "Gatilho Manual": {
+      "main": [
+        [
+          {
+            "node": "Buscar clima",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar clima": {
+      "main": [
+        [
+          {
+            "node": "Resumir clima",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Gatilho Manual": [
+      {
+        "json": {
+          "cidade": "Florianópolis",
+          "latitude": -27.5954,
+          "longitude": -48.548
+        }
+      },
+      {
+        "json": {
+          "cidade": "Campo Grande",
+          "latitude": -20.4697,
+          "longitude": -54.6201
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false,
+  "meta": null,
+  "tags": []
+}
