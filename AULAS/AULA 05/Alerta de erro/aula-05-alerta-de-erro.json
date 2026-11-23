@@ -1,0 +1,137 @@
+{
+  "name": "Aula 5 · Alerta de erro",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nQuando um fluxo **publicado** falha, este fluxo grava uma linha na tabela `erros`.\n\n1. Crie a tabela `erros` com as colunas `quando`, `workflow`, `no`, `mensagem` e `link`, todas **String**.\n2. Escolha a tabela em **Registrar erro** e salve.\n3. No captador v5, abra **Settings** e escolha este fluxo em **Error workflow**.\n\nO gatilho não dispara em execução manual. Ele só roda quando um fluxo publicado falha.",
+        "width": 560,
+        "height": 340,
+        "color": 4
+      },
+      "id": "d355345f-7e9e-41a0-ae10-7380c4d3fd8d",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "700a3b8a-1440-42ab-a08d-263cd194781e",
+      "name": "Falha de workflow",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "CONFIGURAR_TABELA_erros"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "quando": "={{ $now.toFormat('dd/MM/yyyy HH:mm:ss') }}",
+            "workflow": "={{ $json.workflow.name }}",
+            "no": "={{ $json.execution?.lastNodeExecuted ?? '-' }}",
+            "mensagem": "={{ $json.execution?.error?.message ?? $json.trigger?.error?.message ?? '-' }}",
+            "link": "={{ $json.execution?.url ?? '-' }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "quando",
+              "displayName": "quando",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "workflow",
+              "displayName": "workflow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "no",
+              "displayName": "no",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "mensagem",
+              "displayName": "mensagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "0ddf0d4c-16f7-4107-a814-60522929c68b",
+      "name": "Registrar erro",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        260,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Falha de workflow": {
+      "main": [
+        [
+          {
+            "node": "Registrar erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

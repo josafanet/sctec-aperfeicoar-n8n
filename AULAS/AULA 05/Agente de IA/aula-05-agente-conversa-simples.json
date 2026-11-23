@@ -1,0 +1,125 @@
+{
+  "name": "Aula 5 · Agente 1 · Conversa simples",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nUma conversa simples com um modelo de linguagem, sem ferramenta.\n\n1. Em **Modelo de linguagem**, escolha a credencial da OpenAI. No n8n Cloud, a opção de créditos gratuitos aparece ao criar a credencial.\n2. Clique em **Open chat** e escreva `Oi, o que a Orbita Labs faz?`\n3. Pergunte `Quais leads quentes temos hoje?` O agente não tem acesso aos dados e deve dizer que não sabe. Se ele inventar nomes, discuta com a turma por que isso acontece.",
+        "width": 600,
+        "height": 420,
+        "color": 4
+      },
+      "id": "e06f1750-1854-42bc-a14c-ff2df751c3d0",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -470
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "fff61f1c-3be3-4509-acc3-bccfd5d0544b",
+      "name": "Quando chegar mensagem",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "b5347b32-1d9b-4bef-a324-edfec56f59c3"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Você é o assistente comercial da Orbita Labs, uma consultoria de automação.\nResponda em português do Brasil, em frases curtas.\nOs dados são fictícios e servem para treino.\nVocê não tem acesso aos dados de leads. Se perguntarem sobre leads, diga que ainda não consegue consultar."
+        }
+      },
+      "id": "30ba9922-0305-4e09-a8e1-58d92060a56d",
+      "name": "Assistente da Orbita",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        280,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "834fbd9b-a79d-491d-abfe-e99ffeed8d16",
+      "name": "Modelo de linguagem",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 6
+      },
+      "id": "50d97416-56dd-47f2-a651-a08e18e2c183",
+      "name": "Memória da conversa",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        380,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Quando chegar mensagem": {
+      "main": [
+        [
+          {
+            "node": "Assistente da Orbita",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modelo de linguagem": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Assistente da Orbita",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memória da conversa": {
+      "ai_memory": [
+        [
+          {
+            "node": "Assistente da Orbita",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

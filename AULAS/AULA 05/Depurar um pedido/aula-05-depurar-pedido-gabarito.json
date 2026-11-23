@@ -1,0 +1,176 @@
+{
+  "name": "Aula 5 · Depurar um pedido (gabarito)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Gabarito\n\nOs dois defeitos corrigidos.\n\n1. Em **Montar resposta**, o nome do nó é `Nota do lead`, com l minúsculo. O nome precisa ser igual, letra por letra.\n2. Em **Variáveis**, o prazo é `este-mes`, com hífen. Com espaço, o código não reconhece o prazo e soma 0.\n\nResultado esperado. 95 pontos, faixa quente.",
+        "width": 560,
+        "height": 300,
+        "color": 4
+      },
+      "id": "3199b513-a506-43a7-ab0f-aa733f771110",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -470
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "36f85ad4-dc0b-4547-a5df-3d6bab8ac604",
+      "name": "Executar o pedido da Marina",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0c5863ca-3140-429a-a228-a54e1e39f0c8",
+              "name": "nome",
+              "value": "Marina Souza",
+              "type": "string"
+            },
+            {
+              "id": "88e867b8-23de-4aba-a495-933a05e4c534",
+              "name": "email",
+              "value": "marina@grupovale.com.br",
+              "type": "string"
+            },
+            {
+              "id": "67c22cb9-e8aa-4518-a56f-5f53ae820b9b",
+              "name": "whatsapp",
+              "value": "48998123344",
+              "type": "string"
+            },
+            {
+              "id": "ef217c7c-7174-439b-ac5b-164865ea9bb2",
+              "name": "empresa",
+              "value": "Grupo Vale Logística",
+              "type": "string"
+            },
+            {
+              "id": "cef54304-38f8-49e9-adfc-f3d12162078d",
+              "name": "porte",
+              "value": "51-200",
+              "type": "string"
+            },
+            {
+              "id": "85fc0019-7878-4643-abdd-42ca6c8af39e",
+              "name": "area",
+              "value": "atendimento",
+              "type": "string"
+            },
+            {
+              "id": "5c4562b2-3f2b-4f4a-a0ed-3c5dbf576813",
+              "name": "prazo",
+              "value": "este-mes",
+              "type": "string"
+            },
+            {
+              "id": "b78b7df7-fd53-4342-a1f0-af9dad614f5b",
+              "name": "consentimento",
+              "value": "sim",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a48c35a0-6c96-4cf5-a102-8a59cc7a7581",
+      "name": "Variáveis",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        250,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const lead = $json;\nconst prazo = { 'este-mes': 40, 'proximo-trimestre': 25, pesquisando: 5 };\nconst porte = { '200+': 25, '51-200': 20, '11-50': 10, '1-10': 5 };\nconst pessoais = [\n  'gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com.br', 'yahoo.com'\n];\nconst dominio = (lead.email || '').split('@')[1] || '';\nconst nota = (prazo[lead.prazo] || 0) + (porte[lead.porte] || 0)\n  + (dominio && !pessoais.includes(dominio) ? 15 : 0)\n  + (lead.whatsapp ? 10 : 0) + (lead.empresa ? 10 : 0);\nreturn { json: {\n  ...lead, nota,\n  faixa: nota >= 70 ? 'quente' : nota >= 40 ? 'morno' : 'frio',\n  etapa: 'Novo lead'\n} };"
+      },
+      "id": "b99e40d3-1155-4206-a509-af6346e1fb21",
+      "name": "Nota do lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c6f59241-284f-4cfc-acc2-edb0aabffe4b",
+              "name": "resposta",
+              "value": "={{ 'Recebemos seu pedido, ' + $('Nota do lead').item.json.nome + '! Nota ' + $json.nota + ', faixa ' + $json.faixa + '.' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "caa100e4-f974-4253-a5f6-956d52f6d5b4",
+      "name": "Montar resposta",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        750,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Executar o pedido da Marina": {
+      "main": [
+        [
+          {
+            "node": "Variáveis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variáveis": {
+      "main": [
+        [
+          {
+            "node": "Nota do lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nota do lead": {
+      "main": [
+        [
+          {
+            "node": "Montar resposta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

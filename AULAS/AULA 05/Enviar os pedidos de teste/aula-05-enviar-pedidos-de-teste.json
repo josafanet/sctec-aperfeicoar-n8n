@@ -1,0 +1,188 @@
+{
+  "name": "Aula 5 · Enviar os pedidos de teste ao captador",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nEste fluxo manda cinco pedidos ao seu captador v5, um de cada vez, e mostra o código e a resposta de cada um. Serve de evidência das validações do projeto.\n\n1. Publique o captador v5 e copie a **Production URL** do gatilho.\n2. Cole a URL em **Endereço do captador**.\n3. Clique em **Execute workflow** e abra **Ler a resposta**.\n\nA Test URL atende só uma chamada por clique. Por isso use a Production URL aqui.\n\nResultado esperado. 200, 400, 400, 200 discreto e 200 de pedido repetido. O quadro ganha um cartão só.",
+        "width": 600,
+        "height": 400,
+        "color": 4
+      },
+      "id": "2b343ec8-0912-4b7e-a6a2-d397cd00b186",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -470
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "d116f037-71d9-4039-aa14-2dc30a843f1b",
+      "name": "Enviar os cinco pedidos",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ae008a8b-3c63-4e14-ad94-085884a605a5",
+              "name": "url",
+              "value": "CONFIGURAR_PRODUCTION_URL_DO_CAPTADOR_V5",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8b67f633-8eeb-4059-af57-938a9107cefd",
+      "name": "Endereço do captador",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        250,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const casos = [\n  {\n    caso: 'Pedido válido',\n    pedido: {\n      nome: 'Marina Souza',\n      email: 'marina@grupovale.com.br',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: ''\n    }\n  },\n  {\n    caso: 'Nome vazio',\n    pedido: {\n      nome: '',\n      email: 'marina@grupovale.com.br',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: ''\n    }\n  },\n  {\n    caso: 'E-mail inválido',\n    pedido: {\n      nome: 'Marina Souza',\n      email: 'marina@grupovale',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: ''\n    }\n  },\n  {\n    caso: 'Campo isca preenchido',\n    pedido: {\n      nome: 'Bot123',\n      email: 'bot@spam.com',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: 'https://spam.example'\n    }\n  },\n  {\n    caso: 'Mesmo pedido de novo',\n    pedido: {\n      nome: 'Marina Souza',\n      email: 'marina@grupovale.com.br',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: ''\n    }\n  }\n];\nreturn casos.map(c => ({ json: c }));"
+      },
+      "id": "6ce8bbd8-60f3-4c15-a458-df24d608b7b6",
+      "name": "Cinco pedidos de teste",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Endereço do captador').first().json.url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.pedido) }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1500
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "e11f9de4-99ac-46b0-a49d-10608a3386db",
+      "name": "Enviar ao captador",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        750,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "26431294-f1ce-4127-a297-803e3cf9ecd3",
+              "name": "caso",
+              "value": "={{ $('Cinco pedidos de teste').item.json.caso }}",
+              "type": "string"
+            },
+            {
+              "id": "04c238ca-7958-406d-aaf6-5d056571b8e0",
+              "name": "codigo",
+              "value": "={{ $json.statusCode }}",
+              "type": "number"
+            },
+            {
+              "id": "1fa89c1c-6599-4c9c-a669-5942babedb44",
+              "name": "resposta",
+              "value": "={{ $json.body ?? $json.data ?? '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a19e17f7-e7b8-40bc-ad64-31c3ac31af02",
+      "name": "Ler a resposta",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1000,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Enviar os cinco pedidos": {
+      "main": [
+        [
+          {
+            "node": "Endereço do captador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Endereço do captador": {
+      "main": [
+        [
+          {
+            "node": "Cinco pedidos de teste",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cinco pedidos de teste": {
+      "main": [
+        [
+          {
+            "node": "Enviar ao captador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar ao captador": {
+      "main": [
+        [
+          {
+            "node": "Ler a resposta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

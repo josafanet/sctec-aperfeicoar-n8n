@@ -1,0 +1,1203 @@
+{
+  "name": "Orbita Labs v5 · Captador da turma",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "orbita-v5",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "bda5c768-5517-4a6a-af74-13237d6b6c21",
+      "name": "Disparo de Gatilho",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76bc98d1-10d8-402b-bc4a-0d059e658567",
+              "name": "nome",
+              "value": "={{ $json.body?.nome ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "1cac0c55-0274-4592-bb3c-913789b1297a",
+              "name": "email",
+              "value": "={{ $json.body?.email ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "76d87ce4-a8e3-470b-89cf-4806578eab66",
+              "name": "whatsapp",
+              "value": "={{ $json.body?.whatsapp ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "25849917-80be-488c-a61d-49bf1f23aeac",
+              "name": "empresa",
+              "value": "={{ $json.body?.empresa ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "5c4017b7-6d67-43bc-9889-21461c55306b",
+              "name": "porte",
+              "value": "={{ $json.body?.porte ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "5245ee68-0b3d-4332-9499-abb2812aed26",
+              "name": "area",
+              "value": "={{ $json.body?.area ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "8982008f-1385-41b5-a6d3-9f9ddc651a01",
+              "name": "prazo",
+              "value": "={{ $json.body?.prazo ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "91ec419f-3313-4353-9148-4e1504924989",
+              "name": "consentimento",
+              "value": "={{ $json.body?.consentimento ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "c3aa8384-65a0-4afa-a561-c8db5f26e263",
+              "name": "site",
+              "value": "={{ $json.body?.site ?? '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "64641971-32b4-47a4-a59d-9a66a5d0a742",
+      "name": "Variáveis",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        250,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c18c105a-f445-479b-905a-ec69895b81fd",
+              "name": "nome",
+              "value": "={{ ($json.nome || '').trim().toLowerCase().toTitleCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "ecc1cd67-753d-4c30-a6c6-bafbf63b27bb",
+              "name": "email",
+              "value": "={{ ($json.email || '').trim().toLowerCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "39103d84-ab38-4d10-9fad-c4d9b338b1e2",
+              "name": "whatsapp",
+              "value": "={{ ($json.whatsapp || '').replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "4da195f3-8cb1-4591-b350-45c5df5a2db1",
+              "name": "empresa",
+              "value": "={{ ($json.empresa || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "0d5e22ff-b90d-4864-9626-b6d638b922d0",
+              "name": "porte",
+              "value": "={{ ($json.porte || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "5e3da724-425d-42bd-9f31-9d4205fca90a",
+              "name": "area",
+              "value": "={{ ($json.area || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "e0def224-feae-44de-8a34-2701bdcbaa78",
+              "name": "prazo",
+              "value": "={{ ($json.prazo || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "f4a0580a-bd1b-43f2-8d93-9f347e61f6a5",
+              "name": "consentimento",
+              "value": "={{ ($json.consentimento || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "4ada65a6-3ccd-4e96-a3c3-318a2432f658",
+              "name": "site",
+              "value": "={{ ($json.site || '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "947f4bae-7f0f-4b85-a7fe-ae4a08d2bd71",
+      "name": "Normalizar Dados",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        500,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Do formulário ao pedido\nEm **Variáveis**, os campos vêm de `body`. Um campo ausente vira texto vazio. Em **Normalizar Dados**, confira o e-mail da Marina em minúsculas e o WhatsApp só com dígitos.",
+        "width": 460,
+        "height": 175,
+        "color": 5
+      },
+      "id": "8d2012db-0992-41c6-ad62-dd14efa73683",
+      "name": "Conferir a entrada",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const lead = $json;\nconst prazo = { 'este-mes': 40, 'proximo-trimestre': 25, pesquisando: 5 };\nconst porte = { '200+': 25, '51-200': 20, '11-50': 10, '1-10': 5 };\nconst pessoais = [\n  'gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com.br', 'yahoo.com'\n];\nconst dominio = (lead.email || '').split('@')[1] || '';\nconst nota = (prazo[lead.prazo] || 0) + (porte[lead.porte] || 0)\n  + (dominio && !pessoais.includes(dominio) ? 15 : 0)\n  + (lead.whatsapp ? 10 : 0) + (lead.empresa ? 10 : 0);\nreturn { json: {\n  ...lead, nota,\n  faixa: nota >= 70 ? 'quente' : nota >= 40 ? 'morno' : 'frio',\n  etapa: 'Novo lead'\n} };"
+      },
+      "id": "85e133e5-7d96-4fb1-ac3b-10365ff88db0",
+      "name": "Nota do lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2260,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0d225fe9-a4dd-47b5-8c2b-af627116dceb",
+                    "leftValue": "={{ $json.faixa }}",
+                    "rightValue": "quente",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "quente"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9b155886-da87-4d8e-bead-71ffa0653a25",
+                    "leftValue": "={{ $json.faixa }}",
+                    "rightValue": "morno",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "morno"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "9384241d-a375-4c4f-a767-0a799ed57945",
+      "name": "Faixa",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2510,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Por qual saída vai passar?\nPrazo, porte, domínio do e-mail, WhatsApp e empresa contam pontos. A partir de 70, o pedido sai por **quente**. De 40 a 69, sai por **morno**. Abaixo de 40, sai por **Fallback**, a terceira saída.",
+        "width": 465,
+        "height": 200,
+        "color": 5
+      },
+      "id": "de5aea8a-bfc7-4665-ac72-01bc899b3d6d",
+      "name": "Prever a faixa",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        -300
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "9a6ff053-1691-4a1a-a509-ad23ddf99ea9",
+      "name": "Lead qualificado",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2770,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7e362123-da20-44a1-bac0-ccf2ea86953f",
+              "name": "lista_novo_lead",
+              "value": "CONFIGURAR_LISTA_NOVO_LEAD",
+              "type": "string"
+            },
+            {
+              "id": "418d6137-a02e-4a9d-9ef0-4243492a4fac",
+              "name": "etiqueta_quente",
+              "value": "CONFIGURAR_ETIQUETA_QUENTE",
+              "type": "string"
+            },
+            {
+              "id": "d6324906-d648-42b1-b690-9ea2bc017b5a",
+              "name": "etiqueta_morno",
+              "value": "CONFIGURAR_ETIQUETA_MORNO",
+              "type": "string"
+            },
+            {
+              "id": "c7ee6c23-abd7-4880-93b0-9e70a90925be",
+              "name": "etiqueta_frio",
+              "value": "CONFIGURAR_ETIQUETA_FRIO",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "c5dec87e-c111-4ca0-a049-e3f5e7990f80",
+      "name": "Configurar Trello",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3020,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Qual etiqueta vai no cartão?\nEm **Configurar Trello**, cole o ID da lista **Novo lead** e os IDs das três etiquetas do seu quadro. Mantenha **Include Other Fields** ligado. Para um pedido quente, o Trello lê `etiqueta_quente`.",
+        "width": 430,
+        "height": 205,
+        "color": 5
+      },
+      "id": "602f2c9b-764c-4794-ab7d-7503f56a129d",
+      "name": "Usar os IDs do quadro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2870,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "card",
+        "operation": "create",
+        "listId": "={{ $json.lista_novo_lead }}",
+        "name": "={{ ($json.empresa || 'Empresa não informada') + ' · ' + $json.nome }}",
+        "description": "={{ 'E-mail: ' + $json.email + '\\nWhatsApp: ' + $json.whatsapp + '\\nPorte: ' + $json.porte + '\\nÁrea: ' + $json.area + '\\nPrazo: ' + $json.prazo + '\\nNota: ' + $json.nota + '\\nFaixa: ' + $json.faixa }}",
+        "additionalFields": {
+          "idLabels": "={{ $json['etiqueta_' + $json.faixa] }}"
+        }
+      },
+      "id": "75768c50-6450-441e-a57e-00ba727414ac",
+      "name": "Criar cartão no Trello",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        3270,
+        0
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "### Acesso ao Trello\nUse sua credencial **Trello API**. Crie em **Credentials** e escolha aqui. Se der erro de autorização, confira a chave e o token na credencial.",
+        "width": 370,
+        "height": 180,
+        "color": 3
+      },
+      "id": "e7b30837-cce4-4c3a-a69c-0ffebf07de64",
+      "name": "Escolher a credencial",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3090,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const pedido = $('Lead qualificado').first().json;\nreturn {\n  json: { ...pedido, trello_id: $json.id, trello_url: $json.url }\n};"
+      },
+      "id": "91bbd7f7-4166-4105-ab8b-5af20cc259b7",
+      "name": "Reunir pedido e cartão",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3520,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Guarde o link certo\nO Trello devolve o cartão criado. **Reunir pedido e cartão** recupera o pedido em **Lead qualificado** e acrescenta `trello_id` e `trello_url`.",
+        "width": 390,
+        "height": 185,
+        "color": 5
+      },
+      "id": "720e74d9-797e-43a9-ac06-d1c8fd3f1722",
+      "name": "Recuperar o pedido",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3380,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "CONFIGURAR_TABELA_leads"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nome": "={{ $('Reunir pedido e cartão').item.json.nome }}",
+            "email": "={{ $('Reunir pedido e cartão').item.json.email }}",
+            "whatsapp": "={{ $('Reunir pedido e cartão').item.json.whatsapp }}",
+            "empresa": "={{ $('Reunir pedido e cartão').item.json.empresa }}",
+            "porte": "={{ $('Reunir pedido e cartão').item.json.porte }}",
+            "area": "={{ $('Reunir pedido e cartão').item.json.area }}",
+            "prazo": "={{ $('Reunir pedido e cartão').item.json.prazo }}",
+            "consentimento": "={{ $('Reunir pedido e cartão').item.json.consentimento }}",
+            "nota": "={{ $('Reunir pedido e cartão').item.json.nota }}",
+            "faixa": "={{ $('Reunir pedido e cartão').item.json.faixa }}",
+            "etapa": "={{ $('Reunir pedido e cartão').item.json.etapa }}",
+            "trello_id": "={{ $('Reunir pedido e cartão').item.json.trello_id }}",
+            "trello_url": "={{ $('Reunir pedido e cartão').item.json.trello_url }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "whatsapp",
+              "displayName": "whatsapp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "porte",
+              "displayName": "porte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "area",
+              "displayName": "area",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "prazo",
+              "displayName": "prazo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "consentimento",
+              "displayName": "consentimento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nota",
+              "displayName": "nota",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "faixa",
+              "displayName": "faixa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "etapa",
+              "displayName": "etapa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "trello_id",
+              "displayName": "trello_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "trello_url",
+              "displayName": "trello_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "40cddfbe-7ee3-48ee-a5ba-174d25f22898",
+      "name": "Adicionar Lead",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3770,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Escolha a sua tabela\nEm **Adicionar Lead**, selecione `leads`. Acrescente `nota` (Number) e `faixa`, `etapa`, `trello_id`, `trello_url` (String) às colunas da v2. Abra o link da linha e confira a etiqueta no cartão.",
+        "width": 425,
+        "height": 195,
+        "color": 5
+      },
+      "id": "a2b73187-4fe9-4807-a080-a868b5d3ed1e",
+      "name": "Escolher a tabela",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3640,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ 'Recebemos seu pedido, ' + $('Nota do lead').first().json.nome + '!' + ($('Nota do lead').first().json.faixa === 'quente' ? ' Um consultor fala com você ainda hoje.' : ' Nossa equipe entrará em contato.') }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "3ee3b77d-e827-4e8f-a55a-0351ab29bcbc",
+      "name": "Resposta do Gatilho",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        4020,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Leia primeiro\nA v5 confere o pedido antes de criar o cartão. Robô, pedido incompleto e pedido repetido recebem resposta e não viram cartão. Se o Trello falhar, a página recebe 502 e a execução fica marcada como erro.\n\n1. Escolha a tabela `leads` em **Consultar cadastro** e em **Adicionar Lead**. Em **Configurar Trello**, cole os quatro códigos do seu quadro. Escolha a credencial em **Criar cartão no Trello**.\n2. Cole a **Test URL** do gatilho no rodapé da página da campanha. Ela termina em `/orbita-v5`. Clique em **Execute workflow** antes de cada envio.\n3. Teste nesta ordem. Pedido válido, nome vazio, e-mail inválido, campo isca e o mesmo pedido de novo.\n\nEm **Settings** do workflow, escolha **Alerta de erro** em **Error workflow** depois de importar esse fluxo.",
+        "width": 640,
+        "height": 400,
+        "color": 4
+      },
+      "id": "01c00047-4c5f-4315-a5ac-78339dd5b0fb",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -460
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const d = $json;\n\n// O campo site fica escondido na página. Uma pessoa não vê. Um robô preenche.\nif (d.site) return { json: { ...d, rota: 'robo', mensagem: 'Recebemos seu pedido.' } };\n\nconst erros = [];\nif (!d.nome) erros.push('Informe seu nome.');\nif (d.email && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(d.email)) erros.push('Confira o e-mail.');\nif (!d.email && !d.whatsapp) erros.push('Informe um e-mail ou um WhatsApp.');\nif (d.consentimento !== 'sim') erros.push('Marque a autorização de contato.');\n\nreturn { json: { ...d, rota: erros.length ? 'invalido' : 'valido', mensagem: erros.join(' ') } };"
+      },
+      "id": "dd9bbd38-4bf9-4957-a190-754b1e14f2e3",
+      "name": "Validar pedido",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        760,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0f396b34-7756-4f0b-a14e-bd84656a9b77",
+                    "leftValue": "={{ $json.rota }}",
+                    "rightValue": "robo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "robo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "eeea1da8-63d2-4ac7-ad1e-a8bc023b5082",
+                    "leftValue": "={{ $json.rota }}",
+                    "rightValue": "invalido",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "invalido"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "valido"
+        }
+      },
+      "id": "62ae0c3d-8dac-49a1-a002-dbb02a3c72e5",
+      "name": "Entrada válida?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1010,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Recebemos seu pedido.",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "ce1df05e-6b92-4894-a637-07f434658f11",
+      "name": "Resposta discreta ao robô",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1270,
+        -320
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.mensagem }}",
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "4d2c61d8-7b59-4f4e-af5c-5bda409c2656",
+      "name": "Explicar erro de entrada",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1270,
+        -140
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "CONFIGURAR_TABELA_leads"
+        },
+        "matchType": "anyCondition",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "email",
+              "condition": "eq",
+              "keyValue": "={{ $json.email || 'sem-email' }}"
+            },
+            {
+              "keyName": "whatsapp",
+              "condition": "eq",
+              "keyValue": "={{ $json.whatsapp || 'sem-whatsapp' }}"
+            }
+          ]
+        },
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "id": "0e2c272a-ac44-4827-af92-addb4db5ea4b",
+      "name": "Consultar cadastro",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1270,
+        60
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "52641c1e-b630-4921-aa78-3aab5d3106c6",
+              "leftValue": "={{ Boolean($json.id) }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "be0a0739-dd4e-4714-a6a8-053a2c42d4f5",
+      "name": "Já cadastrado?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1520,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ 'Seu pedido já está com a nossa equipe, ' + $('Validar pedido').item.json.nome + '. Não precisa enviar de novo.' }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "46d5ee57-3673-4ea1-abde-13be0a75f9b2",
+      "name": "Pedido repetido",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1780,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// A consulta devolve a linha da tabela (ou um item vazio).\n// Aqui o pedido validado volta a seguir pelo fluxo.\nreturn { json: $('Validar pedido').item.json };"
+      },
+      "id": "3d6a5e75-b8e1-4a0f-a9d1-fe0bb53051fe",
+      "name": "Retomar pedido",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Não foi possível concluir o registro agora. Tente de novo mais tarde.",
+        "options": {
+          "responseCode": 502,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "aa1be42a-c8ff-4756-ab6f-50eeb14006db",
+      "name": "CRM indisponível",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        3520,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ 'O Trello não criou o cartão de ' + $('Lead qualificado').item.json.nome + '. Confira o quadro antes de reenviar.' }}"
+      },
+      "id": "1cf7f71e-72f6-4d01-a6f5-62fdab39d9d7",
+      "name": "Registrar falha de CRM",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        3770,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Validar antes de gravar\n\n**Validar pedido** devolve `rota` e `mensagem`. Em **Entrada válida?**, a rota `robo` recebe uma resposta comum e para. A rota `invalido` recebe 400 com a mensagem. O resto segue pela saída **valido**.\n\nA página mostra só o código 400. A mensagem aparece na execução.",
+        "width": 520,
+        "height": 250,
+        "color": 5
+      },
+      "id": "8c19c0de-e47a-471a-ad5b-1506bf2c93b0",
+      "name": "Validar antes de gravar",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Não repetir o cartão\n\n**Consultar cadastro** procura o mesmo e-mail ou o mesmo WhatsApp na tabela. Deixe **Always Output Data** ligado em **Settings** do nó. Sem ele, um pedido novo não devolve nada e a página fica sem resposta.\n\nSe a linha existe, ela tem `id` e o pedido sai por **true**.",
+        "width": 520,
+        "height": 270,
+        "color": 5
+      },
+      "id": "f42c26f0-4f76-40ab-a37c-da135f7e69cf",
+      "name": "Não repetir o cartão",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Quando o CRM falha\n\nEm **Settings** do nó do Trello, **On Error** está em **Continue (using error output)**. A falha responde 502 à página e **Registrar falha de CRM** marca a execução como erro.\n\nNão reenvie sem olhar o quadro. O Trello pode ter criado o cartão antes de a resposta se perder.",
+        "width": 520,
+        "height": 260,
+        "color": 3
+      },
+      "id": "c61eacfa-3dfc-45e0-acb6-1c56f8a37ae6",
+      "name": "Quando o CRM falha",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3480,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Testar a chamada\n\nClique em Execute workflow e use a Test URL, ou publique o fluxo e use a Production URL. Depois mande a chamada por uma destas ferramentas.\n\n- [Postman](https://www.postman.com/downloads/)\n- [Insomnia](https://insomnia.rest/download)\n- [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client), extensão do VS Code",
+        "width": 320,
+        "height": 380,
+        "color": 6
+      },
+      "id": "6de728ce-b3b4-4074-abbb-1b68d4c3979e",
+      "name": "Testar a chamada",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        420
+      ]
+    }
+  ],
+  "connections": {
+    "Disparo de Gatilho": {
+      "main": [
+        [
+          {
+            "node": "Variáveis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variáveis": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Dados": {
+      "main": [
+        [
+          {
+            "node": "Validar pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar pedido": {
+      "main": [
+        [
+          {
+            "node": "Entrada válida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Entrada válida?": {
+      "main": [
+        [
+          {
+            "node": "Resposta discreta ao robô",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Explicar erro de entrada",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Consultar cadastro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar cadastro": {
+      "main": [
+        [
+          {
+            "node": "Já cadastrado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Já cadastrado?": {
+      "main": [
+        [
+          {
+            "node": "Pedido repetido",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Retomar pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retomar pedido": {
+      "main": [
+        [
+          {
+            "node": "Nota do lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nota do lead": {
+      "main": [
+        [
+          {
+            "node": "Faixa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Faixa": {
+      "main": [
+        [
+          {
+            "node": "Lead qualificado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lead qualificado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lead qualificado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead qualificado": {
+      "main": [
+        [
+          {
+            "node": "Configurar Trello",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configurar Trello": {
+      "main": [
+        [
+          {
+            "node": "Criar cartão no Trello",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar cartão no Trello": {
+      "main": [
+        [
+          {
+            "node": "Reunir pedido e cartão",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CRM indisponível",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reunir pedido e cartão": {
+      "main": [
+        [
+          {
+            "node": "Adicionar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adicionar Lead": {
+      "main": [
+        [
+          {
+            "node": "Resposta do Gatilho",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM indisponível": {
+      "main": [
+        [
+          {
+            "node": "Registrar falha de CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

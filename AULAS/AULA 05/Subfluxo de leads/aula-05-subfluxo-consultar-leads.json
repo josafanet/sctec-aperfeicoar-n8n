@@ -1,0 +1,74 @@
+{
+  "name": "Aula 5 · Subfluxo · Consultar leads por faixa",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nEste fluxo não tem botão de início próprio. Ele roda quando **outro fluxo** o chama.\n\n- **Entrada.** `faixa`, com `quente`, `morno`, `frio` ou `todas`.\n- **Saída.** Um item com `faixa`, `total` e a lista `leads`.\n\nOs seis leads são fictícios e ficam dentro do código. Assim o exemplo funciona sem tabela.\n\nSalve e copie o ID do fluxo, que fica no endereço do navegador depois de `/workflow/`.",
+        "width": 560,
+        "height": 350,
+        "color": 4
+      },
+      "id": "c0f6c423-7558-4972-a48a-a63d3bf62af1",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -430
+      ]
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "faixa",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "04c00551-efb4-4f40-a4dd-4429ce331688",
+      "name": "Quando outro fluxo chamar",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const leads = [\n  {\n    nome: 'Marina Souza',\n    empresa: 'Grupo Vale Logística',\n    nota: 95,\n    faixa: 'quente',\n    etapa: 'Contato feito'\n  },\n  {\n    nome: 'Júlia Ramos',\n    empresa: 'Ótica Central',\n    nota: 80,\n    faixa: 'quente',\n    etapa: 'Novo lead'\n  },\n  {\n    nome: 'Ana Paula Reis',\n    empresa: 'Clínica Bem Estar',\n    nota: 70,\n    faixa: 'quente',\n    etapa: 'Diagnóstico agendado'\n  },\n  {\n    nome: 'Pedro Lima',\n    empresa: 'Lima Contabilidade',\n    nota: 55,\n    faixa: 'morno',\n    etapa: 'Novo lead'\n  },\n  {\n    nome: 'Caio Mendes',\n    empresa: 'Padaria Trigo Bom',\n    nota: 45,\n    faixa: 'morno',\n    etapa: 'Novo lead'\n  },\n  {\n    nome: 'Rafa',\n    empresa: '',\n    nota: 10,\n    faixa: 'frio',\n    etapa: 'Novo lead'\n  }\n];\n\nconst faixa = String($input.first().json.faixa || 'todas').trim().toLowerCase();\nconst lista = faixa === 'todas' ? leads : leads.filter(l => l.faixa === faixa);\nreturn [{ json: { faixa, total: lista.length, leads: lista } }];"
+      },
+      "id": "b70ecc00-aa42-4f52-a273-9bab6b6873ac",
+      "name": "Leads fictícios por faixa",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Quando outro fluxo chamar": {
+      "main": [
+        [
+          {
+            "node": "Leads fictícios por faixa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}
