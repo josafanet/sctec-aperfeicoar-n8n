@@ -834,7 +834,7 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ 'Seu pedido já está com a nossa equipe, ' + $('Validar pedido').item.json.nome + '. Não precisa enviar de novo.' }}",
+        "responseBody": "={{ 'Seu pedido já está com a nossa equipe, ' + $('Validar pedido').first().json.nome + '. Não precisa enviar de novo.' }}",
         "options": {
           "responseCode": 200,
           "responseHeaders": {
@@ -859,7 +859,7 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "// A consulta devolve a linha da tabela (ou um item vazio).\n// Aqui o pedido validado volta a seguir pelo fluxo.\nreturn { json: $('Validar pedido').item.json };"
+        "jsCode": "// A consulta devolve a linha da tabela (ou um item vazio).\n// Aqui o pedido validado volta a seguir pelo fluxo.\nreturn { json: $('Validar pedido').first().json };"
       },
       "id": "3d6a5e75-b8e1-4a0f-a9d1-fe0bb53051fe",
       "name": "Retomar pedido",
