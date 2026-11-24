@@ -1,0 +1,263 @@
+{
+  "name": "Aula 5 · Quando o CRM falha",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nO nó **Criar cartão no CRM (simulado)** chama um endereço de teste que sempre responde **503**, como um CRM fora do ar.\n\n1. Clique em **Execute workflow**. O pedido sai pela saída de erro e **Parar e avisar** fica vermelho.\n2. Abra **Executions** e encontre esta execução com o status **Error**.\n3. Abra **Montar registro da falha** e leia `quando`, `etapa` e `mensagem`.\n4. Antes de tentar de novo, pergunte se o cartão foi criado. Aqui não foi, mas num CRM real pode ter sido.\n5. Troque o final do endereço de `503` para `200` e execute. O pedido sai por **Cartão criado**.",
+        "width": 620,
+        "height": 430,
+        "color": 4
+      },
+      "id": "174fb726-f27d-441b-aebf-d367fe1b5747",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -470
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0e0b58fa-3f0a-492b-ad81-fa56925144ec",
+      "name": "Executar com o pedido da Marina",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "07876d15-fe9e-49f6-a7aa-bf9e93f82977",
+              "name": "nome",
+              "value": "Marina Souza",
+              "type": "string"
+            },
+            {
+              "id": "13354310-22da-4f11-af86-496920505d69",
+              "name": "email",
+              "value": "marina@grupovale.com.br",
+              "type": "string"
+            },
+            {
+              "id": "559b3356-421a-4df2-af08-b1d4b45c7797",
+              "name": "whatsapp",
+              "value": "48998123344",
+              "type": "string"
+            },
+            {
+              "id": "7f21347a-d5ec-425a-a21c-a6b6235ff954",
+              "name": "empresa",
+              "value": "Grupo Vale Logística",
+              "type": "string"
+            },
+            {
+              "id": "fed5bdf9-8c23-4ba5-a6f9-74d3829550fc",
+              "name": "porte",
+              "value": "51-200",
+              "type": "string"
+            },
+            {
+              "id": "f3940291-3e10-453f-a582-86bedf16c271",
+              "name": "area",
+              "value": "atendimento",
+              "type": "string"
+            },
+            {
+              "id": "eb3ba44f-2759-457b-acc8-b2fac5bc4256",
+              "name": "prazo",
+              "value": "este-mes",
+              "type": "string"
+            },
+            {
+              "id": "966143a5-670f-4b84-a90a-83f4de4e06fc",
+              "name": "nota",
+              "value": 95,
+              "type": "number"
+            },
+            {
+              "id": "636f632a-7807-4b47-abb6-3b939940b7cb",
+              "name": "faixa",
+              "value": "quente",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bc752b70-567d-473d-a263-f463527d0c41",
+      "name": "Pedido da Marina",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        250,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://httpbin.org/status/503",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "900dfa0a-c833-40fc-aa36-76acf173bc24",
+      "name": "Criar cartão no CRM (simulado)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        0
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "id": "d49a2f98-b790-403f-a46e-5f6406835766",
+      "name": "Cartão criado",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        780,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4d810a8f-71b9-48ef-ac96-8d6ee20b9c69",
+              "name": "quando",
+              "value": "={{ $now.toFormat('dd/MM/yyyy HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "a2b977d2-afd1-4fe3-a142-15cc33ec8794",
+              "name": "etapa",
+              "value": "Criar cartão no CRM",
+              "type": "string"
+            },
+            {
+              "id": "e5e5a884-7d98-4b9e-a628-d10d084d236f",
+              "name": "pedido",
+              "value": "={{ $('Pedido da Marina').item.json.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "b940fee2-3f7b-45b6-a4c0-2e39990cfaef",
+              "name": "mensagem",
+              "value": "={{ $json.error?.message ?? $json.message ?? 'O CRM não respondeu.' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e8422469-5192-493a-aead-64ab1958da61",
+      "name": "Montar registro da falha",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        780,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ 'O CRM não criou o cartão de ' + $json.pedido + '. Confira o quadro antes de reenviar.' }}"
+      },
+      "id": "8878c543-c63e-4522-a936-ad29cc6a4eca",
+      "name": "Parar e avisar",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Por que não repetir sozinho\n\n**Retry On Fail** tentaria de novo. Se o CRM criou o cartão e só a resposta se perdeu, nasceria um cartão repetido. Por isso o fluxo para e uma pessoa confere o quadro.",
+        "width": 460,
+        "height": 200,
+        "color": 3
+      },
+      "id": "a46cd795-e546-45c6-a8dc-61adbc1c63cf",
+      "name": "Por que não repetir sozinho",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Executar com o pedido da Marina": {
+      "main": [
+        [
+          {
+            "node": "Pedido da Marina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pedido da Marina": {
+      "main": [
+        [
+          {
+            "node": "Criar cartão no CRM (simulado)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar cartão no CRM (simulado)": {
+      "main": [
+        [
+          {
+            "node": "Cartão criado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Montar registro da falha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Montar registro da falha": {
+      "main": [
+        [
+          {
+            "node": "Parar e avisar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

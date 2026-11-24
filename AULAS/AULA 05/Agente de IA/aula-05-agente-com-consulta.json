@@ -1,0 +1,176 @@
+{
+  "name": "Aula 5 · Agente 2 · Com a consulta de leads",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nO mesmo agente agora tem uma ferramenta. Ele pode chamar o **Subfluxo · Consultar leads por faixa**.\n\n1. Em **Modelo de linguagem**, escolha a credencial. Em **Consultar leads por faixa**, escolha o subfluxo na lista.\n2. Abra **Open chat** e pergunte `Quais leads quentes temos hoje?`\n3. Compare a resposta com a saída do subfluxo. Devem aparecer 3 nomes. Marina Souza, Júlia Ramos e Ana Paula Reis.\n4. Pergunte por um lead que não existe. O agente deve dizer que não encontrou.\n\nAbra a execução e veja a chamada da ferramenta e o que ela devolveu.",
+        "width": 600,
+        "height": 420,
+        "color": 4
+      },
+      "id": "dc3edd3b-89af-4e64-a4bc-f28ac8d82434",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -470
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9e839bbe-835b-4622-a256-33398ec77cb7",
+      "name": "Quando chegar mensagem",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "3b155893-9977-45e3-ae6f-74e1f8f79ab1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Você é o assistente comercial da Orbita Labs, uma consultoria de automação.\nResponda em português do Brasil, em frases curtas.\nOs dados são fictícios e servem para treino.\nPara qualquer pergunta sobre leads, use a ferramenta Consultar leads por faixa. Responda só com o que ela devolver.\nSe ela não trouxer o lead pedido, diga que não encontrou. Nunca invente nomes ou notas."
+        }
+      },
+      "id": "571bc8e9-cc9d-4da1-afb9-d50deca0039e",
+      "name": "Assistente da Orbita",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        280,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "a712ab05-bf76-453f-aff9-ac01d88e3de7",
+      "name": "Modelo de linguagem",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 6
+      },
+      "id": "6fd1d722-5b50-4c50-a2d8-39276136f994",
+      "name": "Memória da conversa",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        380,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "description": "Consulta os leads da Orbita Labs por faixa de prioridade. Use quando perguntarem quais leads existem, quantos são ou em que etapa estão. O parâmetro faixa aceita quente, morno, frio ou todas. Devolve total e a lista com nome, empresa, nota, faixa e etapa.",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "CONFIGURAR_ID_DO_SUBFLUXO"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "faixa": "={{ $fromAI('faixa', 'Faixa de prioridade. Use quente, morno, frio ou todas.', 'string') }}"
+          },
+          "matchingColumns": [
+            "faixa"
+          ],
+          "schema": [
+            {
+              "id": "faixa",
+              "displayName": "faixa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "id": "4973a5db-1745-4b00-ac9d-2cbe62de0cb2",
+      "name": "Consultar leads por faixa",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Quando chegar mensagem": {
+      "main": [
+        [
+          {
+            "node": "Assistente da Orbita",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modelo de linguagem": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Assistente da Orbita",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memória da conversa": {
+      "ai_memory": [
+        [
+          {
+            "node": "Assistente da Orbita",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar leads por faixa": {
+      "ai_tool": [
+        [
+          {
+            "node": "Assistente da Orbita",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

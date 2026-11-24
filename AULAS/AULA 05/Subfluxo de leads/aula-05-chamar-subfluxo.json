@@ -1,0 +1,160 @@
+{
+  "name": "Aula 5 · Chamar o subfluxo de leads",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nEste fluxo chama o **Subfluxo · Consultar leads por faixa** e lê o que ele devolve.\n\n1. Em **Consultar leads por faixa**, escolha o subfluxo na lista **From list**.\n2. Em **Escolher a faixa**, deixe `quente`.\n3. Clique em **Execute workflow**. Resultado esperado. 3 leads, Marina Souza, Júlia Ramos e Ana Paula Reis.\n\nTroque a faixa para `morno` e preveja o resultado antes de executar.",
+        "width": 560,
+        "height": 330,
+        "color": 4
+      },
+      "id": "27cb4c38-855b-4326-ab05-6367b9748993",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "606285c3-0577-4bf8-a8d4-caf20e4f5e2b",
+      "name": "Executar a consulta",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7a37b8a8-5874-4374-a087-7967c5375185",
+              "name": "faixa",
+              "value": "quente",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "689a31dd-4dff-4b9c-a0bd-93ad691f59f4",
+      "name": "Escolher a faixa",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        250,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "CONFIGURAR_ID_DO_SUBFLUXO"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "faixa": "={{ $json.faixa }}"
+          },
+          "matchingColumns": [
+            "faixa"
+          ],
+          "schema": [
+            {
+              "id": "faixa",
+              "displayName": "faixa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "04ce862a-3f56-4fb1-af28-c5b5269887f8",
+      "name": "Consultar leads por faixa",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b6cb33e6-07ac-4acc-a6d1-45f011f18cf6",
+              "name": "resumo",
+              "value": "={{ $json.total + ' leads na faixa ' + $json.faixa + '. ' + $json.leads.map(l => l.nome).join(', ') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "83bbc496-c1e6-42a1-a25c-4036692353e8",
+      "name": "Ler o resultado",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        750,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Executar a consulta": {
+      "main": [
+        [
+          {
+            "node": "Escolher a faixa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escolher a faixa": {
+      "main": [
+        [
+          {
+            "node": "Consultar leads por faixa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar leads por faixa": {
+      "main": [
+        [
+          {
+            "node": "Ler o resultado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}

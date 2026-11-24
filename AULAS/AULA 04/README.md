@@ -2,6 +2,8 @@
 
 Comece pelo **captador da Orbita** para acompanhar um pedido desde o formulário da campanha até o cartão no Trello. Os outros exemplos podem ser testados separadamente.
 
+Na aula de 23/11/2026, a turma fez a nota, a faixa e o cartão no Trello. O formulário, o resumo diário, o HTTP (feriados, Basic e Bearer), o Loop e o Google Sheets são vistos no começo da [aula 5](../AULA%2005/README.md).
+
 | O que você quer fazer? | Por onde começar |
 |---|---|
 | Entender o Code, o Switch, o Filter, o Loop e o HTTP Request em exemplos curtos | [Conceitos antes do captador](CONCEITOS/README.md) |

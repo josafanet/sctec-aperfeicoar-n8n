@@ -1,0 +1,227 @@
+{
+  "name": "Aula 5 · Validar quatro pedidos",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leia primeiro\n\nQuatro pedidos fictícios passam pela mesma validação do captador v5. Nada é gravado e nenhuma credencial é pedida.\n\n1. Clique em **Execute workflow**.\n2. Antes de abrir **Entrada válida?**, preveja a saída de cada pedido.\n3. Confira. **robo** recebe 1, **invalido** recebe 2 e **valido** recebe 1.\n\nAbra **Validar pedido** e leia `mensagem` em cada item recusado.",
+        "width": 560,
+        "height": 340,
+        "color": 4
+      },
+      "id": "aae77cc9-0770-4fc3-a9a9-c130a80174ef",
+      "name": "Leia primeiro",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -420
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "2a9ea943-3d76-406f-aea7-777e8001d86b",
+      "name": "Testar os quatro casos",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const casos = [\n  {\n    caso: 'Pedido válido',\n    pedido: {\n      nome: 'Marina Souza',\n      email: 'marina@grupovale.com.br',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: ''\n    }\n  },\n  {\n    caso: 'Nome vazio',\n    pedido: {\n      nome: '',\n      email: 'marina@grupovale.com.br',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: ''\n    }\n  },\n  {\n    caso: 'E-mail inválido',\n    pedido: {\n      nome: 'Marina Souza',\n      email: 'marina@grupovale',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: ''\n    }\n  },\n  {\n    caso: 'Campo isca preenchido',\n    pedido: {\n      nome: 'Bot123',\n      email: 'bot@spam.com',\n      whatsapp: '48998123344',\n      empresa: 'Grupo Vale Logística',\n      porte: '51-200',\n      area: 'atendimento',\n      prazo: 'este-mes',\n      consentimento: 'sim',\n      site: 'https://spam.example'\n    }\n  }\n];\nreturn casos.map(c => ({ json: { caso: c.caso, ...c.pedido } }));"
+      },
+      "id": "282a2558-bc46-4f1f-ad44-0e47bdd90f1e",
+      "name": "Quatro pedidos de teste",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        250,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const d = $json;\n\n// O campo site fica escondido na página. Uma pessoa não vê. Um robô preenche.\nif (d.site) return { json: { ...d, rota: 'robo', mensagem: 'Recebemos seu pedido.' } };\n\nconst erros = [];\nif (!d.nome) erros.push('Informe seu nome.');\nif (d.email && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(d.email)) erros.push('Confira o e-mail.');\nif (!d.email && !d.whatsapp) erros.push('Informe um e-mail ou um WhatsApp.');\nif (d.consentimento !== 'sim') erros.push('Marque a autorização de contato.');\n\nreturn { json: { ...d, rota: erros.length ? 'invalido' : 'valido', mensagem: erros.join(' ') } };"
+      },
+      "id": "04b5886f-54c9-414c-a310-f1fa2a8e8011",
+      "name": "Validar pedido",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a88475da-fde4-46b1-ac9c-1e28c261ec0a",
+                    "leftValue": "={{ $json.rota }}",
+                    "rightValue": "robo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "robo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "266999be-b7ff-40ef-a356-7ae69407da41",
+                    "leftValue": "={{ $json.rota }}",
+                    "rightValue": "invalido",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "invalido"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "valido"
+        }
+      },
+      "id": "8f33a192-65dd-4e28-a151-567de734ca44",
+      "name": "Entrada válida?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        750,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f71426ee-ef65-4d65-a7a2-b91862c006da",
+      "name": "Robô barrado",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1010,
+        -180
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "863e7f6f-2f6d-45c6-a1f0-f7591ccda602",
+      "name": "Pedido recusado",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1010,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7045b0e4-fcf7-41cf-a3e0-51e7f515dd93",
+      "name": "Pedido segue",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1010,
+        180
+      ]
+    }
+  ],
+  "connections": {
+    "Testar os quatro casos": {
+      "main": [
+        [
+          {
+            "node": "Quatro pedidos de teste",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quatro pedidos de teste": {
+      "main": [
+        [
+          {
+            "node": "Validar pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar pedido": {
+      "main": [
+        [
+          {
+            "node": "Entrada válida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Entrada válida?": {
+      "main": [
+        [
+          {
+            "node": "Robô barrado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pedido recusado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pedido segue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "pinData": {},
+  "tags": []
+}
