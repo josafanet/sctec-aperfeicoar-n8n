@@ -4,18 +4,19 @@ A aula começa pelo que ficou da aula 4, que são o formulário, o agendamento, 
 
 ## Primeiro, o que ficou da aula 4
 
-Estes exemplos estão na pasta da aula 4.
+Estes exemplos estão nesta pasta, para você começar por eles.
 
 | O que você quer fazer? | Por onde começar |
 |---|---|
-| Receber um pedido pelo formulário do próprio n8n | [Formulário de pedido](../AULA%2004/Formulario%20de%20pedido/README.md) |
-| Contar os pedidos que chegaram no dia anterior | [Resumo diário de leads](../AULA%2004/Resumo%20diario%20de%20leads/README.md) |
-| Fazer a primeira consulta HTTP, sem credencial | [Consultar feriados](../AULA%2004/Consultar%20feriados/README.md) |
-| Descobrir onde informar o usuário e a senha de uma API | [HTTP com Basic Auth](../AULA%2004/HTTP%20com%20Basic%20Auth/README.md) |
-| Descobrir onde informar o token de uma API | [HTTP com Bearer](../AULA%2004/HTTP%20com%20Bearer/README.md) |
-| Dividir os itens em lotes com o Loop Over Items | [Loop · Processar em lotes](../AULA%2004/CONCEITOS/Loop%20Processar%20em%20lotes/README.md) |
-| Acrescentar um pedido à aba `Pedidos` da planilha | [Gravar no Google Sheets](../AULA%2004/Gravar%20no%20Google%20Sheets/README.md) |
-| Receber no n8n a próxima linha acrescentada nessa aba | [Receber nova linha do Google Sheets](../AULA%2004/Receber%20nova%20linha%20do%20Google%20Sheets/README.md) |
+| Receber um pedido pelo formulário do próprio n8n | [Formulário de pedido](Formulario%20de%20pedido/README.md) |
+| Contar os pedidos que chegaram no dia anterior | [Resumo diário de leads](Resumo%20diario%20de%20leads/README.md) |
+| Fazer a primeira consulta HTTP, sem credencial | [Consultar feriados](Consultar%20feriados/README.md) |
+| Descobrir onde informar o usuário e a senha de uma API | [HTTP com Basic Auth](HTTP%20com%20Basic%20Auth/README.md) |
+| Descobrir onde informar o token de uma API | [HTTP com Bearer](HTTP%20com%20Bearer/README.md) |
+| Dividir os itens em lotes com o Loop Over Items | [Loop · Processar em lotes](CONCEITOS/Loop%20Processar%20em%20lotes/README.md) |
+| Acrescentar um pedido à aba `Pedidos` da planilha | [Gravar no Google Sheets](Gravar%20no%20Google%20Sheets/README.md) |
+| Receber no n8n a próxima linha acrescentada nessa aba | [Receber nova linha do Google Sheets](Receber%20nova%20linha%20do%20Google%20Sheets/README.md) |
+| Entender o Loop e o HTTP Request em exemplos curtos | [Conceitos da aula 5](CONCEITOS/README.md) |
 | Montar o mesmo quadro no Notion | [Modelos de CRM](../AULA%2004/Modelos%20de%20CRM/README.md) |
 
 ## Depois, o captador pronto para produção

@@ -47,7 +47,7 @@ Escolha uma aula para ver o mapa. No celular, toque em **Ampliar a imagem** para
 <details>
 <summary><strong>Aula 05 · O que a v5 faz com cada pedido?</strong></summary>
 
-A aula 5 começa pelo que ficou da aula 4, como formulário, agendamento, HTTP Request, Loop e Google Sheets. Esses fluxos continuam na pasta AULA 04
+A aula 5 começa pelo que ficou da aula 4, como formulário, agendamento, HTTP Request, Loop e Google Sheets. Esses fluxos estão na pasta AULA 05
 
 ![A versão 5 valida o pedido, barra o robô, reconhece o pedido repetido e avisa quando o Trello falha. No rodapé, o que veio da aula 4.](AULAS/AULA%2005/aula-05-mapa-mental.png)
 
