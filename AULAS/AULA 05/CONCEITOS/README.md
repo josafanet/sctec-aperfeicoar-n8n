@@ -1,6 +1,6 @@
 # Aula 5 · Loop e HTTP Request
 
-Exemplos curtos para entender o Loop Over Items e o HTTP Request, antes de abrir o captador da Orbita. Todos começam por um **Gatilho Manual**, quase sempre com dados fictícios já fixados. Nenhum pede tabela ou conta em outro serviço. Só o **HTTP 4** pede uma credencial, com valores de treino que estão no próprio exemplo.
+Exemplos curtos para entender o Loop Over Items e o HTTP Request, antes de abrir o captador da Orbita. Todos começam por um **Gatilho Manual**, quase sempre com dados fictícios já fixados. Nenhum pede tabela ou conta em outro serviço. Só o HTTP 4 pede uma credencial, com valores de treino que estão no próprio exemplo.
 
 Para testar, importe o JSON, clique em **Execute workflow** e compare com o resultado esperado no README da pasta. A nota **Leia primeiro** do próprio fluxo traz o mesmo passo a passo.
 

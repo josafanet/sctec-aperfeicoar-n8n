@@ -1,10 +1,10 @@
 # Aula 5 · Integrar, validar e publicar
 
-A aula começa pelo que ficou da aula 4, que são o formulário, o agendamento, o HTTP Request com credencial, o Loop e o Google Sheets. Depois, o captador da Orbita fica pronto para produção. Ele confere o pedido antes de gravar, barra o robô, não cria um cartão repetido e avisa quando o Trello falha.
+A aula começa pelo que sobrou da aula 4. São o formulário, o agendamento, o HTTP Request com credencial, o Loop e o Google Sheets. Depois, o captador da Orbita fica pronto para produção. Ele confere o pedido antes de gravar, barra o robô, não cria um cartão repetido e avisa quando o Trello falha.
 
 ## Primeiro, o que ficou da aula 4
 
-Estes exemplos estão nesta pasta, para você começar por eles.
+Estes exemplos estão nesta pasta, menos os Modelos de CRM, que ficam na pasta da aula 4.
 
 | O que você quer fazer? | Por onde começar |
 |---|---|

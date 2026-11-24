@@ -11,7 +11,7 @@ Para testar, importe o JSON, clique em **Execute workflow** e compare com o resu
 | 1 | [Code 1 · Um item por vez](Code%201%20Um%20item%20por%20vez/README.md) | O código roda uma vez para cada item e acrescenta campos. Usa `$json` |
 | 2 | [Code 2 · Todos os itens de uma vez](Code%202%20Todos%20os%20itens%20de%20uma%20vez/README.md) | O código recebe a lista inteira e devolve um resumo. Usa `$input.all()` |
 | 3 | [Code 3 · A nota em JavaScript e em Python](Code%203%20A%20nota%20em%20JavaScript%20e%20em%20Python/README.md) | A regra de nota do captador escrita nas duas linguagens, lado a lado |
-| 4 | [Code 4 · A mesma nota sem o nó Code](Code%204%20A%20mesma%20nota%20sem%20o%20Code/README.md) | A mesma regra só com Switch, IF e Edit Fields: 25 nós no lugar de 1 |
+| 4 | [Code 4 · A mesma nota sem o nó Code](Code%204%20A%20mesma%20nota%20sem%20o%20Code/README.md) | A mesma regra só com Switch, IF e Edit Fields, em 25 nós no lugar de 1 |
 
 ## Nó Switch
 
@@ -20,7 +20,7 @@ Para testar, importe o JSON, clique em **Execute workflow** e compare com o resu
 | 1 | [Switch 1 · Separar por texto](Switch%201%20Separar%20por%20texto/README.md) | Uma saída para cada setor e a saída Fallback para o que sobrou |
 | 2 | [Switch 2 · Separar por faixa de número](Switch%202%20Separar%20por%20faixa%20de%20numero/README.md) | Comparação de número e por que a ordem das regras conta |
 
-Na aula 3 há mais dois exemplos do mesmo assunto: [02 Escolher o contato com IF](../../AULA%2003/02%20Escolher%20o%20contato%20com%20IF/README.md) e [06 Dar nota e separar por faixa](../../AULA%2003/06%20Dar%20nota%20e%20separar%20por%20faixa/README.md), que já junta o Code com o Switch.
+Na aula 3 há mais dois exemplos do mesmo assunto, o [02 Escolher o contato com IF](../../AULA%2003/02%20Escolher%20o%20contato%20com%20IF/README.md) e o [06 Dar nota e separar por faixa](../../AULA%2003/06%20Dar%20nota%20e%20separar%20por%20faixa/README.md), que já junta o Code com o Switch.
 
 ## Nó Filter
 

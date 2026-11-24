@@ -1,6 +1,6 @@
 # Aula 4 · Do pedido ao cartão
 
-Comece pelo **captador da Orbita** para acompanhar um pedido desde o formulário da campanha até o cartão no Trello. Os outros exemplos podem ser testados separadamente.
+Comece pelo captador da Orbita para acompanhar um pedido desde o formulário da campanha até o cartão no Trello. Os outros exemplos podem ser testados separadamente.
 
 Na aula de 23/11/2026, a turma fez a nota, a faixa e o cartão no Trello. O formulário, o resumo diário, o HTTP (feriados, Basic e Bearer), o Loop e o Google Sheets passaram para o começo da [aula 5](../AULA%2005/README.md) e estão na pasta dela.
 
