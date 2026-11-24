@@ -20,7 +20,7 @@ with others.
 
 The OFL allows the licensed fonts to be used, studied, modified and
 redistributed freely as long as they are not sold by themselves. The
-fonts, including any derivative works, can be bundled, embedded, 
+fonts, including any derivative works, can be bundled, embedded,
 redistributed and/or sold with any software provided that any reserved
 names are not used by derivative works. The fonts and derivatives,
 however, cannot be released under any other type of license. The
@@ -118,7 +118,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 <text x="84" y="265" font-size="16" fill="#17271f" font-weight="780" text-anchor="middle" letter-spacing="0">1</text>
 <text x="118" y="266" font-size="18" fill="#a8db77" font-weight="680" text-anchor="start" letter-spacing="2">ENTRADA</text>
 <text x="68" y="318" font-size="37" fill="#f7f8f0" font-weight="720" text-anchor="start" letter-spacing="-0.8">O que chega?</text>
-<text x="68" y="357" font-size="25" fill="#d5e0d4" font-weight="450" text-anchor="start" letter-spacing="0">Marina preenche o formulário.</text>
+<text x="68" y="357" font-size="25" fill="#d5e0d4" font-weight="450" text-anchor="start" letter-spacing="0">Marina envia o pedido pela página.</text>
 <text x="68" y="390" font-size="25" fill="#d5e0d4" font-weight="450" text-anchor="start" letter-spacing="0">O fluxo padroniza nome, e-mail</text>
 <text x="68" y="423" font-size="25" fill="#d5e0d4" font-weight="450" text-anchor="start" letter-spacing="0">e WhatsApp.</text>
 <circle cx="1126" cy="259" r="16" fill="#a8db77" stroke="none" stroke-width="1"/>
@@ -143,16 +143,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 <text x="68" y="625" font-size="25" fill="#d5e0d4" font-weight="450" text-anchor="start" letter-spacing="0">Na página, ela vê a confirmação</text>
 <text x="68" y="658" font-size="25" fill="#d5e0d4" font-weight="450" text-anchor="start" letter-spacing="0">de que o pedido chegou.</text>
 <rect x="0" y="723" width="1600" height="177" rx="0" fill="#e6efd9" stroke="none" stroke-width="1"/>
-<text x="67" y="766" font-size="17" fill="#36643b" font-weight="740" text-anchor="start" letter-spacing="1.7">OUTRAS INTEGRAÇÕES DA AULA</text>
-<text x="67" y="810" font-size="34" fill="#17271f" font-weight="740" text-anchor="start" letter-spacing="-0.8">Gatilhos</text>
-<text x="67" y="848" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">O formulário dispara o fluxo ao receber o pedido.</text>
-<text x="67" y="876" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">O relógio dispara o resumo do dia.</text>
-<text x="572" y="810" font-size="34" fill="#17271f" font-weight="740" text-anchor="start" letter-spacing="-0.8">HTTP Request</text>
-<text x="572" y="848" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">A BrasilAPI informa os feriados sem pedir chave.</text>
-<text x="572" y="876" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Outras APIs podem exigir uma credencial.</text>
-<text x="1084" y="810" font-size="34" fill="#17271f" font-weight="740" text-anchor="start" letter-spacing="-0.8">Google Sheets</text>
-<text x="1084" y="848" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Um fluxo grava o pedido na planilha.</text>
-<text x="1084" y="876" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Outro começa quando entra uma linha.</text>
+<text x="67" y="766" font-size="17" fill="#36643b" font-weight="740" text-anchor="start" letter-spacing="1.7">COMO O FLUXO ESCOLHE O CAMINHO</text>
+<text x="67" y="810" font-size="34" fill="#17271f" font-weight="740" text-anchor="start" letter-spacing="-0.8">IF</text>
+<text x="67" y="848" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Abre dois caminhos, sim ou não.</text>
+<text x="67" y="876" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Exemplo: o pedido tem e-mail?</text>
+<text x="572" y="810" font-size="34" fill="#17271f" font-weight="740" text-anchor="start" letter-spacing="-0.8">Filter</text>
+<text x="572" y="848" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Deixa passar só o que interessa.</text>
+<text x="572" y="876" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">O resto sai do fluxo sem erro.</text>
+<text x="1084" y="810" font-size="34" fill="#17271f" font-weight="740" text-anchor="start" letter-spacing="-0.8">Switch</text>
+<text x="1084" y="848" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Abre três ou mais caminhos.</text>
+<text x="1084" y="876" font-size="21" fill="#4a6153" font-weight="475" text-anchor="start" letter-spacing="0">Quente, morno e frio saem separados.</text>
 <path d="M542 794v67" fill="none" stroke="#afc4a4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M1050 794v67" fill="none" stroke="#afc4a4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

@@ -38,9 +38,20 @@ Escolha uma aula para ver o mapa. No celular, toque em **Ampliar a imagem** para
 <details>
 <summary><strong>Aula 04 · Como um pedido vira cartão?</strong></summary>
 
-![Marina soma 95 pontos. O pedido vira um cartão com a etiqueta quente no Trello, e a tabela guarda o link para abri-lo.](AULAS/AULA%2004/aula-04-mapa-mental.png)
+![Marina soma 95 pontos. O pedido vira um cartão com a etiqueta quente no Trello, e a tabela guarda o link para abri-lo. IF, Filter e Switch escolhem o caminho do pedido.](AULAS/AULA%2004/aula-04-mapa-mental.png)
 
 [Ampliar a imagem](AULAS/AULA%2004/aula-04-mapa-mental.png?raw=true) · [Abrir o SVG editável](AULAS/AULA%2004/aula-04-mapa-mental.svg) · [Ver os workflows da aula](AULAS/AULA%2004)
+
+</details>
+
+<details>
+<summary><strong>Aula 05 · O que a v5 faz com cada pedido?</strong></summary>
+
+A aula 5 começa pelo que ficou da aula 4, como formulário, agendamento, HTTP Request, Loop e Google Sheets. Esses fluxos continuam na pasta AULA 04
+
+![A versão 5 valida o pedido, barra o robô, reconhece o pedido repetido e avisa quando o Trello falha. No rodapé, o que veio da aula 4.](AULAS/AULA%2005/aula-05-mapa-mental.png)
+
+[Ampliar a imagem](AULAS/AULA%2005/aula-05-mapa-mental.png?raw=true) · [Abrir o SVG editável](AULAS/AULA%2005/aula-05-mapa-mental.svg) · [Ver os workflows da aula](AULAS/AULA%2005)
 
 </details>
 
@@ -60,6 +71,7 @@ AULAS/
   AULA 02/
   AULA 03/
   AULA 04/
+  AULA 05/
 PROJETO/
   Orbita Labs v1/
   Orbita Labs v1 teste/
